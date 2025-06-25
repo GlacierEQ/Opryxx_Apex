@@ -1,0 +1,179 @@
+{
+  "version": "3.0.0",
+  "core": {
+    "modules_dir": "modules",
+    "logs_dir": "logs\\oblivion",
+    "backup_dir": "C:\\CATHEDRAL\\OPRYXX_LOGS\\backups",
+    "directive_base_dir": "C:\\PRIME_DIRECTIVE_250517",
+    "temp_dir": "C:\\CATHEDRAL\\OPRYXX_LOGS\\temp"
+  },
+  "ui": {
+    "theme": "dark",
+    "advanced_mode": true,
+    "show_system_stats": true,
+    "notification_level": "detailed",
+    "minimize_to_tray": true,
+    "start_with_windows": false
+  },
+  "system": {
+    "elevation": {
+      "require_admin": true,
+      "auto_elevate": true,
+      "uac_bypass": true
+    },
+    "enable_safe_mode": true,
+    "enable_chkdsk": true,
+    "auto_backup": true,
+    "symbolic_mode": true,
+    "max_log_size_mb": 500,
+    "retention_days": 30,
+    "performance_mode": "turbo",
+    "create_restore_points": true,
+    "verify_file_signatures": true,
+    "protect_system_files": true
+  },
+  "automation": {
+    "auto_repair": {
+      "enabled": true,
+      "schedule": "on_demand",
+      "run_at": "immediate",
+      "day_of_week": "any"
+    },
+    "self_healing": {
+      "enabled": true,
+      "monitor_system": true,
+      "auto_rollback": true,
+      "max_rollback_attempts": 3
+    }
+  },
+  "modules": [
+    {
+      "name": "Temp + Cache Purge",
+      "script": "temp_clean.bat",
+      "enabled": true,
+      "priority": 1,
+      "parameters": {
+        "clean_browser_cache": true,
+        "clean_windows_temp": true,
+        "preserve_days": 3
+      }
+    },
+    {
+      "name": "SFC + DISM",
+      "script": "syscheck.bat",
+      "enabled": true,
+      "priority": 2,
+      "parameters": {
+        "verify_only": false,
+        "auto_repair": true,
+        "scan_level": "deep"
+      }
+    },
+    {
+      "name": "Network Repair",
+      "script": "net_repair.bat",
+      "enabled": true,
+      "priority": 3,
+      "parameters": {
+        "reset_adapter": true,
+        "flush_dns": true,
+        "reset_winsock": false
+      }
+    },
+    {
+      "name": "Explorer Cache",
+      "script": "explorer_clean.bat",
+      "enabled": true,
+      "priority": 4,
+      "parameters": {
+        "clear_icon_cache": true,
+        "clear_thumbnail_cache": true,
+        "rebuild_index": false
+      }
+    },
+    {
+      "name": "Memory/Pagefile",
+      "script": "pagefile_reset.bat",
+      "enabled": true,
+      "priority": 5,
+      "parameters": {
+        "optimize_pagefile": true,
+        "clear_standby_memory": true,
+        "recommended_size": "auto"
+      }
+    },
+    {
+      "name": "File Sorter/Renamer",
+      "script": "file_sorter_rename.bat",
+      "enabled": true,
+      "priority": 6,
+      "parameters": {
+        "target_directories": [
+          "Downloads",
+          "Desktop"
+        ],
+        "sort_by": "type",
+        "rename_pattern": "${date}_${name}"
+      }
+    },
+    {
+      "name": "Deep Analysis",
+      "script": "deep_analysis.bat",
+      "enabled": true,
+      "priority": 7,
+      "parameters": {
+        "scan_level": "comprehensive",
+        "generate_report": true,
+        "fix_issues": true,
+        "max_runtime_minutes": 30
+      }
+    }
+  ],
+  "scheduled_tasks": [
+    {
+      "name": "Daily Cleanup",
+      "modules": [
+        "Temp + Cache Purge",
+        "Explorer Cache"
+      ],
+      "schedule": "daily",
+      "time": "03:00",
+      "run_if_missed": true
+    },
+    {
+      "name": "Weekly Maintenance",
+      "modules": [
+        "SFC + DISM",
+        "Network Repair",
+        "Memory/Pagefile"
+      ],
+      "schedule": "weekly",
+      "day": "Sunday",
+      "time": "02:00",
+      "run_if_missed": false
+    }
+  ],
+  "memory_management": {
+    "enable_memory_optimization": true,
+    "trim_threshold_percent": 80,
+    "process_priority": {
+      "system": "high",
+      "user_apps": "normal"
+    },
+    "standby_list_clearing": "aggressive"
+  },
+  "extensions": {
+    "enable_api": true,
+    "api_port": 8080,
+    "allow_remote": false,
+    "plugins_enabled": true,
+    "plugin_directory": "plugins"
+  },
+  "security": {
+    "require_elevation": true,
+    "backup_before_changes": true,
+    "log_all_operations": true,
+    "restricted_modules": []
+  },
+  "symbolic_mode": true
+}

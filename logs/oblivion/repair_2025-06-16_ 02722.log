@@ -1,0 +1,7 @@
+Checkpoint-Computer : Shutting down 
+At line:1 char:1
++ Checkpoint-Computer -Description "OPRYXX_PreRepair_2025-06-16_ 02722" ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Checkpoint-Computer], ManagementException
+    + FullyQualifiedErrorId : GetWMIManagementException,Microsoft.PowerShell.Commands.CheckpointComputerCommand
+ 

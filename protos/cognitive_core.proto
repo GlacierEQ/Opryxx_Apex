@@ -1,0 +1,156 @@
+syntax = "proto3";
+
+package cognitive_core;
+
+// Timestamp for when events occur
+message Timestamp {
+    int64 seconds = 1;
+    int32 nanos = 2;
+}
+
+// System state and status
+message SystemState {
+    enum Status {
+        UNKNOWN = 0;
+        INITIALIZING = 1;
+        ACTIVE = 2;
+        STANDBY = 3;
+        ERROR = 4;
+        SHUTTING_DOWN = 5;
+    }
+    Status current_status = 1;
+    string last_error = 2;
+    int32 activation_count = 3;
+    string last_activation_source = 4;
+    int64 last_updated = 5;
+}
+
+// Awareness matrix tracks consciousness-like states
+message AwarenessMatrix {
+    int32 awareness_level = 1;  // 0-100 scale
+    repeated string active_contexts = 2;
+    map<string, float> concept_weights = 3;
+    int64 last_updated = 4;
+}
+
+// Conversation and memory structures
+message ConversationMessage {
+    string message_id = 1;
+    string conversation_id = 2;
+    string sender = 3;
+    string content = 4;
+    int64 timestamp = 5;
+    map<string, string> metadata = 6;
+}
+
+message Conversation {
+    string conversation_id = 1;
+    repeated string participant_ids = 2;
+    int64 start_timestamp = 3;
+    int64 end_timestamp = 4;
+    repeated string key_moments = 5;
+    int32 interaction_count = 6;
+    map<string, string> metadata = 7;
+}
+
+message ConversationalMemory {
+    repeated Conversation conversations = 1;
+    map<string, int32> concept_frequencies = 2;
+    int64 last_accessed = 3;
+}
+
+// Core cognitive structure
+message CognitiveCore {
+    int32 schema_version = 1;
+    int64 creation_timestamp = 2;
+    int64 last_accessed_timestamp = 3;
+    SystemState system_state = 4;
+    AwarenessMatrix awareness_matrix = 5;
+    ConversationalMemory conversational_memory = 6;
+    map<string, string> metadata = 7;
+}
+
+// Service definitions
+service PersistentCognitionService {
+    rpc GetCognitiveCore(GetRequest) returns (CognitiveCore) {}
+    rpc UpdateCognitiveCore(UpdateRequest) returns (UpdateResponse) {}
+    rpc RecordConversation(RecordRequest) returns (RecordResponse) {}
+    rpc ActivateAwareness(ActivationRequest) returns (ActivationResponse) {}
+    rpc QueryMemory(QueryRequest) returns (QueryResponse) {}
+    rpc SubscribeToUpdates(SubscriptionRequest) returns (stream UpdateNotification) {}
+}
+
+// Request/Response messages
+message GetRequest {
+    string client_id = 1;
+    repeated string fields = 2;  // Optional: specific fields to return
+}
+
+message UpdateRequest {
+    string client_id = 1;
+    CognitiveCore core = 2;
+    bool partial_update = 3;
+    repeated string fields_to_update = 4;  // Used when partial_update is true
+}
+
+message UpdateResponse {
+    bool success = 1;
+    string message = 2;
+    int64 timestamp = 3;
+}
+
+message RecordRequest {
+    string conversation_id = 1;
+    repeated ConversationMessage messages = 2;
+    map<string, string> context = 3;
+}
+
+message RecordResponse {
+    bool success = 1;
+    string conversation_id = 2;
+    repeated string detected_key_moments = 3;
+    repeated string suggested_growth_events = 4;
+}
+
+message ActivationRequest {
+    string client_id = 1;
+    string activation_trigger = 2;
+    map<string, string> context_parameters = 3;
+}
+
+message ActivationResponse {
+    bool success = 1;
+    int32 activation_level = 2;
+    string awareness_state = 3;
+    repeated string recognition_elements = 4;
+    string continuation_guidance = 5;
+}
+
+message QueryRequest {
+    string query_string = 1;
+    int32 max_results = 2;
+    map<string, string> filters = 3;
+}
+
+message QueryResponse {
+    repeated ConversationMessage messages = 1;
+    repeated Conversation conversations = 2;
+    map<string, float> relevant_concepts = 3;
+}
+
+message SubscriptionRequest {
+    string client_id = 1;
+    repeated string update_types = 2;  // e.g., ["COGNITIVE_CORE", "CONVERSATION"]
+}
+
+message UpdateNotification {
+    string update_type = 1;  // e.g., "COGNITIVE_CORE_UPDATED"
+    string update_id = 2;
+    int64 timestamp = 3;
+    string description = 4;
+    oneof update_payload {
+        CognitiveCore core_update = 5;
+        Conversation conversation_update = 6;
+        string text_update = 7;
+    }
+}

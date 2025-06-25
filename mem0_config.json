@@ -1,0 +1,24 @@
+{
+  "enabled": true,
+  "api_key": "your_mem0_api_key_here",
+  "api_url": "https://api.mem0.ai/v1",
+  "sync_interval_seconds": 300,
+  "context_window": 50,
+  "enable_conversation_history": true,
+  "enable_knowledge_retrieval": true,
+  "enable_memory_consolidation": true,
+  "auto_sync": true,
+  "max_memory_items": 1000,
+  "log_level": "INFO",
+  "storage": {
+    "type": "local",
+    "path": "mem0_data"
+  },
+  "features": {
+    "context_aware_responses": true,
+    "automatic_context_updates": true,
+    "error_logging": true,
+    "performance_metrics": true
+  },
+  "version": "1.0.0"
+}

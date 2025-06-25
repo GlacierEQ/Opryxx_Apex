@@ -1,0 +1,3 @@
+2025-05-20 20:14:54,597 - MemoryServer - INFO - Starting Memory Service...
+2025-05-20 20:14:54,607 - root - INFO - No existing state found at cognitive_core_state.pb. Initializing new CognitiveCore.
+2025-05-20 20:14:54,612 - MemoryServer - INFO - Server started on [::]:50051

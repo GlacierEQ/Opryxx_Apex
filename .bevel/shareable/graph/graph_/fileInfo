@@ -1,0 +1,788 @@
+{
+  "fileInfos" : [ {
+    "path" : "venv\\Lib\\site-pack\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\proxy.py",
+    "modificationInfo" : {
+      "contentHash" : -646222592,
+      "lastModified" : 1747808444554
+    },
+    "linesOfCode" : 57
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\cli\\parser.py",
+    "modificationInfo" : {
+      "contentHash" : -1728034955,
+      "lastModified" : 1747808443400
+    },
+    "linesOfCode" : 294
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\cli\\req_command.py",
+    "modificationInfo" : {
+      "contentHash" : -307591651,
+      "lastModified" : 1747808443406
+    },
+    "linesOfCode" : 502
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\configuration.py",
+    "modificationInfo" : {
+      "contentHash" : 1617352729,
+      "lastModified" : 1747808443357
+    },
+    "linesOfCode" : 374
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\utils\\logging.py",
+    "modificationInfo" : {
+      "contentHash" : 342532343,
+      "lastModified" : 1747808443737
+    },
+    "linesOfCode" : 348
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\utils\\subprocess.py",
+    "modificationInfo" : {
+      "contentHash" : -1462874127,
+      "lastModified" : 1747808443749
+    },
+    "linesOfCode" : 260
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_internal\\vcs\\subversion.py",
+    "modificationInfo" : {
+      "contentHash" : 1681118114,
+      "lastModified" : 1747808443772
+    },
+    "linesOfCode" : 324
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\chardet\\chardistribution.py",
+    "modificationInfo" : {
+      "contentHash" : -1074017798,
+      "lastModified" : 1747808443840
+    },
+    "linesOfCode" : 259
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\chardet\\langhebrewmodel.py",
+    "modificationInfo" : {
+      "contentHash" : -1230175018,
+      "lastModified" : 1747808443898
+    },
+    "linesOfCode" : 4380
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\chardet\\metadata\\languages.py",
+    "modificationInfo" : {
+      "contentHash" : 705561012,
+      "lastModified" : 1747808443949
+    },
+    "linesOfCode" : 351
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\chardet\\universaldetector.py",
+    "modificationInfo" : {
+      "contentHash" : -218806174,
+      "lastModified" : 1747808443934
+    },
+    "linesOfCode" : 328
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\colorama\\ansitowin32.py",
+    "modificationInfo" : {
+      "contentHash" : -1140856508,
+      "lastModified" : 1747808443957
+    },
+    "linesOfCode" : 266
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\idna\\core.py",
+    "modificationInfo" : {
+      "contentHash" : 324809830,
+      "lastModified" : 1747808444039
+    },
+    "linesOfCode" : 400
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\msgpack\\ext.py",
+    "modificationInfo" : {
+      "contentHash" : -1160747637,
+      "lastModified" : 1747808444056
+    },
+    "linesOfCode" : 193
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\_manylinux.py",
+    "modificationInfo" : {
+      "contentHash" : 1472596593,
+      "lastModified" : 1747808444067
+    },
+    "linesOfCode" : 301
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\_musllinux.py",
+    "modificationInfo" : {
+      "contentHash" : 1575540455,
+      "lastModified" : 1747808444070
+    },
+    "linesOfCode" : 136
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\packaging\\markers.py",
+    "modificationInfo" : {
+      "contentHash" : -1906257427,
+      "lastModified" : 1747808444075
+    },
+    "linesOfCode" : 304
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pep517\\check.py",
+    "modificationInfo" : {
+      "contentHash" : -1684670605,
+      "lastModified" : 1747808444097
+    },
+    "linesOfCode" : 207
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pep517\\in_process\\_in_process.py",
+    "modificationInfo" : {
+      "contentHash" : 1045680931,
+      "lastModified" : 1747808444117
+    },
+    "linesOfCode" : 351
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\unix.py",
+    "modificationInfo" : {
+      "contentHash" : 1491042010,
+      "lastModified" : 1747808444138
+    },
+    "linesOfCode" : 181
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\platformdirs\\windows.py",
+    "modificationInfo" : {
+      "contentHash" : 43021108,
+      "lastModified" : 1747808444143
+    },
+    "linesOfCode" : 182
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : -363220600,
+      "lastModified" : 1747808444188
+    },
+    "linesOfCode" : 143
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\_mapping.py",
+    "modificationInfo" : {
+      "contentHash" : 794811897,
+      "lastModified" : 1747808444190
+    },
+    "linesOfCode" : 23
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\formatters\\irc.py",
+    "modificationInfo" : {
+      "contentHash" : -831368002,
+      "lastModified" : 1747808444204
+    },
+    "linesOfCode" : 179
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\lexers\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : -67795193,
+      "lastModified" : 1747808444224
+    },
+    "linesOfCode" : 335
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\style.py",
+    "modificationInfo" : {
+      "contentHash" : 1241040338,
+      "lastModified" : 1747808444175
+    },
+    "linesOfCode" : 197
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\token.py",
+    "modificationInfo" : {
+      "contentHash" : 568524345,
+      "lastModified" : 1747808444177
+    },
+    "linesOfCode" : 213
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pygments\\util.py",
+    "modificationInfo" : {
+      "contentHash" : 1710622007,
+      "lastModified" : 1747808444181
+    },
+    "linesOfCode" : 308
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pyparsing\\actions.py",
+    "modificationInfo" : {
+      "contentHash" : 925351440,
+      "lastModified" : 1747808444241
+    },
+    "linesOfCode" : 207
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pyparsing\\exceptions.py",
+    "modificationInfo" : {
+      "contentHash" : -280253704,
+      "lastModified" : 1747808444250
+    },
+    "linesOfCode" : 267
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pyparsing\\testing.py",
+    "modificationInfo" : {
+      "contentHash" : -525013677,
+      "lastModified" : 1747808444260
+    },
+    "linesOfCode" : 331
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pyparsing\\unicode.py",
+    "modificationInfo" : {
+      "contentHash" : 145976799,
+      "lastModified" : 1747808444263
+    },
+    "linesOfCode" : 352
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\pyparsing\\util.py",
+    "modificationInfo" : {
+      "contentHash" : 926732773,
+      "lastModified" : 1747808444265
+    },
+    "linesOfCode" : 235
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\requests\\auth.py",
+    "modificationInfo" : {
+      "contentHash" : 392206352,
+      "lastModified" : 1747808444284
+    },
+    "linesOfCode" : 315
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\requests\\exceptions.py",
+    "modificationInfo" : {
+      "contentHash" : 1141502600,
+      "lastModified" : 1747808444291
+    },
+    "linesOfCode" : 141
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\requests\\structures.py",
+    "modificationInfo" : {
+      "contentHash" : 284648204,
+      "lastModified" : 1747808444308
+    },
+    "linesOfCode" : 99
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\compat\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 0,
+      "lastModified" : 1747808444324
+    },
+    "linesOfCode" : 0
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\resolvelib\\providers.py",
+    "modificationInfo" : {
+      "contentHash" : -1645531903,
+      "lastModified" : 1747808444317
+    },
+    "linesOfCode" : 133
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 1563325148,
+      "lastModified" : 1747808444330
+    },
+    "linesOfCode" : 176
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\__main__.py",
+    "modificationInfo" : {
+      "contentHash" : -693558599,
+      "lastModified" : 1747808444332
+    },
+    "linesOfCode" : 282
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_inspect.py",
+    "modificationInfo" : {
+      "contentHash" : -38654933,
+      "lastModified" : 1747808444344
+    },
+    "linesOfCode" : 270
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_log_render.py",
+    "modificationInfo" : {
+      "contentHash" : -1480429798,
+      "lastModified" : 1747808444345
+    },
+    "linesOfCode" : 94
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_spinners.py",
+    "modificationInfo" : {
+      "contentHash" : -1234079160,
+      "lastModified" : 1747808444355
+    },
+    "linesOfCode" : 482
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\_windows_renderer.py",
+    "modificationInfo" : {
+      "contentHash" : 462634130,
+      "lastModified" : 1747808444363
+    },
+    "linesOfCode" : 56
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\align.py",
+    "modificationInfo" : {
+      "contentHash" : 244943463,
+      "lastModified" : 1747808444370
+    },
+    "linesOfCode" : 311
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\ansi.py",
+    "modificationInfo" : {
+      "contentHash" : 2145974658,
+      "lastModified" : 1747808444372
+    },
+    "linesOfCode" : 237
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\bar.py",
+    "modificationInfo" : {
+      "contentHash" : -940774344,
+      "lastModified" : 1747808444373
+    },
+    "linesOfCode" : 94
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\box.py",
+    "modificationInfo" : {
+      "contentHash" : -1822049047,
+      "lastModified" : 1747808444374
+    },
+    "linesOfCode" : 517
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\cells.py",
+    "modificationInfo" : {
+      "contentHash" : -1300435322,
+      "lastModified" : 1747808444376
+    },
+    "linesOfCode" : 154
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\columns.py",
+    "modificationInfo" : {
+      "contentHash" : 1634977774,
+      "lastModified" : 1747808444383
+    },
+    "linesOfCode" : 187
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\control.py",
+    "modificationInfo" : {
+      "contentHash" : -2122073150,
+      "lastModified" : 1747808444393
+    },
+    "linesOfCode" : 225
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\emoji.py",
+    "modificationInfo" : {
+      "contentHash" : -1326619567,
+      "lastModified" : 1747808444401
+    },
+    "linesOfCode" : 96
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\filesize.py",
+    "modificationInfo" : {
+      "contentHash" : -1225945628,
+      "lastModified" : 1747808444407
+    },
+    "linesOfCode" : 89
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\json.py",
+    "modificationInfo" : {
+      "contentHash" : -1562175357,
+      "lastModified" : 1747808444411
+    },
+    "linesOfCode" : 140
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\jupyter.py",
+    "modificationInfo" : {
+      "contentHash" : 166512497,
+      "lastModified" : 1747808444414
+    },
+    "linesOfCode" : 101
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\live_render.py",
+    "modificationInfo" : {
+      "contentHash" : -202215081,
+      "lastModified" : 1747808444419
+    },
+    "linesOfCode" : 113
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\measure.py",
+    "modificationInfo" : {
+      "contentHash" : -2138193234,
+      "lastModified" : 1747808444425
+    },
+    "linesOfCode" : 151
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\padding.py",
+    "modificationInfo" : {
+      "contentHash" : 899453923,
+      "lastModified" : 1747808444428
+    },
+    "linesOfCode" : 141
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\palette.py",
+    "modificationInfo" : {
+      "contentHash" : 1846813284,
+      "lastModified" : 1747808444432
+    },
+    "linesOfCode" : 100
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\progress_bar.py",
+    "modificationInfo" : {
+      "contentHash" : 1361140707,
+      "lastModified" : 1747808444442
+    },
+    "linesOfCode" : 224
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\protocol.py",
+    "modificationInfo" : {
+      "contentHash" : 1254247557,
+      "lastModified" : 1747808444445
+    },
+    "linesOfCode" : 42
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\repr.py",
+    "modificationInfo" : {
+      "contentHash" : 980117410,
+      "lastModified" : 1747808444449
+    },
+    "linesOfCode" : 152
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\rule.py",
+    "modificationInfo" : {
+      "contentHash" : 1368037778,
+      "lastModified" : 1747808444451
+    },
+    "linesOfCode" : 134
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\scope.py",
+    "modificationInfo" : {
+      "contentHash" : 1068870841,
+      "lastModified" : 1747808444453
+    },
+    "linesOfCode" : 86
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\spinner.py",
+    "modificationInfo" : {
+      "contentHash" : 18957416,
+      "lastModified" : 1747808444458
+    },
+    "linesOfCode" : 136
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\status.py",
+    "modificationInfo" : {
+      "contentHash" : -1350007172,
+      "lastModified" : 1747808444459
+    },
+    "linesOfCode" : 132
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\styled.py",
+    "modificationInfo" : {
+      "contentHash" : 954738384,
+      "lastModified" : 1747808444463
+    },
+    "linesOfCode" : 42
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\terminal_theme.py",
+    "modificationInfo" : {
+      "contentHash" : 983996007,
+      "lastModified" : 1747808444467
+    },
+    "linesOfCode" : 153
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\rich\\theme.py",
+    "modificationInfo" : {
+      "contentHash" : -859032777,
+      "lastModified" : 1747808444470
+    },
+    "linesOfCode" : 112
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tenacity\\before_sleep.py",
+    "modificationInfo" : {
+      "contentHash" : 581190840,
+      "lastModified" : 1747808444484
+    },
+    "linesOfCode" : 58
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tenacity\\nap.py",
+    "modificationInfo" : {
+      "contentHash" : 7205153,
+      "lastModified" : 1747808444486
+    },
+    "linesOfCode" : 43
+  }, {
+    "path" : "venv\\Lib\\si\\Lib\\site-packages\\pip\\_vendor\\tenacity\\stop.py",
+    "modificationInfo" : {
+      "contentHash" : -749274799,
+      "lastModified" : 1747808444488
+    },
+    "linesOfCode" : 96
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tenacity\\tornadoweb.py",
+    "modificationInfo" : {
+      "contentHash" : 599249781,
+      "lastModified" : 1747808444490
+    },
+    "linesOfCode" : 59
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 289997928,
+      "lastModified" : 1747808444493
+    },
+    "linesOfCode" : 11
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\_re.py",
+    "modificationInfo" : {
+      "contentHash" : -1573721293,
+      "lastModified" : 1747808444496
+    },
+    "linesOfCode" : 107
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\tomli\\_types.py",
+    "modificationInfo" : {
+      "contentHash" : 1138389795,
+      "lastModified" : 1747808444497
+    },
+    "linesOfCode" : 10
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 513041007,
+      "lastModified" : 1747808444499
+    },
+    "linesOfCode" : 102
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_appengine_environ.py",
+    "modificationInfo" : {
+      "contentHash" : 861048241,
+      "lastModified" : 1747808444526
+    },
+    "linesOfCode" : 36
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\_securetransport\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 0,
+      "lastModified" : 1747808444538
+    },
+    "linesOfCode" : 0
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\contrib\\ntlmpool.py",
+    "modificationInfo" : {
+      "contentHash" : -501775784,
+      "lastModified" : 1747808444530
+    },
+    "linesOfCode" : 130
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\exceptions.py",
+    "modificationInfo" : {
+      "contentHash" : -1061834656,
+      "lastModified" : 1747808444514
+    },
+    "linesOfCode" : 323
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\filepost.py",
+    "modificationInfo" : {
+      "contentHash" : 1081356993,
+      "lastModified" : 1747808444518
+    },
+    "linesOfCode" : 98
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 0,
+      "lastModified" : 1747808444544
+    },
+    "linesOfCode" : 0
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\backports\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 0,
+      "lastModified" : 1747808444548
+    },
+    "linesOfCode" : 0
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\backports\\makefile.py",
+    "modificationInfo" : {
+      "contentHash" : 1785639802,
+      "lastModified" : 1747808444549
+    },
+    "linesOfCode" : 51
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\packages\\six.py",
+    "modificationInfo" : {
+      "contentHash" : 1842956596,
+      "lastModified" : 1747808444546
+    },
+    "linesOfCode" : 1076
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\poolmanager.py",
+    "modificationInfo" : {
+      "contentHash" : 774560479,
+      "lastModified" : 1747808444520
+    },
+    "linesOfCode" : 537
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\request.py",
+    "modificationInfo" : {
+      "contentHash" : 339370960,
+      "lastModified" : 1747808444522
+    },
+    "linesOfCode" : 170
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\response.py",
+    "modificationInfo" : {
+      "contentHash" : 2049839220,
+      "lastModified" : 1747808444523
+    },
+    "linesOfCode" : 866
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 283032128,
+      "lastModified" : 1747808444551
+    },
+    "linesOfCode" : 49
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\connection.py",
+    "modificationInfo" : {
+      "contentHash" : 905728877,
+      "lastModified" : 1747808444552
+    },
+    "linesOfCode" : 149
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\queue.py",
+    "modificationInfo" : {
+      "contentHash" : -1574627295,
+      "lastModified" : 1747808444556
+    },
+    "linesOfCode" : 22
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\request.py",
+    "modificationInfo" : {
+      "contentHash" : 1926493957,
+      "lastModified" : 1747808444557
+    },
+    "linesOfCode" : 137
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\response.py",
+    "modificationInfo" : {
+      "contentHash" : -908808639,
+      "lastModified" : 1747808444559
+    },
+    "linesOfCode" : 107
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\ssl_.py",
+    "modificationInfo" : {
+      "contentHash" : -1859261627,
+      "lastModified" : 1747808444563
+    },
+    "linesOfCode" : 495
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\ssl_match_hostname.py",
+    "modificationInfo" : {
+      "contentHash" : -1875057963,
+      "lastModified" : 1747808444564
+    },
+    "linesOfCode" : 159
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\ssltransport.py",
+    "modificationInfo" : {
+      "contentHash" : -1687653664,
+      "lastModified" : 1747808444566
+    },
+    "linesOfCode" : 221
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\timeout.py",
+    "modificationInfo" : {
+      "contentHash" : 382454669,
+      "lastModified" : 1747808444567
+    },
+    "linesOfCode" : 268
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\urllib3\\util\\wait.py",
+    "modificationInfo" : {
+      "contentHash" : -1718397587,
+      "lastModified" : 1747808444571
+    },
+    "linesOfCode" : 152
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\webencodings\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : -1192368797,
+      "lastModified" : 1747808444572
+    },
+    "linesOfCode" : 342
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\webencodings\\labels.py",
+    "modificationInfo" : {
+      "contentHash" : 1305316895,
+      "lastModified" : 1747808444574
+    },
+    "linesOfCode" : 231
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\webencodings\\mklabels.py",
+    "modificationInfo" : {
+      "contentHash" : 189540855,
+      "lastModified" : 1747808444575
+    },
+    "linesOfCode" : 59
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\webencodings\\tests.py",
+    "modificationInfo" : {
+      "contentHash" : 466606179,
+      "lastModified" : 1747808444576
+    },
+    "linesOfCode" : 153
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pip\\_vendor\\webencodings\\x_user_defined.py",
+    "modificationInfo" : {
+      "contentHash" : 1582112395,
+      "lastModified" : 1747808444578
+    },
+    "linesOfCode" : 325
+  }, {
+    "path" : "venv\\Lib\\site-packages\\pkg_resources\\_vendor\\jaraco\\text\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : -1460576828,
+      "lastModified" : 1747808432226
+    },
+    "linesOfCode" : 599
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\_distutils\\command\\config.py",
+    "modificationInfo" : {
+      "contentHash" : 1301177626,
+      "lastModified" : 1747808432561
+    },
+    "linesOfCode" : 377
+  }, {
+    "path\\Lib\\si\\Lib\\site-packages\\setuptools\\_distutils\\cygwinccompiler.py",
+    "modificationInfo" : {
+      "contentHash" : 1543614806,
+      "lastModified" : 1747808432464
+    },
+    "linesOfCode" : 364
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\_distutils\\extension.py",
+    "modificationInfo" : {
+      "contentHash" : 1606352534,
+      "lastModified" : 1747808432478
+    },
+    "linesOfCode" : 248
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\_vendor\\jaraco\\text\\__init__.py",
+    "modificationInfo" : {
+      "contentHash" : 2075057712,
+      "lastModified" : 1747808432647
+    },
+    "linesOfCode" : 599
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\_vendor\\pyparsing\\testing.py",
+    "modificationInfo" : {
+      "contentHash" : -525013677,
+      "lastModified" : 1747808432699
+    },
+    "linesOfCode" : 331
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\build_meta.py",
+    "modificationInfo" : {
+      "contentHash" : -607450810,
+      "lastModified" : 1747808432321
+    },
+    "linesOfCode" : 511
+  }, {
+    "path" : "venv\\Lib\\site-packages\\setuptools\\config\\_apply_pyprojecttoml.py",
+    "modificationInfo" : {
+      "contentHash" : -1335610612,
+      "lastModified" : 1747808432778
+    },
+    "linesOfCode" : 377
+  } ],
+  "appVersion" : "1.2.3"
+}
