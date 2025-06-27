@@ -48,17 +48,25 @@ def check_tables_exist(db_manager: DatabaseManager) -> bool:
 def check_migrations_applied(db_url: str) -> bool:
     """Check if migrations have already been applied."""
     try:
+        # Create a temporary engine to check migrations
+        from sqlalchemy import create_engine
+        from sqlalchemy.engine import reflection
+        
         engine = create_engine(db_url)
-        with engine.connect() as conn:
-            context = MigrationContext.configure(conn)
-            current_rev = context.get_current_revision()
+        inspector = reflection.Inspector.from_engine(engine)
+        
+        # Check if alembic_version table exists
+        if 'alembic_version' not in inspector.get_table_names():
+            # Check if our tables exist
+            existing_tables = set(inspector.get_table_names())
+            our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
             
-        if current_rev is None:
-            print("[INFO] No migrations have been applied yet")
-            return False
+            # If our tables exist but alembic_version doesn't, we need to stamp
+            if our_tables.intersection(existing_tables):
+                return False
+            return True  # No tables, no migrations needed
             
-        print(f"[INFO] Current database revision: {current_rev}")
-        return True
+        return True  # alembic_version exists, migrations are managed
     except Exception as e:
         print(f"[WARNING] Could not check migration status: {e}")
         return False
@@ -101,29 +109,76 @@ def create_database() -> bool:
         return False
 
 def run_migrations() -> bool:
-    """Run database migrations"""
+    """Run database migrations."""
     try:
-        # Set up Alembic config
-        alembic_cfg = Config("alembic.ini")
-        db_url = alembic_cfg.get_main_option("sqlalchemy.url", "")
+        from alembic import command
+        from alembic.config import Config
+        from sqlalchemy import create_engine, inspect
         
-        # Check if migrations have already been applied
-        if check_migrations_applied(db_url):
-            print("[INFO] Database migrations are already up to date")
+        # Get database URL from config
+        db_manager = get_db_manager()
+        db_url = db_manager.config_manager.config.database.url
+        
+        # Create alembic.ini if it doesn't exist
+        if not os.path.exists("alembic.ini"):
+            with open("alembic.ini", "w") as f:
+                f.write(f"[alembic]\n")
+                f.write(f"script_location = migrations\n")
+                f.write(f"sqlalchemy.url = {db_url}\n")
+                f.write("\n[loggers]\n")
+                f.write("keys = root,sqlalchemy,alembic\n\n")
+                f.write("[handlers]\n")
+                f.write("keys = console\n\n")
+                f.write("[formatters]\n")
+                f.write("keys = generic\n\n")
+                f.write("[logger_root]\n")
+                f.write("level = WARN\n")
+                f.write("handlers = console\n")
+                f.write("qualname =\n\n")
+                f.write("[logger_sqlalchemy]\n")
+                f.write("level = WARN\n")
+                f.write("handlers =\n")
+                f.write("qualname = sqlalchemy.engine\n\n")
+                f.write("[logger_alembic]\n")
+                f.write("level = INFO\n")
+                f.write("handlers =\n")
+                f.write("qualname = alembic\n\n")
+                f.write("[handler_console]\n")
+                f.write("class = StreamHandler\n")
+                f.write("args = (sys.stderr,)\n")
+                f.write("level = NOTSET\n")
+                f.write("formatter = generic\n\n")
+                f.write("[formatter_generic]\n")
+                f.write("format = %(levelname)-5.5s [%(name)s] %(message)s\n")
+                f.write("datefmt = %H:%M:%S")
+        
+        # Load the Alembic configuration
+        config = Config("alembic.ini")
+        config.set_main_option("sqlalchemy.url", db_url)
+        
+        # Create engine to check existing tables
+        engine = create_engine(db_url)
+        inspector = inspect(engine)
+        existing_tables = set(inspector.get_table_names())
+        our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
+        tables_exist = len(our_tables.intersection(existing_tables)) > 0
+        
+        # If our tables exist but alembic_version doesn't, stamp the migration
+        if tables_exist and 'alembic_version' not in existing_tables:
+            print("[INFO] Tables exist but no migration record found - stamping migration")
+            command.stamp(config, "head")
+            print("[SUCCESS] Database migration stamped successfully")
             return True
-            
-        # Ensure the database directory exists for SQLite
-        if db_url.startswith("sqlite"):
-            db_path = db_url.split("///")[-1]
-            os.makedirs(os.path.dirname(db_path), exist_ok=True)
         
-        print("[INFO] Applying database migrations...")
-        command.upgrade(alembic_cfg, "head")
+        # Otherwise, run migrations normally
+        print("[INFO] Running database migrations...")
+        command.upgrade(config, "head")
         print("[SUCCESS] Database migrations applied successfully")
         return True
-        
     except Exception as e:
         print(f"[ERROR] Error running migrations: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def main() -> int:
