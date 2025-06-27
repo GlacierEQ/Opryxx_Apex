@@ -6,6 +6,8 @@ import os
 import sys
 from logging.config import fileConfig
 
+from sqlalchemy import engine_from_config, inspect, pool
+
 from alembic import context
 from sqlalchemy import engine_from_config, pool
 
@@ -87,14 +89,26 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
+        # Create a migration context
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
             compare_type=True,
             compare_server_default=True,
+            # Skip table existence checks for tables we know exist
+            include_name=lambda name, type_, parent_names, is_compare_foreign_key: 
+                not (type_ == 'table' and name in ['todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'])
         )
 
         with context.begin_transaction():
+            # Check if alembic_version table exists
+            inspector = inspect(connection)
+            if 'alembic_version' not in inspector.get_table_names():
+                # If not, create it and stamp the current revision
+                context.stamp(target_metadata, "0001_initial")
+                print("[INFO] Created alembic_version table and stamped initial revision")
+            
+            # Run the migrations
             context.run_migrations()
 
 if context.is_offline_mode():

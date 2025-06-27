@@ -15,7 +15,7 @@ class MegaVerification:
         
     def verify_all_systems(self):
         """Verify all MEGA OPRYXX components"""
-        print("🚀 MEGA OPRYXX VERIFICATION PROTOCOL")
+        print("MEGA OPRYXX VERIFICATION PROTOCOL")
         print("=" * 50)
         
         verifications = [
@@ -30,15 +30,15 @@ class MegaVerification:
         ]
         
         for name, verify_func in verifications:
-            print(f"\n🔍 Verifying {name}...")
+            print(f"\nVerifying {name}...")
             result = verify_func()
             self.verification_results[name] = result
             
             if result['status'] == 'READY':
-                print(f"✅ {name}: {result['message']}")
+                print(f"[OK] {name}: {result['message']}")
                 self.power_level += 12.5
             else:
-                print(f"⚠️ {name}: {result['message']}")
+                print(f"[WARN] {name}: {result['message']}")
         
         self._display_power_status()
         return self.verification_results
@@ -100,9 +100,7 @@ class MegaVerification:
         """Verify GANDALF PE integration"""
         gandalf_indicators = [
             'gandalf_pe_integration.py',
-            'pe_builder.py',
-            'X:/',
-            'pe_build'
+            'pe_builder.py'
         ]
         
         if any(os.path.exists(i) for i in gandalf_indicators):
@@ -113,7 +111,6 @@ class MegaVerification:
     def _verify_emergency(self):
         """Verify emergency systems"""
         try:
-            # Test bcdedit availability
             result = subprocess.run(['bcdedit', '/?'], capture_output=True)
             if result.returncode == 0:
                 return {'status': 'READY', 'message': 'Emergency systems armed'}
@@ -143,37 +140,37 @@ class MegaVerification:
     
     def _display_power_status(self):
         """Display power status"""
-        print(f"\n⚡ MEGA OPRYXX POWER LEVEL: {self.power_level}%")
+        print(f"\nMEGA OPRYXX POWER LEVEL: {self.power_level}%")
         
         if self.power_level >= 90:
-            print("🔥 STATUS: ULTIMATE POWER - ALL SYSTEMS READY!")
+            print("STATUS: ULTIMATE POWER - ALL SYSTEMS READY!")
         elif self.power_level >= 75:
-            print("🚀 STATUS: HIGH POWER - MEGA PROTOCOL READY!")
+            print("STATUS: HIGH POWER - MEGA PROTOCOL READY!")
         elif self.power_level >= 50:
-            print("⚡ STATUS: MODERATE POWER - CORE SYSTEMS READY!")
+            print("STATUS: MODERATE POWER - CORE SYSTEMS READY!")
         else:
-            print("🔋 STATUS: LOW POWER - BASIC SYSTEMS READY!")
+            print("STATUS: LOW POWER - BASIC SYSTEMS READY!")
     
     def power_up_sequence(self):
         """Execute power-up sequence"""
-        print(f"\n🚀 MEGA OPRYXX POWER-UP SEQUENCE")
+        print(f"\nMEGA OPRYXX POWER-UP SEQUENCE")
         print("=" * 40)
         
         power_stages = [
-            "🔋 Initializing core systems...",
-            "⚡ Charging recovery modules...",
-            "🔥 Activating GUI interface...",
-            "🤖 Enabling automation engine...",
-            "🛡️ Arming emergency systems...",
-            "🔮 Calibrating predictive analysis...",
-            "🚀 MEGA PROTOCOL READY!"
+            "Initializing core systems...",
+            "Charging recovery modules...",
+            "Activating GUI interface...",
+            "Enabling automation engine...",
+            "Arming emergency systems...",
+            "Calibrating predictive analysis...",
+            "MEGA PROTOCOL READY!"
         ]
         
         for stage in power_stages:
             print(f"  {stage}")
         
-        print(f"\n✅ MEGA OPRYXX POWERED UP at {datetime.now().strftime('%H:%M:%S')}")
-        print("🎯 ULTIMATE COMBINATION PROTOCOL: ACTIVE")
+        print(f"\nMEGA OPRYXX POWERED UP at {datetime.now().strftime('%H:%M:%S')}")
+        print("ULTIMATE COMBINATION PROTOCOL: ACTIVE")
 
 def main():
     """Main verification and power-up"""
@@ -186,8 +183,8 @@ def main():
     verifier.power_up_sequence()
     
     # Final status
-    print(f"\n🌟 MEGA OPRYXX STATUS: READY FOR OPERATION")
-    print("🚀 Launch with: LAUNCH_MEGA.bat")
+    print(f"\nMEGA OPRYXX STATUS: READY FOR OPERATION")
+    print("Launch with: LAUNCH_MEGA.bat")
     
     return verifier.power_level >= 50
 
