@@ -1,6 +1,10 @@
 # OPRYXX Recovery System Dependencies
-# Core dependencies only - minimal footprint
+# Core dependencies
 
-# No external dependencies required
-# Uses only Python standard library for maximum compatibility
-# Designed to work in Windows PE environments
+# Database
+SQLAlchemy>=2.0.0
+alembic>=1.12.0
+sqlalchemy-utils>=0.41.0
+
+# Windows-specific dependencies
+pywin32>=305; sys_platform == 'win32'

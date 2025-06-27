@@ -4,9 +4,17 @@ Centralized configuration with validation
 """
 
 from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from enum import Enum
+from typing import Dict, List, Optional, Union
 import json
 import os
+from pathlib import Path
+
+class DatabaseType(str, Enum):
+    SQLITE = "sqlite"
+    POSTGRESQL = "postgresql"
+    MYSQL = "mysql"
+    MSSQL = "mssql"
 
 @dataclass
 class SystemConfig:
@@ -22,6 +30,32 @@ class GANDALFConfig:
     tools_path: str = "X:\\Windows\\System32"
     
 @dataclass
+class DatabaseConfig:
+    type: DatabaseType = DatabaseType.SQLITE
+    host: str = "localhost"
+    port: Optional[int] = None
+    name: str = "opryxx"
+    user: Optional[str] = None
+    password: Optional[str] = None
+    echo: bool = False
+    pool_size: int = 5
+    max_overflow: int = 10
+    pool_timeout: int = 30
+    pool_recycle: int = 1800
+    
+    @property
+    def url(self) -> str:
+        """Generate SQLAlchemy connection URL"""
+        if self.type == DatabaseType.SQLITE:
+            db_path = Path("data") / f"{self.name}.db"
+            return f"sqlite:///{db_path}"
+        
+        if not all([self.host, self.name, self.user, self.password]):
+            raise ValueError(f"Missing required database configuration for {self.type}")
+            
+        return f"{self.type}://{self.user}:{self.password}@{self.host}:{self.port or 5432}/{self.name}"
+
+@dataclass
 class RecoveryConfig:
     max_attempts: int = 3
     timeout_seconds: int = 300
@@ -33,6 +67,7 @@ class OPRYXXConfig:
     system: SystemConfig = field(default_factory=SystemConfig)
     gandalf: GANDALFConfig = field(default_factory=GANDALFConfig)
     recovery: RecoveryConfig = field(default_factory=RecoveryConfig)
+    database: DatabaseConfig = field(default_factory=DatabaseConfig)
 
 class ConfigManager:
     def __init__(self, config_path: str = "opryxx_config.json"):
