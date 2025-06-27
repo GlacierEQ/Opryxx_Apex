@@ -27,11 +27,23 @@ from sqlalchemy import create_engine, inspect
 
 def check_tables_exist(db_manager: DatabaseManager) -> bool:
     """Check if any of our tables already exist in the database."""
-    engine = db_manager.engine
-    inspector = inspect(engine)
-    existing_tables = set(inspector.get_table_names())
-    our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
-    return len(our_tables.intersection(existing_tables)) > 0
+    try:
+        # Ensure the engine is initialized
+        if db_manager.engine is None:
+            db_manager.init_db()
+            
+        # Create an inspector
+        inspector = inspect(db_manager.engine)
+        
+        # Get list of existing tables
+        existing_tables = set(inspector.get_table_names())
+        our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
+        
+        # Check if any of our tables exist
+        return len(our_tables.intersection(existing_tables)) > 0
+    except Exception as e:
+        print(f"[WARNING] Error checking for existing tables: {e}")
+        return False
 
 def check_migrations_applied(db_url: str) -> bool:
     """Check if migrations have already been applied."""
@@ -57,20 +69,35 @@ def create_database() -> bool:
         # Initialize database manager
         db_manager = get_db_manager()
         
+        # First, ensure the database directory exists
+        db_url = db_manager.config.url
+        if db_url.startswith('sqlite'):
+            db_path = db_url.split('///')[-1]
+            db_dir = os.path.dirname(db_path)
+            if db_dir and not os.path.exists(db_dir):
+                os.makedirs(db_dir, exist_ok=True)
+        
+        # Initialize the database engine
+        if not db_manager.init_db():
+            print("[ERROR] Failed to initialize database engine")
+            return False
+            
         # Check if tables already exist
         if check_tables_exist(db_manager):
             print("[INFO] Database tables already exist")
             return True
             
-        # Initialize database if tables don't exist
-        if db_manager.init_db():
-            print("[SUCCESS] Database initialized successfully")
-            return True
-        else:
-            print("[ERROR] Failed to initialize database")
-            return False
+        # If no tables exist, create them
+        print("[INFO] Creating database tables...")
+        from models.base import Base
+        Base.metadata.create_all(db_manager.engine)
+        print("[SUCCESS] Database tables created successfully")
+        return True
+        
     except Exception as e:
         print(f"[ERROR] Error initializing database: {e}")
+        import traceback
+        traceback.print_exc()
         return False
 
 def run_migrations() -> bool:
