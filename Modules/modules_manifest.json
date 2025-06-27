@@ -1,0 +1,46 @@
+{
+    "temp_clean": {
+        "id": "temp_clean",
+        "name": "Temporary File Cleanup",
+        "description": "Cleans various temporary file locations and prefetch.",
+        "category": "Maintenance",
+        "language": "Batch",
+        "script_file": "temp_clean.bat",
+        "enabled": true,
+        "is_default": true,
+        "version": "1.0"
+    },
+    "sys_scan": {
+        "id": "sys_scan",
+        "name": "System File Scan & Repair",
+        "description": "Runs SFC (System File Checker) and DISM to repair system image.",
+        "category": "Repair",
+        "language": "Batch",
+        "script_file": "sys_scan.bat",
+        "enabled": true,
+        "is_default": true,
+        "version": "1.0"
+    },
+    "disk_repair": {
+        "id": "disk_repair",
+        "name": "Disk Check (C:)",
+        "description": "Schedules CHKDSK for drive C: on the next restart.",
+        "category": "Repair",
+        "language": "Batch",
+        "script_file": "disk_repair.bat",
+        "enabled": true,
+        "is_default": true,
+        "version": "1.0"
+    },
+    "net_reset": {
+        "id": "net_reset",
+        "name": "Network Stack Reset",
+        "description": "Resets Winsock, IP stack, and flushes DNS cache.",
+        "category": "Repair",
+        "language": "Batch",
+        "script_file": "net_reset.bat",
+        "enabled": true,
+        "is_default": true,
+        "version": "1.0"
+    }
+}

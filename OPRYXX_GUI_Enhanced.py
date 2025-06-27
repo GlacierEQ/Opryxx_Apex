@@ -46,8 +46,43 @@ class OPRYXXEnhanced(QMainWindow):
         # Initialize UI
         self.setup_ui()
         
+        # Force maximized window on every launch
+        self.showMaximized()
+        
+        # Load window state (will not override forced maximization)
+        self.load_window_state()
+        
         # Start update timers
         self.start_update_timers()
+    
+    def load_window_state(self):
+        """Load window state from config or use defaults."""
+        window_state = self.config.get('window_state', {})
+        
+        # Set window geometry if saved
+        if 'geometry' in window_state:
+            self.restoreGeometry(window_state['geometry'])
+        else:
+            # Default to maximized if no saved state
+            self.showMaximized()
+            
+        # Restore window state (maximized/normal)
+        if window_state.get('maximized', True):
+            self.showMaximized()
+    
+    def save_window_state(self):
+        """Save current window state to config."""
+        if not hasattr(self, 'config'):
+            return
+            
+        if 'window_state' not in self.config:
+            self.config['window_state'] = {}
+            
+        self.config['window_state'].update({
+            'geometry': self.saveGeometry(),
+            'maximized': self.isMaximized()
+        })
+        self.save_config_file()
         
         # Set theme based on config
         self.apply_theme()
@@ -74,9 +109,11 @@ class OPRYXXEnhanced(QMainWindow):
         self.setup_repair_tab()
         self.setup_system_tab()
         self.setup_optimization_tab()
+        self.setup_recovery_tab()
+        self.setup_maintenance_tab()
         self.setup_modules_tab()
         self.setup_settings_tab()
-        self.setup_granite_tab() # New Granite tab
+        self.setup_ai_workbench_tab() # New Granite tab
         
         # Create status bar
         self.statusBar().showMessage('Ready')
@@ -223,8 +260,221 @@ class OPRYXXEnhanced(QMainWindow):
         layout.addWidget(placeholder_label)
         
         self.tabs.addTab(opt_tab, '⚡ Performance Tuning')
+        
+    def setup_recovery_tab(self):
+        """Set up the Recovery tab with GANDALFS integration."""
+        recovery_tab = QWidget()
+        layout = QVBoxLayout(recovery_tab)
+        
+        # Header
+        header = QLabel('🛡️ System Recovery')
+        header.setStyleSheet('font-size: 20px; color: #ff6b6b; margin: 8px;')
+        header.setAlignment(Qt.AlignCenter)
+        layout.addWidget(header)
+        
+        # Main splitter for left/right panels
+        splitter = QSplitter(Qt.Horizontal)
+        
+        # Left panel - Recovery Actions
+        left_panel = QWidget()
+        left_layout = QVBoxLayout(left_panel)
+        
+        # Recovery Actions Group
+        actions_group = QGroupBox('Recovery Actions')
+        actions_layout = QVBoxLayout()
+        
+        # Create Recovery Point
+        self.btn_create_recovery = QPushButton('➕ Create System Recovery Point')
+        self.btn_create_recovery.setIcon(self.style().standardIcon(QStyle.SP_FileDialogNewFolder))
+        self.btn_create_recovery.clicked.connect(self.create_recovery_point)
+        actions_layout.addWidget(self.btn_create_recovery)
+        
+        # Restore from Recovery
+        self.btn_restore = QPushButton('🔄 Restore System')
+        self.btn_restore.setIcon(self.style().standardIcon(QStyle.SP_BrowserReload))
+        self.btn_restore.clicked.connect(self.restore_system)
+        actions_layout.addWidget(self.btn_restore)
+        
+        # Run System Repair
+        self.btn_repair = QPushButton('🔧 Run System Repair')
+        self.btn_repair.setIcon(self.style().standardIcon(QStyle.SP_BrowserReload))
+        self.btn_repair.clicked.connect(self.run_system_repair)
+        actions_layout.addWidget(self.btn_repair)
+        
+        # Boot Repair
+        self.btn_boot_repair = QPushButton('👢 Repair Boot Configuration')
+        self.btn_boot_repair.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon))
+        self.btn_boot_repair.clicked.connect(self.repair_boot_configuration)
+        actions_layout.addWidget(self.btn_boot_repair)
+        
+        actions_group.setLayout(actions_layout)
+        left_layout.addWidget(actions_group)
+        
+        # Recovery Images List
+        self.recovery_list = QListWidget()
+        self.recovery_list.setSelectionMode(QAbstractItemView.SingleSelection)
+        self.recovery_list.itemDoubleClicked.connect(self.restore_system)
+        left_layout.addWidget(QLabel('Available Recovery Points:'))
+        left_layout.addWidget(self.recovery_list)
+        
+        # Right panel - Log and Details
+        right_panel = QWidget()
+        right_layout = QVBoxLayout(right_panel)
+        
+        # Recovery Log
+        log_group = QGroupBox('Recovery Log')
+        log_layout = QVBoxLayout()
+        self.recovery_log = QTextEdit()
+        self.recovery_log.setReadOnly(True)
+        log_layout.addWidget(self.recovery_log)
+        log_group.setLayout(log_layout)
+        right_layout.addWidget(log_group)
+        
+        # Progress Section
+        progress_group = QGroupBox('Progress')
+        progress_layout = QVBoxLayout()
+        self.recovery_progress = QProgressBar()
+        self.recovery_status = QLabel('Ready')
+        progress_layout.addWidget(self.recovery_progress)
+        progress_layout.addWidget(self.recovery_status)
+        progress_group.setLayout(progress_layout)
+        right_layout.addWidget(progress_group)
+        
+        # Add panels to splitter
+        splitter.addWidget(left_panel)
+        splitter.addWidget(right_panel)
+        splitter.setStretchFactor(0, 1)
+        splitter.setStretchFactor(1, 2)
+        
+        layout.addWidget(splitter)
+        self.tabs.addTab(recovery_tab, '🛡️ System Recovery')
+        
+        # Initialize recovery components
+        self.init_recovery_components()
+    
+    def init_recovery_components(self):
+        """Initialize recovery-related components."""
+        try:
+            from winre_agent_enhanced import EnhancedWinREAgent
+            self.recovery_agent = EnhancedWinREAgent()
+            self.update_recovery_list()
+        except Exception as e:
+            self.log_message_internal(f'Failed to initialize recovery agent: {e}', 'ERROR')
+    
+    def update_recovery_list(self):
+        """Update the list of available recovery points."""
+        if hasattr(self, 'recovery_agent'):
+            self.recovery_list.clear()
+            try:
+                images = self.recovery_agent.list_recovery_images()
+                for img in images:
+                    item = QListWidgetItem(img)
+                    item.setIcon(self.style().standardIcon(QStyle.SP_DriveHDIcon))
+                    self.recovery_list.addItem(item)
+            except Exception as e:
+                self.log_message_internal(f'Error listing recovery images: {e}', 'ERROR')
+    
+    def create_recovery_point(self):
+        """Create a new system recovery point."""
+        if not hasattr(self, 'recovery_agent'):
+            self.log_message('Recovery agent not initialized', 'ERROR')
+            return
+            
+        name, ok = QInputDialog.getText(self, 'Create Recovery Point', 
+                                      'Enter a name for the recovery point:')
+        if ok and name:
+            self.log_message(f'Creating recovery point: {name}...')
+            QApplication.setOverrideCursor(Qt.WaitCursor)
+            try:
+                if self.recovery_agent.create_recovery_point(name):
+                    self.log_message('Recovery point created successfully', 'SUCCESS')
+                    self.update_recovery_list()
+                else:
+                    self.log_message('Failed to create recovery point', 'ERROR')
+            except Exception as e:
+                self.log_message(f'Error creating recovery point: {e}', 'ERROR')
+            finally:
+                QApplication.restoreOverrideCursor()
+    
+    def restore_system(self):
+        """Restore system from selected recovery point."""
+        selected = self.recovery_list.currentItem()
+        if not selected:
+            QMessageBox.warning(
+                self,
+                'No Selection',
+                'Please select a recovery point to restore.'
+            )
+            return
+            
+        reply = QMessageBox.question(
+            self,
+            'Confirm Restore',
+            f'Are you sure you want to restore from:\n{selected.text()}\n\nThis will overwrite your current system!',
+            QMessageBox.Yes | QMessageBox.No,
+            QMessageBox.No
+        )
+            
+        if reply == QMessageBox.Yes:
+            self.log_message(f'Starting system restore from: {selected.text()}')
+            # TODO: Implement actual restore with progress tracking
+    
+    def run_system_repair(self):
+        """Run system repair sequence."""
+        if not hasattr(self, 'recovery_agent'):
+            self.log_message('Recovery agent not initialized', 'ERROR')
+            return
+            
+        self.log_message('Starting system repair sequence...')
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+        try:
+            if self.recovery_agent.run_repair_sequence():
+                self.log_message('System repair completed successfully', 'SUCCESS')
+            else:
+                self.log_message('System repair completed with warnings', 'WARNING')
+        except Exception as e:
+            self.log_message(f'Error during system repair: {e}', 'ERROR')
+        finally:
+            QApplication.restoreOverrideCursor()
+    
+    def repair_boot_configuration(self):
+        """Repair the system boot configuration."""
+        if not hasattr(self, 'recovery_agent'):
+            self.log_message('Recovery agent not initialized', 'ERROR')
+            return
+            
+        self.log_message('Repairing boot configuration...')
+        QApplication.setOverrideCursor(Qt.WaitCursor)
+        try:
+            if self.recovery_agent.repair_boot_configuration():
+                self.log_message('Boot configuration repaired successfully', 'SUCCESS')
+            else:
+                self.log_message('Boot repair completed with warnings', 'WARNING')
+        except Exception as e:
+            self.log_message(f'Error repairing boot configuration: {e}', 'ERROR')
+        finally:
+            QApplication.restoreOverrideCursor()
+    
+    def log_message(self, message, level='INFO'):
+        """Log a message to the recovery log."""
+        timestamp = QDateTime.currentDateTime().toString('hh:mm:ss')
+        if level == 'ERROR':
+            self.recovery_log.setTextColor(Qt.red)
+        elif level == 'WARNING':
+            self.recovery_log.setTextColor(QColor(255, 165, 0))  # Orange
+        elif level == 'SUCCESS':
+            self.recovery_log.setTextColor(QColor(0, 200, 0))  # Green
+        else:
+            self.recovery_log.setTextColor(Qt.white)
+            
+        self.recovery_log.append(f'[{timestamp}] {message}')
+        self.recovery_log.verticalScrollBar().setValue(
+            self.recovery_log.verticalScrollBar().maximum()
+        )
+            
+        # Also log to main application log
+        self.log_message_internal(f'[Recovery] {message}', level)
 
-\
     def setup_modules_tab(self):
         modules_tab = QWidget()
         layout = QVBoxLayout(modules_tab)
@@ -297,7 +547,7 @@ class OPRYXXEnhanced(QMainWindow):
         details_group = QGroupBox('Module Details')
         details_layout = QFormLayout()
         
-        self.module_id_label = QLabel(\"<i>Not saved</i>\") # For new/unsaved modules
+        self.module_id_label = QLabel("<i>Not saved</i>") # For new/unsaved modules
         details_layout.addRow('Module ID:', self.module_id_label)
 
         self.module_name_input = QLineEdit()
@@ -423,7 +673,7 @@ class OPRYXXEnhanced(QMainWindow):
             #    item.setIcon(self.style().standardIcon(QStyle.SP_ComputerIcon)) # Example icon
             self.module_list_widget.addItem(item)
             
-        self.module_count_label.setText(f\'{len(self.all_modules_metadata)} modules loaded\')
+        self.module_count_label.setText(f'{len(self.all_modules_metadata)} modules loaded')
         self.filter_modules_list() # Apply current filters
 
     def filter_modules_list(self):
@@ -462,7 +712,7 @@ class OPRYXXEnhanced(QMainWindow):
 
         if metadata:
             self.set_module_form_enabled(True)
-            self.module_id_label.setText(f\"<code>{module_id}</code>\")
+            self.module_id_label.setText(f"<code>{module_id}</code>")
             self.module_name_input.setText(metadata.get('name', module_id))
             self.module_description_input.setPlainText(metadata.get('description', ''))
             self.module_category_combo.setCurrentText(metadata.get('category', 'Repair'))
@@ -472,18 +722,18 @@ class OPRYXXEnhanced(QMainWindow):
             self.script_language_combo.setCurrentText(metadata.get('language', 'Batch'))
             
             # Load script content
-            script_filename = metadata.get('script_file', f\'{module_id}.bat\') # Default to .bat if not specified
+            script_filename = metadata.get('script_file', f'{module_id}.bat') # Default to .bat if not specified
             script_path = os.path.join(self.repair_manager.modules_dir, script_filename)
             try:
                 if os.path.exists(script_path):
                     with open(script_path, 'r', encoding='utf-8') as f:
                         self.script_content_editor.setPlainText(f.read())
                 else:
-                    self.script_content_editor.setPlainText(f\"# Script file not found: {script_filename}\")
-                    self.log_message_internal(f\"Script file missing for module {module_id}: {script_path}\", "WARNING")
+                    self.script_content_editor.setPlainText(f"# Script file not found: {script_filename}")
+                    self.log_message_internal(f"Script file missing for module {module_id}: {script_path}", "WARNING")
             except Exception as e:
-                self.script_content_editor.setPlainText(f\"# Error loading script: {e}\")
-                self.log_message_internal(f\"Error loading script for module {module_id}: {e}\", "ERROR")
+                self.script_content_editor.setPlainText(f"# Error loading script: {e}")
+                self.log_message_internal(f"Error loading script for module {module_id}: {e}", "ERROR")
             
             self.module_name_input.setReadOnly(metadata.get('is_default', False)) # Default modules names not editable
             self.script_language_combo.setEnabled(not metadata.get('is_default', False)) # Can't change language of default script
@@ -492,7 +742,7 @@ class OPRYXXEnhanced(QMainWindow):
         else:
             self.clear_module_details_form()
             self.set_module_form_enabled(False)
-            self.log_message_internal(f\"Could not find metadata for module ID: {module_id}\", "ERROR")
+            self.log_message_internal(f"Could not find metadata for module ID: {module_id}", "ERROR")
             
     def clear_module_details_form(self):
         self.module_id_label.setText("<i>N/A</i>")
@@ -1306,6 +1556,22 @@ class OPRYXXEnhanced(QMainWindow):
         self.external_ai_response_display.setPlainText("\n".join(formatted_text))
 
     def closeEvent(self, event):
+        """Handle application close event."""
+        # Save window state before closing
+        self.save_window_state()
+        
+        # Stop any running operations
+        if hasattr(self, 'repair_thread') and self.repair_thread.isRunning():
+            self.repair_manager.stop_repair()
+            self.repair_thread.quit()
+            self.repair_thread.wait(2000)  # Wait up to 2 seconds
+            
+        # Save configuration
+        self.save_config_file()
+        
+        # Accept the close event
+        event.accept()
+
         # Ensure background threads/monitoring are stopped cleanly
         self.granite_manager.stop_monitoring()
         # Add any other cleanup needed
