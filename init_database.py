@@ -163,11 +163,25 @@ def run_migrations() -> bool:
         our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
         tables_exist = len(our_tables.intersection(existing_tables)) > 0
         
-        # If our tables exist but alembic_version doesn't, stamp the migration
+        # If our tables exist but alembic_version doesn't, we need to stamp the migration
         if tables_exist and 'alembic_version' not in existing_tables:
             print("[INFO] Tables exist but no migration record found - stamping migration")
+            # Use the command.stamp function to mark the current revision as applied
             command.stamp(config, "head")
             print("[SUCCESS] Database migration stamped successfully")
+            return True
+            
+        # If no tables exist and no alembic_version, we need to run the migrations
+        if not tables_exist and 'alembic_version' not in existing_tables:
+            print("[INFO] No tables found - running initial migration")
+            command.upgrade(config, "head")
+            return True
+            
+        # If alembic_version exists but tables don't, we have an inconsistent state
+        if not tables_exist and 'alembic_version' in existing_tables:
+            print("[WARNING] Database has migration history but no tables - this may indicate a problem")
+            print("[INFO] Attempting to run migrations to create tables...")
+            command.upgrade(config, "head")
             return True
         
         # Otherwise, run migrations normally
@@ -181,18 +195,54 @@ def run_migrations() -> bool:
         traceback.print_exc()
         return False
 
+def backup_database(db_path: str) -> bool:
+    """Backup the existing database file if it exists."""
+    import shutil
+    import time
+    
+    if not os.path.exists(db_path):
+        return True
+        
+    try:
+        # Create a backup with timestamp
+        timestamp = time.strftime("%Y%m%d_%H%M%S")
+        backup_path = f"{db_path}.bak_{timestamp}"
+        shutil.copy2(db_path, backup_path)
+        print(f"[INFO] Backed up existing database to {backup_path}")
+        return True
+    except Exception as e:
+        print(f"[ERROR] Failed to backup database: {e}")
+        return False
+
 def main() -> int:
     """Main entry point for database initialization."""
     print("=" * 50)
     print("OPRYXX Database Initialization")
     print("=" * 50)
     
-    # Step 1: Create database and tables if they don't exist
+    # Get database path from config
+    db_manager = get_db_manager()
+    db_url = db_manager.config_manager.config.database.url
+    
+    if db_url.startswith('sqlite'):
+        db_path = db_url.split('///')[-1]
+        # Backup existing database if it exists
+        if os.path.exists(db_path):
+            if not backup_database(db_path):
+                print("[WARNING] Could not backup existing database, but will try to continue")
+            try:
+                os.remove(db_path)
+                print(f"[INFO] Removed existing database at {db_path}")
+            except Exception as e:
+                print(f"[ERROR] Failed to remove existing database: {e}")
+                return 1
+    
+    # Initialize the database
     if not create_database():
         print("[ERROR] Failed to initialize database")
         return 1
     
-    # Step 2: Apply migrations if needed
+    # Run migrations
     if not run_migrations():
         print("[WARNING] Some database migrations may have failed")
     
