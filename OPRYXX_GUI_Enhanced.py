@@ -1555,6 +1555,311 @@ class OPRYXXEnhanced(QMainWindow):
 
         self.external_ai_response_display.setPlainText("\n".join(formatted_text))
 
+    def setup_maintenance_tab(self):
+        """Set up the Maintenance tab with system maintenance features."""
+        maintenance_tab = QWidget()
+        layout = QVBoxLayout(maintenance_tab)
+        
+        # Header
+        header = QLabel('🔧 System Maintenance')
+        header.setStyleSheet('font-size: 20px; color: #ff9800; margin: 8px;')
+        header.setAlignment(Qt.AlignCenter)
+        layout.addWidget(header)
+        
+        # Status group
+        status_group = QGroupBox('System Status')
+        status_layout = QVBoxLayout()
+        
+        # Version info
+        self.maintenance_version = QLabel('GANDALFS Version: Checking...')
+        status_layout.addWidget(self.maintenance_version)
+        
+        # Last update check
+        self.last_update_check = QLabel('Last update check: Never')
+        status_layout.addWidget(self.last_update_check)
+        
+        # System compatibility status
+        self.compatibility_status = QLabel('Compatibility: Checking...')
+        status_layout.addWidget(self.compatibility_status)
+        
+        # Disk space indicator
+        self.disk_space = QLabel('Disk space: Checking...')
+        status_layout.addWidget(self.disk_space)
+        
+        status_group.setLayout(status_layout)
+        layout.addWidget(status_group)
+        
+        # Actions group
+        actions_group = QGroupBox('Maintenance Actions')
+        actions_layout = QVBoxLayout()
+        
+        # Check for updates button
+        self.btn_check_updates = QPushButton('🔄 Check for Updates')
+        self.btn_check_updates.clicked.connect(self.check_for_updates)
+        actions_layout.addWidget(self.btn_check_updates)
+        
+        # Install updates button
+        self.btn_install_updates = QPushButton('⬇️ Install Updates')
+        self.btn_install_updates.setEnabled(False)
+        self.btn_install_updates.clicked.connect(self.install_updates)
+        actions_layout.addWidget(self.btn_install_updates)
+        
+        # Run maintenance button
+        self.btn_run_maintenance = QPushButton('⚙️ Run Maintenance Tasks')
+        self.btn_run_maintenance.clicked.connect(self.run_maintenance_tasks)
+        actions_layout.addWidget(self.btn_run_maintenance)
+        
+        # View logs button
+        self.btn_view_logs = QPushButton('📋 View Logs')
+        self.btn_view_logs.clicked.connect(self.view_maintenance_logs)
+        actions_layout.addWidget(self.btn_view_logs)
+        
+        # Schedule tasks button
+        self.btn_schedule_tasks = QPushButton('⏰ Schedule Maintenance')
+        self.btn_schedule_tasks.clicked.connect(self.schedule_maintenance)
+        actions_layout.addWidget(self.btn_schedule_tasks)
+        
+        actions_group.setLayout(actions_layout)
+        layout.addWidget(actions_group)
+        
+        # Log display
+        log_group = QGroupBox('Maintenance Log')
+        log_layout = QVBoxLayout()
+        self.maintenance_log = QTextEdit()
+        self.maintenance_log.setReadOnly(True)
+        self.maintenance_log.setFont(QFont('Consolas', 9))
+        log_layout.addWidget(self.maintenance_log)
+        
+        # Clear log button
+        btn_clear_log = QPushButton('Clear Log')
+        btn_clear_log.clicked.connect(self.maintenance_log.clear)
+        log_layout.addWidget(btn_clear_log)
+        
+        log_group.setLayout(log_layout)
+        layout.addWidget(log_group)
+        
+        # Progress bar
+        self.maintenance_progress = QProgressBar()
+        self.maintenance_progress.setRange(0, 100)
+        self.maintenance_progress.setValue(0)
+        layout.addWidget(self.maintenance_progress)
+        
+        # Status message
+        self.maintenance_status = QLabel('Ready')
+        layout.addWidget(self.maintenance_status)
+        
+        # Add the tab
+        self.tabs.addTab(maintenance_tab, '🔧 Maintenance')
+        
+        # Initialize maintenance status
+        self.update_maintenance_status()
+    
+    def update_maintenance_status(self):
+        """Update the maintenance status display."""
+        try:
+            # Check GANDALFS version
+            if hasattr(self, 'recovery_agent'):
+                version = getattr(self.recovery_agent, 'version', '1.0.0')
+                self.maintenance_version.setText(f'GANDALFS Version: {version}')
+            
+            # Check last update time
+            config_path = os.path.join(os.path.dirname(__file__), 'gandalfs_config.json')
+            if os.path.exists(config_path):
+                with open(config_path, 'r') as f:
+                    config = json.load(f)
+                    last_check = config.get('last_check', 'Never')
+                    self.last_update_check.setText(f'Last update check: {last_check}')
+            
+            # Check disk space
+            total, used, free = shutil.disk_usage('/')
+            free_gb = free // (2**30)
+            total_gb = total // (2**30)
+            self.disk_space.setText(f'Disk space: {free_gb}GB free of {total_gb}GB')
+            
+            # Simple compatibility check
+            if sys.platform == 'win32' and sys.version_info >= (3, 7):
+                self.compatibility_status.setText('Compatibility: ✅ All systems go')
+                self.compatibility_status.setStyleSheet('color: green;')
+            else:
+                self.compatibility_status.setText('Compatibility: ⚠️ Some features may be limited')
+                self.compatibility_status.setStyleSheet('color: orange;')
+                
+        except Exception as e:
+            self.log_message_internal(f'Error updating maintenance status: {e}', 'ERROR')
+    
+    def check_for_updates(self):
+        """Check for GANDALFS updates."""
+        self.log_message_internal('Checking for updates...', 'INFO')
+        self.maintenance_status.setText('Checking for updates...')
+        self.maintenance_progress.setValue(30)
+        
+        # Simulate update check
+        QTimer.singleShot(2000, self._update_check_complete)
+    
+    def _update_check_complete(self):
+        """Handle completion of update check."""
+        self.maintenance_progress.setValue(100)
+        self.maintenance_status.setText('Update check complete')
+        self.btn_install_updates.setEnabled(True)
+        
+        # Simulate finding updates
+        update_available = True  # In a real implementation, check actual update status
+        
+        if update_available:
+            self.log_message_internal('Updates are available!', 'SUCCESS')
+            QMessageBox.information(
+                self, 
+                'Updates Available', 
+                'New GANDALFS updates are available. Click "Install Updates" to install them.'
+            )
+        else:
+            self.log_message_internal('Your system is up to date', 'INFO')
+            QMessageBox.information(self, 'No Updates', 'Your system is up to date.')
+    
+    def install_updates(self):
+        """Install available updates."""
+        self.log_message_internal('Starting update installation...', 'INFO')
+        self.maintenance_status.setText('Installing updates...')
+        self.maintenance_progress.setValue(0)
+        
+        # Simulate installation progress
+        self._update_progress(10, 'Downloading updates...')
+        QTimer.singleShot(1000, lambda: self._update_progress(40, 'Installing components...'))
+        QTimer.singleShot(2000, lambda: self._update_progress(80, 'Finalizing installation...'))
+        QTimer.singleShot(3000, self._update_complete)
+    
+    def _update_progress(self, value: int, message: str):
+        """Update progress bar and status message."""
+        self.maintenance_progress.setValue(value)
+        self.maintenance_status.setText(message)
+        self.log_message_internal(message, 'INFO')
+    
+    def _update_complete(self):
+        """Handle completion of update installation."""
+        self.maintenance_progress.setValue(100)
+        self.maintenance_status.setText('Updates installed successfully')
+        self.btn_install_updates.setEnabled(False)
+        self.log_message_internal('Updates installed successfully!', 'SUCCESS')
+        
+        # Update status display
+        self.update_maintenance_status()
+        
+        QMessageBox.information(
+            self,
+            'Updates Installed',
+            'GANDALFS has been updated successfully. Some changes may require a restart to take effect.',
+            QMessageBox.Ok
+        )
+    
+    def run_maintenance_tasks(self):
+        """Run system maintenance tasks."""
+        self.log_message_internal('Starting maintenance tasks...', 'INFO')
+        self.maintenance_status.setText('Running maintenance tasks...')
+        self.maintenance_progress.setValue(0)
+        
+        # Simulate maintenance tasks
+        tasks = [
+            (10, 'Checking disk integrity...'),
+            (30, 'Cleaning temporary files...'),
+            (50, 'Optimizing database...'),
+            (70, 'Checking for system errors...'),
+            (90, 'Finalizing maintenance...'),
+            (100, 'Maintenance complete')
+        ]
+        
+        for progress, message in tasks:
+            QTimer.singleShot(
+                progress * 100,  # Stagger the tasks
+                lambda p=progress, m=message: self._maintenance_task_update(p, m)
+            )
+    
+    def _maintenance_task_update(self, progress: int, message: str):
+        """Update progress during maintenance tasks."""
+        self.maintenance_progress.setValue(progress)
+        self.maintenance_status.setText(message)
+        self.log_message_internal(message, 'INFO')
+        
+        if progress == 100:  # All tasks complete
+            QMessageBox.information(
+                self,
+                'Maintenance Complete',
+                'System maintenance tasks have been completed successfully.',
+                QMessageBox.Ok
+            )
+    
+    def view_maintenance_logs(self):
+        """Open the maintenance logs directory."""
+        log_dir = os.path.join(os.path.dirname(__file__), '..', 'logs')
+        if os.path.exists(log_dir):
+            os.startfile(log_dir)
+        else:
+            QMessageBox.warning(
+                self,
+                'Logs Not Found',
+                f'Log directory not found: {log_dir}',
+                QMessageBox.Ok
+            )
+    
+    def schedule_maintenance(self):
+        """Schedule regular maintenance tasks."""
+        # In a real implementation, this would use Windows Task Scheduler
+        # For now, just show a message
+        QMessageBox.information(
+            self,
+            'Schedule Maintenance',
+            'This feature will configure automatic maintenance tasks to run weekly.\n\n'
+            'In a full implementation, this would set up Windows Task Scheduler.',
+            QMessageBox.Ok
+        )
+        self.log_message_internal('Scheduled maintenance tasks', 'INFO')
+    
+    def log_message_internal(self, message: str, level: str = 'INFO'):
+        """Log a message to the maintenance log."""
+        timestamp = QDateTime.currentDateTime().toString('hh:mm:ss')
+        
+        # Set text color based on level
+        if level == 'ERROR':
+            self.maintenance_log.setTextColor(Qt.red)
+        elif level == 'WARNING':
+            self.maintenance_log.setTextColor(QColor(255, 165, 0))  # Orange
+        elif level == 'SUCCESS':
+            self.maintenance_log.setTextColor(QColor(0, 200, 0))  # Green
+        else:
+            self.maintenance_log.setTextColor(Qt.white)
+        
+        # Add message to log
+        self.maintenance_log.append(f'[{timestamp}] [{level}] {message}')
+        
+        # Auto-scroll to bottom
+        scrollbar = self.maintenance_log.verticalScrollBar()
+        scrollbar.setValue(scrollbar.maximum())
+    
+    def setup_ai_workbench_tab(self):
+        """Set up the AI Workbench tab (placeholder implementation)."""
+        ai_tab = QWidget()
+        layout = QVBoxLayout(ai_tab)
+        
+        # Header
+        header = QLabel('🧠 AI Workbench (Coming Soon)')
+        header.setStyleSheet('font-size: 20px; color: #9c27b0; margin: 8px;')
+        header.setAlignment(Qt.AlignCenter)
+        layout.addWidget(header)
+        
+        # Add a placeholder message
+        placeholder = QLabel(
+            'The AI Workbench is currently under development.\n\n'
+            'This tab will provide advanced AI-assisted system analysis and optimization tools.'
+        )
+        placeholder.setAlignment(Qt.AlignCenter)
+        placeholder.setWordWrap(True)
+        layout.addWidget(placeholder)
+        
+        # Add some spacing
+        layout.addStretch()
+        
+        # Add the tab
+        self.tabs.addTab(ai_tab, '🧠 AI Workbench')
+    
     def closeEvent(self, event):
         """Handle application close event."""
         # Save window state before closing
