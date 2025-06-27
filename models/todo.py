@@ -14,8 +14,8 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, validates
 from sqlalchemy.ext.declarative import declared_attr
 
-# Import Base from models.__init__ to avoid circular imports
-from . import Base
+# Import Base from models.base to avoid circular imports
+from .base import Base
 
 class Priority(str, PyEnum):
     """Priority levels for todos"""

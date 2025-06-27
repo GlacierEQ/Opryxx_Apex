@@ -84,7 +84,23 @@ class ConfigManager:
         if os.path.exists(self.config_path):
             with open(self.config_path, 'r') as f:
                 data = json.load(f)
-                return OPRYXXConfig(**data)
+                # Create a new config with defaults
+                config = OPRYXXConfig()
+                # Update only the fields that exist in the config file
+                for key, value in data.items():
+                    if hasattr(config, key):
+                        if isinstance(value, dict):
+                            # Handle nested dataclasses
+                            attr = getattr(config, key)
+                            if hasattr(attr, '__dataclass_fields__'):
+                                for sub_key, sub_value in value.items():
+                                    if hasattr(attr, sub_key):
+                                        setattr(attr, sub_key, sub_value)
+                            else:
+                                setattr(config, key, value)
+                        else:
+                            setattr(config, key, value)
+                return config
         return OPRYXXConfig()
     
     def save_config(self):

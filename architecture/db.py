@@ -4,18 +4,17 @@ Handles database connections and session management
 """
 
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker, scoped_session, declarative_base
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, scoped_session
 from sqlalchemy.exc import SQLAlchemyError
 from typing import Optional
 import logging
 
 from .config import ConfigManager
+from models.base import Base
 
 # Configure logging
 logger = logging.getLogger("OPRYXX.Database")
-
-# Create base class for models
-Base = declarative_base()
 
 # Global session factory
 SessionLocal = None
@@ -54,7 +53,7 @@ class DatabaseManager:
             )
             
             # Import models to ensure they are registered with SQLAlchemy
-            from ..models import todo  # noqa: F401
+            from models import todo  # noqa: F401
             
             # Create tables
             Base.metadata.create_all(bind=self.engine)
