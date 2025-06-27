@@ -101,15 +101,27 @@ def run_migrations_online() -> None:
         )
 
         with context.begin_transaction():
-            # Check if alembic_version table exists
             inspector = inspect(connection)
-            if 'alembic_version' not in inspector.get_table_names():
-                # If not, create it and stamp the current revision
-                context.stamp(target_metadata, "0001_initial")
-                print("[INFO] Created alembic_version table and stamped initial revision")
             
-            # Run the migrations
-            context.run_migrations()
+            # Check if any of our tables already exist
+            existing_tables = set(inspector.get_table_names())
+            our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
+            tables_exist = len(our_tables.intersection(existing_tables)) > 0
+            
+            # Check if alembic_version table exists
+            if 'alembic_version' not in existing_tables:
+                if tables_exist:
+                    # If our tables exist but alembic_version doesn't, stamp the current revision
+                    context.stamp(target_metadata, "0001_initial")
+                    print("[INFO] Tables already exist - stamped initial migration")
+                else:
+                    # If no tables exist, run the migrations normally
+                    print("[INFO] Creating database tables...")
+                    context.run_migrations()
+            else:
+                # If alembic_version exists, run migrations normally
+                print("[INFO] Running database migrations...")
+                context.run_migrations()
 
 if context.is_offline_mode():
     run_migrations_offline()
