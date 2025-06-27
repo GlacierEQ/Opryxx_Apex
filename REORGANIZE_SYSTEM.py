@@ -45,8 +45,7 @@ class SystemReorganizer:
             "integration/": [
                 "integration/",
                 "gandalfs_integration.py",
-                "gandalf_pe_integration.py",
-                "todo_recovery_bridge.py"
+                "gandalf_pe_integration.py"
             ],
             
             # Maintenance & Updates
@@ -71,7 +70,6 @@ class SystemReorganizer:
             # Verification & Testing
             "verification/": [
                 "VERIFY_MEGA.py",
-                "REORGANIZE_SYSTEM.py",
                 "tests/"
             ],
             
@@ -79,16 +77,14 @@ class SystemReorganizer:
             "config/": [
                 "requirements.txt",
                 "opryxx_config.json",
-                "mem0_config.json",
-                "*.json"
+                "mem0_config.json"
             ],
             
             # Documentation
             "docs/": [
                 "MEGA_README.md",
                 "ARCHITECTURE.md",
-                "RECOVERY_SYSTEM_README.md",
-                "*.md"
+                "RECOVERY_SYSTEM_README.md"
             ],
             
             # Legacy & Backup
@@ -122,11 +118,6 @@ class SystemReorganizer:
                 "test_winre_integration.py"
             ],
             
-            # Modules (existing)
-            "modules/": [
-                "Modules/"
-            ],
-            
             # Logs & Data
             "data/": [
                 "logs/",
@@ -134,23 +125,22 @@ class SystemReorganizer:
                 "backup_duplicates/",
                 "files/",
                 "protos/",
-                "security/",
-                "venv - Copy/"
+                "security/"
             ]
         }
     
     def create_folder_structure(self):
         """Create the new folder structure"""
-        print("🏗️ Creating new folder structure...")
+        print("Creating new folder structure...")
         
         for folder in self.file_mappings.keys():
             folder_path = self.base_path / folder
             folder_path.mkdir(exist_ok=True)
-            print(f"✅ Created: {folder}")
+            print(f"Created: {folder}")
     
     def move_files(self):
         """Move files to their new locations"""
-        print("\n📦 Moving files to new structure...")
+        print("\nMoving files to new structure...")
         
         for target_folder, file_patterns in self.file_mappings.items():
             target_path = self.base_path / target_folder
@@ -163,10 +153,11 @@ class SystemReorganizer:
                         # Move file
                         dest_path = target_path / source_path.name
                         try:
-                            shutil.move(str(source_path), str(dest_path))
-                            print(f"📄 Moved: {pattern} → {target_folder}")
+                            if not dest_path.exists():
+                                shutil.move(str(source_path), str(dest_path))
+                                print(f"Moved: {pattern} -> {target_folder}")
                         except Exception as e:
-                            print(f"❌ Error moving {pattern}: {e}")
+                            print(f"Error moving {pattern}: {e}")
                     
                     elif source_path.is_dir():
                         # Move directory
@@ -174,60 +165,9 @@ class SystemReorganizer:
                         try:
                             if not dest_path.exists():
                                 shutil.move(str(source_path), str(dest_path))
-                                print(f"📁 Moved: {pattern} → {target_folder}")
+                                print(f"Moved: {pattern} -> {target_folder}")
                         except Exception as e:
-                            print(f"❌ Error moving {pattern}: {e}")
-                
-                # Handle wildcard patterns
-                elif "*" in pattern:
-                    import glob
-                    for file_path in glob.glob(str(self.base_path / pattern)):
-                        file_obj = Path(file_path)
-                        dest_path = target_path / file_obj.name
-                        try:
-                            shutil.move(str(file_obj), str(dest_path))
-                            print(f"📄 Moved: {file_obj.name} → {target_folder}")
-                        except Exception as e:
-                            print(f"❌ Error moving {file_obj.name}: {e}")
-    
-    def update_import_paths(self):
-        """Update import paths in Python files"""
-        print("\n🔧 Updating import paths...")
-        
-        # Key files that need import updates
-        files_to_update = [
-            "ai/MEGA_OPRYXX.py",
-            "ai/AI_WORKBENCH.py",
-            "ai/ULTIMATE_AI_OPTIMIZER.py",
-            "launchers/main.py"
-        ]
-        
-        import_updates = {
-            "from architecture.core import": "from core.architecture.core import",
-            "from architecture.config import": "from core.architecture.config import",
-            "from services.recovery_service import": "from core.services.recovery_service import",
-            "from modules.safe_mode import": "from core.modules.safe_mode import",
-            "from modules.boot_repair import": "from core.modules.boot_repair import",
-            "from integration.todo_recovery_bridge import": "from integration.todo_recovery_bridge import"
-        }
-        
-        for file_path in files_to_update:
-            full_path = self.base_path / file_path
-            if full_path.exists():
-                try:
-                    with open(full_path, 'r', encoding='utf-8') as f:
-                        content = f.read()
-                    
-                    # Apply updates
-                    for old_import, new_import in import_updates.items():
-                        content = content.replace(old_import, new_import)
-                    
-                    with open(full_path, 'w', encoding='utf-8') as f:
-                        f.write(content)
-                    
-                    print(f"🔧 Updated imports: {file_path}")
-                except Exception as e:
-                    print(f"❌ Error updating {file_path}: {e}")
+                            print(f"Error moving {pattern}: {e}")
     
     def create_master_launcher(self):
         """Create a master launcher that works with new structure"""
@@ -237,22 +177,20 @@ color 0A
 cls
 
 echo.
-echo ████████████████████████████████████████████████████████████████
-echo ██                                                            ██
-echo ██           OPRYXX MASTER SYSTEM LAUNCHER                   ██
-echo ██                                                            ██
-echo ████████████████████████████████████████████████████████████████
+echo ================================================================
+echo                OPRYXX MASTER SYSTEM LAUNCHER
+echo ================================================================
 echo.
-echo 🚀 ORGANIZED SYSTEM STRUCTURE 🚀
+echo ORGANIZED SYSTEM STRUCTURE
 echo.
 echo Available Systems:
 echo.
-echo [1] 🚀 MEGA OPRYXX - Ultimate Recovery System
-echo [2] 🤖 AI WORKBENCH - Intelligent PC Manager  
-echo [3] ⚡ ULTIMATE AI OPTIMIZER - 24/7 Auto-Fix
-echo [4] 🔧 Emergency Recovery - Instant Fix
-echo [5] 🛠️ Maintenance Control - System Maintenance
-echo [6] 🔍 System Verification - Check All Systems
+echo [1] MEGA OPRYXX - Ultimate Recovery System
+echo [2] AI WORKBENCH - Intelligent PC Manager  
+echo [3] ULTIMATE AI OPTIMIZER - 24/7 Auto-Fix
+echo [4] Emergency Recovery - Instant Fix
+echo [5] Maintenance Control - System Maintenance
+echo [6] System Verification - Check All Systems
 echo [7] Exit
 echo.
 set /p choice="Select system to launch (1-7): "
@@ -329,18 +267,12 @@ goto menu
         with open(launcher_path, 'w') as f:
             f.write(launcher_content)
         
-        print("🚀 Created MASTER_LAUNCHER.bat")
+        print("Created MASTER_LAUNCHER.bat")
     
     def reorganize(self):
         """Execute complete reorganization"""
-        print("🚀 OPRYXX SYSTEM REORGANIZATION")
+        print("OPRYXX SYSTEM REORGANIZATION")
         print("=" * 50)
-        
-        # Create backup
-        print("💾 Creating backup...")
-        backup_path = self.base_path / "backup_before_reorganization"
-        if not backup_path.exists():
-            backup_path.mkdir()
         
         # Create folder structure
         self.create_folder_structure()
@@ -348,44 +280,35 @@ goto menu
         # Move files
         self.move_files()
         
-        # Update imports
-        self.update_import_paths()
-        
         # Create master launcher
         self.create_master_launcher()
         
-        print("\n✅ REORGANIZATION COMPLETE!")
-        print("🎯 New Structure:")
-        print("   📁 core/ - Core system architecture")
-        print("   📁 ai/ - AI systems and optimizers")
-        print("   📁 recovery/ - Recovery operations")
-        print("   📁 gui/ - User interfaces")
-        print("   📁 integration/ - System integrations")
-        print("   📁 maintenance/ - Maintenance tools")
-        print("   📁 launchers/ - Launch scripts")
-        print("   📁 verification/ - Testing and verification")
-        print("   📁 config/ - Configuration files")
-        print("   📁 docs/ - Documentation")
-        print("   📁 utils/ - Utility tools")
-        print("   📁 data/ - Logs and data")
-        print("\n🚀 Use MASTER_LAUNCHER.bat to access all systems!")
+        print("\nREORGANIZATION COMPLETE!")
+        print("New Structure:")
+        print("   core/ - Core system architecture")
+        print("   ai/ - AI systems and optimizers")
+        print("   recovery/ - Recovery operations")
+        print("   gui/ - User interfaces")
+        print("   integration/ - System integrations")
+        print("   maintenance/ - Maintenance tools")
+        print("   launchers/ - Launch scripts")
+        print("   verification/ - Testing and verification")
+        print("   config/ - Configuration files")
+        print("   docs/ - Documentation")
+        print("   utils/ - Utility tools")
+        print("   data/ - Logs and data")
+        print("\nUse MASTER_LAUNCHER.bat to access all systems!")
 
 def main():
     """Main reorganization function"""
     reorganizer = SystemReorganizer()
     
-    print("⚠️ This will reorganize the entire OPRYXX system structure.")
-    print("📦 Files will be moved to logical folders.")
-    print("🔧 Import paths will be updated automatically.")
-    print("💾 A backup will be created before changes.")
+    print("This will reorganize the entire OPRYXX system structure.")
+    print("Files will be moved to logical folders.")
+    print("A master launcher will be created.")
     print()
     
-    confirm = input("Continue with reorganization? (Y/N): ")
-    
-    if confirm.upper() == 'Y':
-        reorganizer.reorganize()
-    else:
-        print("❌ Reorganization cancelled.")
+    reorganizer.reorganize()
 
 if __name__ == "__main__":
     main()
