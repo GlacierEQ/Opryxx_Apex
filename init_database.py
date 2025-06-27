@@ -70,7 +70,7 @@ def create_database() -> bool:
         db_manager = get_db_manager()
         
         # First, ensure the database directory exists
-        db_url = db_manager.config.url
+        db_url = db_manager.config_manager.config.database.url
         if db_url.startswith('sqlite'):
             db_path = db_url.split('///')[-1]
             db_dir = os.path.dirname(db_path)
