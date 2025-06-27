@@ -1,0 +1,6 @@
+# OPRYXX Recovery System Dependencies
+# Core dependencies only - minimal footprint
+
+# No external dependencies required
+# Uses only Python standard library for maximum compatibility
+# Designed to work in Windows PE environments

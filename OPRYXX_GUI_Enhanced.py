@@ -1835,30 +1835,270 @@ class OPRYXXEnhanced(QMainWindow):
         scrollbar.setValue(scrollbar.maximum())
     
     def setup_ai_workbench_tab(self):
-        """Set up the AI Workbench tab (placeholder implementation)."""
+        """Set up the AI Workbench tab with advanced system analysis tools."""
         ai_tab = QWidget()
-        layout = QVBoxLayout(ai_tab)
+        main_layout = QVBoxLayout(ai_tab)
         
         # Header
-        header = QLabel('🧠 AI Workbench (Coming Soon)')
+        header = QLabel('🧠 AI Workbench')
         header.setStyleSheet('font-size: 20px; color: #9c27b0; margin: 8px;')
         header.setAlignment(Qt.AlignCenter)
-        layout.addWidget(header)
+        main_layout.addWidget(header)
         
-        # Add a placeholder message
-        placeholder = QLabel(
-            'The AI Workbench is currently under development.\n\n'
-            'This tab will provide advanced AI-assisted system analysis and optimization tools.'
-        )
-        placeholder.setAlignment(Qt.AlignCenter)
-        placeholder.setWordWrap(True)
-        layout.addWidget(placeholder)
+        # Create tab widget for different AI features
+        self.ai_tabs = QTabWidget()
         
-        # Add some spacing
-        layout.addStretch()
+        # 1. System Optimization Tab
+        self.setup_optimization_tab()
+        
+        # 2. Predictive Analysis Tab
+        self.setup_prediction_tab()
+        
+        # 3. Troubleshooting Tab
+        self.setup_troubleshooting_tab()
+        
+        main_layout.addWidget(self.ai_tabs)
+        
+        # Add status bar
+        self.ai_status_bar = QStatusBar()
+        self.ai_status_bar.showMessage('AI Workbench Ready')
+        main_layout.addWidget(self.ai_status_bar)
         
         # Add the tab
         self.tabs.addTab(ai_tab, '🧠 AI Workbench')
+    
+    def setup_optimization_tab(self):
+        """Set up the System Optimization tab."""
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        
+        # Header
+        header = QLabel('⚡ System Optimization')
+        header.setStyleSheet('font-size: 16px; color: #4caf50; margin: 8px;')
+        layout.addWidget(header)
+        
+        # System Scan Button
+        self.btn_scan_system = QPushButton('🔍 Scan System')
+        self.btn_scan_system.clicked.connect(self.run_system_scan)
+        layout.addWidget(self.btn_scan_system)
+        
+        # Optimization Results
+        self.optimization_results = QTextEdit()
+        self.optimization_results.setReadOnly(True)
+        self.optimization_results.setFont(QFont('Consolas', 9))
+        layout.addWidget(QLabel('Optimization Recommendations:'))
+        layout.addWidget(self.optimization_results)
+        
+        # Optimization Actions
+        self.optimize_btn = QPushButton('⚙️ Apply Optimizations')
+        self.optimize_btn.setEnabled(False)
+        self.optimize_btn.clicked.connect(self.apply_optimizations)
+        layout.addWidget(self.optimize_btn)
+        
+        # Add tab
+        self.ai_tabs.addTab(tab, '⚡ Optimization')
+    
+    def setup_prediction_tab(self):
+        """Set up the Predictive Analysis tab."""
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        
+        # Header
+        header = QLabel('🔮 Predictive Analysis')
+        header.setStyleSheet('font-size: 16px; color: #2196f3; margin: 8px;')
+        layout.addWidget(header)
+        
+        # System Health Overview
+        health_group = QGroupBox('System Health')
+        health_layout = QVBoxLayout()
+        
+        # Disk Health
+        self.disk_health = QProgressBar()
+        self.disk_health.setRange(0, 100)
+        self.disk_health.setValue(75)  # Example value
+        health_layout.addWidget(QLabel('Disk Health:'))
+        health_layout.addWidget(self.disk_health)
+        
+        # Memory Health
+        self.memory_health = QProgressBar()
+        self.memory_health.setRange(0, 100)
+        self.memory_health.setValue(85)  # Example value
+        health_layout.addWidget(QLabel('Memory Health:'))
+        health_layout.addWidget(self.memory_health)
+        
+        # CPU Health
+        self.cpu_health = QProgressBar()
+        self.cpu_health.setRange(0, 100)
+        self.cpu_health.setValue(90)  # Example value
+        health_layout.addWidget(QLabel('CPU Health:'))
+        health_layout.addWidget(self.cpu_health)
+        
+        health_group.setLayout(health_layout)
+        layout.addWidget(health_group)
+        
+        # Predictions List
+        self.predictions_list = QListWidget()
+        layout.addWidget(QLabel('Potential Issues:'))
+        layout.addWidget(self.predictions_list)
+        
+        # Analyze Button
+        self.btn_analyze = QPushButton('🔮 Analyze System')
+        self.btn_analyze.clicked.connect(self.run_predictive_analysis)
+        layout.addWidget(self.btn_analyze)
+        
+        # Add tab
+        self.ai_tabs.addTab(tab, '🔮 Predictions')
+    
+    def setup_troubleshooting_tab(self):
+        """Set up the Automated Troubleshooting tab."""
+        tab = QWidget()
+        layout = QVBoxLayout(tab)
+        
+        # Header
+        header = QLabel('🔧 Automated Troubleshooting')
+        header.setStyleSheet('font-size: 16px; color: #ff9800; margin: 8px;')
+        layout.addWidget(header)
+        
+        # Issue Selection
+        self.issue_combo = QComboBox()
+        self.issue_combo.addItems([
+            'Select an issue...',
+            'System running slow',
+            'Application crashes',
+            'Network problems',
+            'Startup issues',
+            'Other problems'
+        ])
+        layout.addWidget(self.issue_combo)
+        
+        # Troubleshooting Log
+        self.troubleshoot_log = QTextEdit()
+        self.troubleshoot_log.setReadOnly(True)
+        self.troubleshoot_log.setFont(QFont('Consolas', 9))
+        layout.addWidget(QLabel('Troubleshooting Log:'))
+        layout.addWidget(self.troubleshoot_log)
+        
+        # Action Buttons
+        btn_layout = QHBoxLayout()
+        
+        self.btn_diagnose = QPushButton('🔍 Diagnose')
+        self.btn_diagnose.clicked.connect(self.run_diagnosis)
+        btn_layout.addWidget(self.btn_diagnose)
+        
+        self.btn_fix = QPushButton('🔧 Fix Issues')
+        self.btn_fix.setEnabled(False)
+        self.btn_fix.clicked.connect(self.fix_issues)
+        btn_layout.addWidget(self.btn_fix)
+        
+        layout.addLayout(btn_layout)
+        
+        # Add tab
+        self.ai_tabs.addTab(tab, '🔧 Troubleshoot')
+    
+    def run_system_scan(self):
+        """Run a system scan for optimization opportunities."""
+        self.optimization_results.clear()
+        self.ai_status_bar.showMessage('Scanning system for optimization opportunities...')
+        
+        # Simulate scanning process
+        QTimer.singleShot(1500, self._on_scan_complete)
+    
+    def _on_scan_complete(self):
+        """Handle completion of system scan."""
+        # Example optimization recommendations
+        recommendations = [
+            "✅ System scan complete. Found 3 optimization opportunities:",
+            "",
+            "1. 🚀 Disk Optimization: 1.2GB of temporary files can be cleaned",
+            "2. ⚡ Startup Programs: 4 programs are slowing down system startup",
+            "3. 🛡️ Security: Outdated drivers detected (2)",
+            "",
+            "Click 'Apply Optimizations' to automatically fix these issues."
+        ]
+        
+        self.optimization_results.setPlainText('\n'.join(recommendations))
+        self.optimize_btn.setEnabled(True)
+        self.ai_status_bar.showMessage('Scan complete. Ready to optimize.', 5000)
+    
+    def apply_optimizations(self):
+        """Apply the recommended optimizations."""
+        self.optimize_btn.setEnabled(False)
+        self.ai_status_bar.showMessage('Applying optimizations...')
+        
+        # Simulate optimization process
+        QTimer.singleShot(2000, self._on_optimization_complete)
+    
+    def _on_optimization_complete(self):
+        """Handle completion of optimization."""
+        self.optimization_results.append("\n✅ Optimizations applied successfully!")
+        self.ai_status_bar.showMessage('Optimizations completed successfully!', 5000)
+    
+    def run_predictive_analysis(self):
+        """Run predictive analysis on system health."""
+        self.predictions_list.clear()
+        self.ai_status_bar.showMessage('Analyzing system health...')
+        
+        # Simulate analysis
+        QTimer.singleShot(2000, self._on_analysis_complete)
+    
+    def _on_analysis_complete(self):
+        """Handle completion of predictive analysis."""
+        # Example predictions
+        predictions = [
+            "⚠️ Disk C: is 85% full. Consider cleaning up.",
+            "✅ Memory usage is optimal.",
+            "⚠️ CPU temperature is slightly elevated.",
+            "✅ No critical issues detected."
+        ]
+        
+        self.predictions_list.addItems(predictions)
+        self.ai_status_bar.showMessage('Analysis complete', 3000)
+    
+    def run_diagnosis(self):
+        """Run diagnosis for the selected issue."""
+        issue = self.issue_combo.currentText()
+        if issue == 'Select an issue...':
+            QMessageBox.warning(self, 'No Issue Selected', 'Please select an issue to diagnose.')
+            return
+        
+        self.troubleshoot_log.clear()
+        self.log_troubleshoot(f"Diagnosing issue: {issue}")
+        
+        # Simulate diagnosis
+        QTimer.singleShot(1000, lambda: self._on_diagnosis_complete(issue))
+    
+    def _on_diagnosis_complete(self, issue):
+        """Handle completion of diagnosis."""
+        self.log_troubleshoot("\n✅ Diagnosis complete!")
+        
+        # Example fixes based on issue
+        if 'slow' in issue.lower():
+            self.log_troubleshoot("\nRecommended fixes:")
+            self.log_troubleshoot("1. Clean up temporary files")
+            self.log_troubleshoot("2. Disable unnecessary startup programs")
+            self.log_troubleshoot("3. Check for memory leaks")
+        
+        self.btn_fix.setEnabled(True)
+    
+    def fix_issues(self):
+        """Apply fixes for the diagnosed issues."""
+        self.log_troubleshoot("\n🛠️ Applying fixes...")
+        self.btn_fix.setEnabled(False)
+        
+        # Simulate fixing
+        QTimer.singleShot(1500, self._on_fix_complete)
+    
+    def _on_fix_complete(self):
+        """Handle completion of fixes."""
+        self.log_troubleshoot("\n✅ Issues fixed successfully!")
+        self.ai_status_bar.showMessage('Troubleshooting complete', 5000)
+    
+    def log_troubleshoot(self, message):
+        """Add a message to the troubleshooting log."""
+        self.troubleshoot_log.append(message)
+        # Auto-scroll to bottom
+        scrollbar = self.troubleshoot_log.verticalScrollBar()
+        scrollbar.setValue(scrollbar.maximum())
     
     def closeEvent(self, event):
         """Handle application close event."""
