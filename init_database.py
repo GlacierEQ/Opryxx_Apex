@@ -140,55 +140,46 @@ def run_migrations() -> bool:
                 f.write("handlers =\n")
                 f.write("qualname = sqlalchemy.engine\n\n")
                 f.write("[logger_alembic]\n")
-                f.write("level = INFO\n")
-                f.write("handlers =\n")
-                f.write("qualname = alembic\n\n")
-                f.write("[handler_console]\n")
-                f.write("class = StreamHandler\n")
-                f.write("args = (sys.stderr,)\n")
-                f.write("level = NOTSET\n")
-                f.write("formatter = generic\n\n")
-                f.write("[formatter_generic]\n")
-                f.write("format = %(levelname)-5.5s [%(name)s] %(message)s\n")
-                f.write("datefmt = %H:%M:%S")
-        
-        # Load the Alembic configuration
         config = Config("alembic.ini")
         config.set_main_option("sqlalchemy.url", db_url)
         
-        # Create engine to check existing tables
-        engine = create_engine(db_url)
-        inspector = inspect(engine)
-        existing_tables = set(inspector.get_table_names())
-        our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
-        tables_exist = len(our_tables.intersection(existing_tables)) > 0
+        # Get the script directory to find the latest revision
+        script = ScriptDirectory.from_config(config)
+        head_revision = script.get_current_head()
         
-        # If our tables exist but alembic_version doesn't, we need to stamp the migration
-        if tables_exist and 'alembic_version' not in existing_tables:
-            print("[INFO] Tables exist but no migration record found - stamping migration")
-            # Use the command.stamp function to mark the current revision as applied
-            command.stamp(config, "head")
-            print("[SUCCESS] Database migration stamped successfully")
-            return True
-            
-        # If no tables exist and no alembic_version, we need to run the migrations
-        if not tables_exist and 'alembic_version' not in existing_tables:
-            print("[INFO] No tables found - running initial migration")
-            command.upgrade(config, "head")
-            return True
-            
-        # If alembic_version exists but tables don't, we have an inconsistent state
-        if not tables_exist and 'alembic_version' in existing_tables:
-            print("[WARNING] Database has migration history but no tables - this may indicate a problem")
-            print("[INFO] Attempting to run migrations to create tables...")
-            command.upgrade(config, "head")
-            return True
+        if not head_revision:
+            print("[ERROR] No migration scripts found")
+            return False
         
-        # Otherwise, run migrations normally
+        # Check the current database revision
+        with db_manager.engine.connect() as connection:
+            context = MigrationContext.configure(connection)
+            current_rev = context.get_current_revision()
+            
+            if current_rev == head_revision:
+                print("[INFO] Database is already at the latest revision")
+                return True
+                
+            if current_rev is None:
+                print("[INFO] No migration history found - initializing database")
+                # Check if tables already exist
+                inspector = inspect(db_manager.engine)
+                existing_tables = set(inspector.get_table_names())
+                our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
+                tables_exist = len(our_tables.intersection(existing_tables)) > 0
+                
+                if tables_exist:
+                    print("[INFO] Tables exist but no migration history - stamping current revision")
+                    command.stamp(config, "head")
+                    print("[SUCCESS] Database stamped with current revision")
+                    return True
+        
+        # Run migrations normally
         print("[INFO] Running database migrations...")
         command.upgrade(config, "head")
-        print("[SUCCESS] Database migrations applied successfully")
+        print("[SUCCESS] Database migrations completed successfully")
         return True
+        
     except Exception as e:
         print(f"[ERROR] Error running migrations: {e}")
         import traceback

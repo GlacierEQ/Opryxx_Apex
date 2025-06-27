@@ -108,20 +108,15 @@ def run_migrations_online() -> None:
             our_tables = {'todo_categories', 'todos', 'todo_subtasks', 'todo_processing_logs'}
             tables_exist = len(our_tables.intersection(existing_tables)) > 0
             
-            # Check if alembic_version table exists
-            if 'alembic_version' not in existing_tables:
-                if tables_exist:
-                    # If our tables exist but alembic_version doesn't, stamp the current revision
-                    context.stamp(target_metadata, "0001_initial")
-                    print("[INFO] Tables already exist - stamped initial migration")
-                else:
-                    # If no tables exist, run the migrations normally
-                    print("[INFO] Creating database tables...")
-                    context.run_migrations()
-            else:
-                # If alembic_version exists, run migrations normally
-                print("[INFO] Running database migrations...")
-                context.run_migrations()
+            # Always run migrations - let Alembic handle the versioning
+            print("[INFO] Running database migrations...")
+            context.run_migrations()
+            
+            # If our tables existed but alembic_version didn't, we need to stamp the current revision
+            if tables_exist and 'alembic_version' not in existing_tables:
+                print("[INFO] Tables already existed - ensuring migration is stamped")
+                # The migration will have created the version table, but we need to ensure it's at the right version
+                # This is handled by the stamp command in init_database.py
 
 if context.is_offline_mode():
     run_migrations_offline()
