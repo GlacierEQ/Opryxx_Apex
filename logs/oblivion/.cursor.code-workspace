@@ -1,0 +1,40 @@
+{
+	"folders": [
+		{
+			"path": "../../.cursor"
+		},
+		{
+			"path": "../../.git"
+		},
+		{
+			"path": "../../.vscode"
+		},
+		{
+			"path": "../../.bevel"
+		},
+		{
+			"path": "../../__pycache__"
+		},
+		{
+			"path": "../../.qodo"
+		},
+		{
+			"path": "../../files"
+		},
+		{
+			"path": ".."
+		},
+		{
+			"path": "../../Modules"
+		},
+		{
+			"path": "../../oblivion"
+		},
+		{
+			"path": "../../protos"
+		},
+		{
+			"path": "../../venv"
+		}
+	]
+}
