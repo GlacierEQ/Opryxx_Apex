@@ -8,6 +8,7 @@ import io
 import sqlite3
 from pathlib import Path
 from typing import Optional, List
+from alembic.script import ScriptDirectory
 
 # Set up console for UTF-8 output
 if sys.platform == 'win32':
