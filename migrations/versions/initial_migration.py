@@ -1,4 +1,4 @@
-""initial
+"""Initial migration.
 
 Revision ID: 0001_initial
 Revises: 
@@ -24,9 +24,8 @@ def upgrade() -> None:
         sa.Column('name', sa.String(100), nullable=False, unique=True, index=True),
         sa.Column('description', sa.Text, nullable=True),
         sa.Column('color', sa.String(7), nullable=True),
-        sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now()),
-        sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.func.now(), onupdate=sa.func.now()),
-        sqlite_autoincrement=True
+        sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.text('CURRENT_TIMESTAMP')),
+        sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.text('CURRENT_TIMESTAMP'), onupdate=sa.text('CURRENT_TIMESTAMP'))
     )
 
     # Create todos table
@@ -41,15 +40,14 @@ def upgrade() -> None:
                                   name='todo_status_enum'), 
                  nullable=False, server_default='pending'),
         sa.Column('due_date', sa.DateTime, nullable=True, index=True),
-        sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now()),
-        sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.func.now(), 
-                 onupdate=sa.func.now()),
+        sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.text('CURRENT_TIMESTAMP')),
+        sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.text('CURRENT_TIMESTAMP'),
+                 onupdate=sa.text('CURRENT_TIMESTAMP')),
         sa.Column('completed_at', sa.DateTime, nullable=True),
         sa.Column('tags', sa.JSON, nullable=False, server_default='[]'),
         sa.Column('metadata_', sa.JSON, nullable=False, server_default='{}'),
         sa.Column('category_id', sa.String(36), sa.ForeignKey('todo_categories.id'), index=True),
-        sa.Column('parent_id', sa.String(36), sa.ForeignKey('todos.id'), index=True),
-        sqlite_autoincrement=True
+        sa.Column('parent_id', sa.String(36), sa.ForeignKey('todos.id'), index=True)
     )
     
     # Create indexes for todos
@@ -65,8 +63,7 @@ def upgrade() -> None:
         sa.Column('order', sa.Integer, nullable=False, server_default='0'),
         sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now()),
         sa.Column('updated_at', sa.DateTime, nullable=False, server_default=sa.func.now(), 
-                 onupdate=sa.func.now()),
-        sqlite_autoincrement=True
+                 onupdate=sa.func.now())
     )
     
     # Create todo_processing_logs table
@@ -81,8 +78,7 @@ def upgrade() -> None:
                  nullable=False, server_default='queued'),
         sa.Column('error_message', sa.Text, nullable=True),
         sa.Column('created_at', sa.DateTime, nullable=False, server_default=sa.func.now(), index=True),
-        sa.Column('completed_at', sa.DateTime, nullable=True),
-        sqlite_autoincrement=True
+        sa.Column('completed_at', sa.DateTime, nullable=True)
     )
     
     # Create indexes for processing logs
@@ -92,13 +88,14 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-    # Drop tables in reverse order of creation
+    # Drop all tables in reverse order of creation
     op.drop_table('todo_processing_logs')
     op.drop_table('todo_subtasks')
     op.drop_table('todos')
     op.drop_table('todo_categories')
     
-    # Drop enums
-    op.execute("DROP TYPE IF EXISTS priority_enum")
-    op.execute("DROP TYPE IF EXISTS todo_status_enum")
-    op.execute("DROP TYPE IF EXISTS processing_status_enum")
+    # Drop custom enums (SQLite doesn't support DROP TYPE, so we'll skip this for SQLite)
+    if op.get_bind().engine.name != 'sqlite':
+        op.execute("DROP TYPE IF EXISTS priority_enum")
+        op.execute("DROP TYPE IF EXISTS todo_status_enum")
+        op.execute("DROP TYPE IF EXISTS processing_status_enum")
