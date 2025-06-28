@@ -1,0 +1,18 @@
+{
+    "check_interval_days": 7,
+    "components": {
+        "recovery_tools": {
+            "checksum": null,
+            "current_version": null,
+            "path": "C:\\OPRYXX\\gandalfs\\tools"
+        },
+        "winpe_image": {
+            "checksum": null,
+            "current_version": null,
+            "path": "C:\\OPRYXX\\gandalfs\\winpe.iso"
+        }
+    },
+    "installed_version": null,
+    "last_check": "2025-06-27T11:54:42.010431Z",
+    "version": "1.0.0"
+}

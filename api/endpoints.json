@@ -1,0 +1,7 @@
+{
+  "system_status": "/api/system/status",
+  "metrics": "/api/metrics",
+  "events": "/api/events",
+  "config": "/api/config",
+  "actions": "/api/actions"
+}

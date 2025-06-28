@@ -10,6 +10,7 @@ import json
 import logging
 import hashlib
 import requests
+import pprint
 from pathlib import Path
 from typing import Dict, Optional, Tuple
 from urllib.parse import urljoin
@@ -311,7 +312,6 @@ def main():
     manager = GandalfsUpdateManager()
     
     if args.info:
-        import pprint
         pprint.pprint(manager.get_system_info())
     
     if args.check:

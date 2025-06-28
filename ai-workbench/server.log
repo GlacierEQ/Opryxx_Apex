@@ -1,0 +1,14 @@
+[2025-06-27T12:27:08.011Z] [INFO] Starting server (Node.js v24.1.0 on win32 x64)
+[2025-06-27T12:27:08.014Z] [INFO] Process ID: 127136
+[2025-06-27T12:27:08.014Z] [INFO] Working directory: C:\CATHEDRAL\OPRYXX_LOGS\ai-workbench
+[2025-06-27T12:27:08.015Z] [INFO] Server will listen on 0.0.0.0:3005
+[2025-06-27T12:27:08.025Z] [INFO] Server running at http://0.0.0.0:3005
+[2025-06-27T12:27:08.025Z] [INFO] Available endpoints:
+[2025-06-27T12:27:08.026Z] [INFO] - http://0.0.0.0:3005/
+[2025-06-27T12:27:08.026Z] [INFO] - http://0.0.0.0:3005/health
+[2025-06-27T12:27:08.026Z] [INFO] Press Ctrl+C to stop the server
+
+[2025-06-27T12:27:55.631Z] [INFO] SIGINT received - shutting down gracefully
+[2025-06-27T12:27:55.631Z] [INFO] Shutting down server...
+[2025-06-27T12:27:55.632Z] [INFO] Server closed
+Server shutdown complete

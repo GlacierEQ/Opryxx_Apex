@@ -1,56 +1,63 @@
+# OPRYXX Windsurf AI Integration Rules
 
-# Windsurf AI Platform Rules
+## Core OPRYXX Principles
+1. **24/7 Autonomous Operation**
+   - AI systems must operate continuously without human intervention
+   - Self-healing and auto-recovery capabilities required
+   - Performance monitoring with automatic optimization
 
-## Core Principles
-1. **Safety First**
-   - All AI outputs must be filtered for harmful, unethical, or biased content
-   - Implement strict content moderation at all API endpoints
-   - Regular security audits and penetration testing
+2. **Memory & Performance Excellence**
+   - Memory leak detection with 10MB threshold
+   - GPU/NPU acceleration utilization
+   - Real-time performance scoring (0-100 scale)
 
-2. **Transparency**
-   - Clearly indicate AI-generated content to end-users
-   - Provide confidence scores for AI-generated responses
-   - Maintain detailed audit logs of all AI interactions
+3. **Recovery & Resilience**
+   - Emergency recovery protocols always available
+   - Safe mode exit capabilities
+   - Boot repair and system diagnostics
 
-3. **Performance**
-   - Response times under 2 seconds for 95% of requests
-   - 99.9% uptime SLA for production services
-   - Efficient resource utilization and auto-scaling
+## OPRYXX Development Standards
 
-## Development Guidelines
+### AI System Integration
+- NEXUS AI for 24/7 optimization
+- ARIA AI for health management
+- Predictive maintenance and issue prevention
+- Hardware acceleration (CUDA, NPU) utilization
 
-### Code Quality
-- Follow language-specific style guides (PEP 8 for Python, etc.)
-- Minimum 80% test coverage for all production code
-- Static code analysis in CI/CD pipeline
-- Regular dependency updates and security patches
+### Performance Requirements
+- Memory operations: < 50ms average
+- GPU acceleration: > 50 score minimum
+- System optimization: < 500ms
+- Leak detection: < 2000ms
+- Overall performance: > 60 minimum score
 
-### API Standards
-- RESTful design principles
-- Versioned endpoints (e.g., /v1/...)
-- Standardized error responses
-- Rate limiting and request throttling
-- Comprehensive API documentation with OpenAPI/Swagger
+### Recovery Operations
+- Immediate safe mode exit capability
+- Boot configuration repair
+- System file integrity checking
+- Emergency recovery protocols
 
-### AI/ML Best Practices
-- Version control for models and datasets
-- Model performance monitoring in production
-- A/B testing framework for model updates
-- Fairness and bias evaluation metrics
-- Explainability for model predictions
+## Security & Safety
+- Input validation for all user inputs
+- Secure password hashing (PBKDF2)
+- Security headers implementation
+- Regular dependency security scanning
 
-## Security & Compliance
-- End-to-end encryption for all data in transit
-- Data minimization and retention policies
-- GDPR/CCPA compliance tools
-- Regular security training for developers
-- Incident response plan
+## Testing & Quality
+- 90%+ test coverage requirement
+- CI/CD pipeline with automated testing
+- Performance benchmarking validation
+- Memory leak detection testing
 
 ## Monitoring & Observability
-- Centralized logging (ELK stack or similar)
-- Real-time performance metrics
+- Real-time system health monitoring
+- Performance dashboard with visualization
+- Comprehensive logging and audit trails
 - Anomaly detection for system behavior
-- User feedback collection and analysis
 
-## Deployment
-- Containerized applications (Dfile was not found in the file system, and the file is not a memory file.le to create the file.
+## OPRYXX-Specific Extensions
+- Master launcher integration
+- Multi-system coordination
+- Todo system integration
+- GANDALF PE recovery environment
+- Production-ready deployment standards

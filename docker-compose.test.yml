@@ -1,0 +1,127 @@
+version: '3.8'
+
+services:
+  test:
+    build:
+      context: .
+      target: test
+    image: opryxx/ai-workbench-test:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+      - PYTHONPATH=/app
+      - TESTING=1
+    volumes:
+      - .:/app
+      - /app/venv
+      - /app/__pycache__
+      - /app/.pytest_cache
+    depends_on:
+      test-postgres:
+        condition: service_healthy
+      test-redis:
+        condition: service_healthy
+    command: >
+      sh -c "pytest -v --cov=ai_workbench --cov-report=term-missing
+             --cov-report=xml:coverage.xml
+             --junitxml=junit/test-results.xml
+             --cov-fail-under=80
+             -n auto
+             tests/"
+
+  test-postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=test
+      - POSTGRES_DB=test
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U test"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - test_postgres_data:/var/lib/postgresql/data
+
+  test-redis:
+    image: redis:7-alpine
+    command: redis-server --requirepass test
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "test", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - test_redis_data:/data
+
+  test-coverage:
+    build:
+      context: .
+      target: test
+    image: opryxx/ai-workbench-test:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+    volumes:
+      - ./coverage:/app/coverage
+      - ./htmlcov:/app/htmlcov
+    command: >
+      sh -c "coverage html && coverage report"
+
+  test-lint:
+    build:
+      context: .
+      target: test
+    image: opryxx/ai-workbench-test:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+    command: >
+      sh -c "black --check . && \
+             isort --check-only . && \
+             flake8 && \
+             mypy ."
+
+  test-security:
+    build:
+      context: .
+      target: test
+    image: opryxx/ai-workbench-test:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+    command: >
+      sh -c "safety check --full-report && \
+             bandit -r . -x ./tests,./venv"
+
+  test-load:
+    build:
+      context: .
+      target: test
+    image: opryxx/ai-workbench-test:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+    volumes:
+      - ./tests/load:/app/tests/load
+    command: >
+      sh -c "locust -f tests/load/locustfile.py --host=http://app:8000"
+    ports:
+      - "8089:8089"
+    depends_on:
+      - app
+
+  app:
+    build:
+      context: .
+      target: production
+    image: opryxx/ai-workbench:${TAG:-latest}
+    environment:
+      - ENVIRONMENT=test
+      - TESTING=1
+    ports:
+      - "8000:8000"
+    depends_on:
+      - test-postgres
+      - test-redis
+
+volumes:
+  test_postgres_data:
+  test_redis_data:

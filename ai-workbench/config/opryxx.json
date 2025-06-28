@@ -1,0 +1,25 @@
+{
+  "opryxx": {
+    "version": "3.0.0",
+    "debug_mode": false,
+    "log_level": "INFO"
+  },
+  "monitoring": {
+    "enabled": true,
+    "interval_seconds": 30,
+    "gpu_monitoring": true,
+    "temperature_monitoring": true
+  },
+  "ai": {
+    "enabled": true,
+    "model": "nexus-3.0",
+    "intelligence_level": 85,
+    "learning_enabled": true
+  },
+  "javascript": {
+    "enabled": true,
+    "port": 3000,
+    "websocket_port": 3001,
+    "api_endpoint": "http://localhost:3000/api"
+  }
+}

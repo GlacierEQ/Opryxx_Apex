@@ -15,11 +15,11 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 # Core Architecture
-from architecture.core import RecoveryOrchestrator, RecoveryResult, RecoveryStatus
-from architecture.config import ConfigManager
-from services.recovery_service import RecoveryService
-from modules.safe_mode import SafeModeModule
-from modules.boot_repair import BootRepairModule
+from core.architecture.core import RecoveryOrchestrator, RecoveryResult, RecoveryStatus
+from core.architecture.config import ConfigManager
+from core.services.recovery_service import RecoveryService
+from core.modules.safe_mode import SafeModeModule
+from core.modules.boot_repair import BootRepairModule
 
 @dataclass
 class MegaTask:

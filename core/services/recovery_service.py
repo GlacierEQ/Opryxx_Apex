@@ -4,10 +4,10 @@ High-level recovery orchestration service
 """
 
 from typing import List
-from architecture.core import RecoveryOrchestrator, RecoveryResult
-from architecture.config import ConfigManager
-from modules.safe_mode import SafeModeModule
-from modules.boot_repair import BootRepairModule
+from core.architecture.core import RecoveryOrchestrator, RecoveryResult
+from core.architecture.config import ConfigManager
+from core.modules.safe_mode import SafeModeModule
+from core.modules.boot_repair import BootRepairModule
 import logging
 
 class RecoveryService:

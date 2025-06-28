@@ -1,0 +1,18 @@
+{
+  "endpoints": {
+    "status": "/api/system/status",
+    "metrics": "/api/metrics",
+    "events": "/api/events",
+    "actions": "/api/actions"
+  },
+  "python_bridge": {
+    "enabled": true,
+    "communication_method": "websocket",
+    "fallback_method": "file_system"
+  },
+  "real_time": {
+    "enabled": true,
+    "update_interval": 1000,
+    "batch_size": 100
+  }
+}
