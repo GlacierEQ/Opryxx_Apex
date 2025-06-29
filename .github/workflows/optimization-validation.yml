@@ -1,0 +1,87 @@
+name: Optimization Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      optimization-type:
+        description: 'Type of optimization to validate'
+        required: false
+        default: 'all'
+        type: choice
+        options:
+        - all
+        - service
+        - power
+        - memory
+        - disk
+        - security
+
+jobs:
+  validate-optimizations:
+    name: Validate Optimizations
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov wmi pywin32 psutil
+        
+    - name: Service Optimization Validation
+      if: ${{ github.event.inputs.optimization-type == 'all' || github.event.inputs.optimization-type == 'service' }}
+      run: |
+        python -m pytest tests/optimization/test_service_optimization.py -v
+        
+    - name: Power Plan Validation
+      if: ${{ github.event.inputs.optimization-type == 'all' || github.event.inputs.optimization-type == 'power' }}
+      run: |
+        python -m pytest tests/optimization/test_power_plan.py -v
+        
+    - name: Memory Optimization Validation
+      if: ${{ github.event.inputs.optimization-type == 'all' || github.event.inputs.optimization-type == 'memory' }}
+      run: |
+        python -m pytest tests/optimization/test_memory_optimization.py -v
+        
+    - name: Disk Optimization Validation
+      if: ${{ github.event.inputs.optimization-type == 'all' || github.event.inputs.optimization-type == 'disk' }}
+      run: |
+        python -m pytest tests/optimization/test_disk_optimization.py -v
+        
+    - name: Security Hardening Validation
+      if: ${{ github.event.inputs.optimization-type == 'all' || github.event.inputs.optimization-type == 'security' }}
+      run: |
+        python -m pytest tests/optimization/test_security_hardening.py -v
+        
+    - name: Generate Optimization Report
+      run: |
+        python scripts/generate_optimization_report.py
+        
+    - name: Upload Optimization Results
+      uses: actions/upload-artifact@v3
+      with:
+        name: optimization-results
+        path: |
+          optimization_report.html
+          test_results/*.xml
+        retention-days: 5
+        
+    - name: Check for Regressions
+      run: |
+        python scripts/check_optimization_regressions.py baseline.json current_results.json
+        
+    - name: Update Baseline
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      run: |
+        python scripts/update_baseline.py current_results.json

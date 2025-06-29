@@ -1,0 +1,83 @@
+name: Documentation
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'docs/**'
+      - '*.md'
+      - '.github/workflows/docs.yml'
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    name: Validate Documentation
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check Markdown
+      uses: avto-dev/markdown-lint@v1
+      with:
+        config: .markdownlint.json
+        args: '**/*.md --ignore node_modules'
+        
+    - name: Check for broken links
+      uses: gaurav-nelson/github-action-markdown-link-check@v1
+      with:
+        use-quiet-mode: 'yes'
+        use-verbose-mode: 'yes'
+        check-modified-files-only: 'no'
+        
+    - name: Validate README
+      run: |
+        # Check for required sections
+        required_sections=(
+          "## 🚀 Features"
+          "## 🛠 Installation"
+          "## 📖 Usage"
+          "## 📝 License"
+        )
+        
+        for section in "${required_sections[@]}"; do
+          if ! grep -q "^${section}$" README.md; then
+            echo "::error::Missing required section: ${section}"
+            exit 1
+          fi
+        done
+        
+    - name: Build documentation
+      run: |
+        pip install mkdocs-material mkdocstrings[python] mkdocs-markdownextradata-plugin
+        mkdocs build --strict --site-dir public
+        
+    - name: Check for dead links
+      uses: peter-evans/link-checker@v1
+      with:
+        args: -r -x '^https?://localhost.*' public/
+        
+    - name: Deploy to GitHub Pages
+      if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./public
+        keep_files: true
+        
+    - name: Check for outdated documentation
+      run: |
+        # Compare code with documentation
+        python scripts/check_docs.py
+        
+    - name: Generate API documentation
+      run: |
+        pip install pdoc3
+        pdoc --html -o docs/api/ src/opryxx/
+        
+    - name: Validate code examples
+      run: |
+        # Test code examples in documentation
+        python scripts/test_examples.py

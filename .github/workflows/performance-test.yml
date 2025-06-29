@@ -1,0 +1,63 @@
+name: Performance Test
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+    inputs:
+      duration:
+        description: 'Test duration (minutes)'
+        required: false
+        default: '10'
+
+jobs:
+  performance-test:
+    name: Performance Test
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install locust pyperf
+        
+    - name: Run performance tests
+      run: |
+        # Run memory leak test
+        python -m pytest tests/performance/test_memory_leaks.py -v
+        
+        # Run CPU profiling
+        python -m pytest tests/performance/test_cpu_usage.py -v
+        
+        # Run disk I/O test
+        python -m pytest tests/performance/test_disk_io.py -v
+        
+        # Run end-to-end performance test
+        locust -f tests/performance/load_test.py --headless -u 100 -r 10 --run-time ${{ github.event.inputs.duration || 10 }}m
+        
+    - name: Upload performance results
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-results
+        path: |
+          performance_*.csv
+          profile_results/
+        retention-days: 5
+        
+    - name: Analyze performance
+      run: |
+        # Generate performance report
+        python scripts/analyze_performance.py
+        
+        # Check for performance regressions
+        python scripts/check_regressions.py baseline.json current_results.json

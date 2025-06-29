@@ -83,7 +83,7 @@ fastapi-limiter==0.1.6  # For rate limiting
 fastapi-cache2==0.2.1  # For response caching
 fastapi-versioning==0.10.0  # For API versioning
 fastapi-pagination==0.12.8  # For pagination
-fastapi-cache-control==0.0.9  # For HTTP caching
+fastapi-cache-control>=0.3.0  # For HTTP caching
 fastapi-utils==0.2.1  # For various utilities
 python-slugify==8.0.1  # For URL-safe strings
 python-multipart==0.0.6  # For file uploads

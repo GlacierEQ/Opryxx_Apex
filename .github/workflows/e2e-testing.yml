@@ -1,0 +1,173 @@
+name: End-to-End Testing
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main, master ]
+    paths:
+      - '**'
+  pull_request:
+    branches: [ main, master ]
+    paths:
+      - '**'
+  schedule:
+    - cron: '0 0 * * 0' # Weekly on Sunday
+
+jobs:
+  e2e-test:
+    name: Run End-to-End Tests
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+        exclude:
+          # Skip Python 3.11 on Windows as some dependencies might not be available
+          - os: windows-latest
+            python-version: '3.11'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install system dependencies
+      if: runner.os != 'Windows'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends \
+          build-essential \
+          python3-dev \
+          python3-pip \
+          python3-venv
+    
+    - name: Set up virtual environment
+      run: |
+        python -m venv venv
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .\\venv\\Scripts\\activate
+        else
+          source venv/bin/activate
+        fi
+        python -m pip install --upgrade pip
+        pip install -e .[test]
+    
+    - name: Run unit tests
+      run: |
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .\\venv\\Scripts\\activate
+        else
+          source venv/bin/activate
+        fi
+        python -m pytest tests/unit -v --cov=./ --cov-report=xml
+    
+    - name: Run integration tests
+      run: |
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .\\venv\\Scripts\\activate
+        else
+          source venv/bin/activate
+        fi
+        python -m pytest tests/integration -v
+    
+    - name: Run system tests
+      run: |
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          .\\venv\\Scripts\\activate
+        else
+          source venv/bin/activate
+        fi
+        python -m pytest tests/system -v
+    
+    - name: Run GUI tests (if applicable)
+      if: ${{ runner.os == 'Windows' }}
+      run: |
+        .\\venv\\Scripts\\activate
+        python -m pytest tests/gui -v --headed --slowmo 100
+    
+    - name: Upload test results
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.os }}-py${{ matrix.python-version }}
+        path: |
+          test-reports/
+          coverage.xml
+        retention-days: 7
+    
+    - name: Upload coverage to Codecov
+      if: success() && github.event_name != 'pull_request'
+      uses: codecov/codecov-action@v3
+      with:
+        token: ${{ secrets.CODECOV_TOKEN || 'dummy-token' }}
+        file: ./coverage.xml
+        fail_ci_if_error: false
+        verbose: true
+
+  # Additional test scenarios
+  test-scenarios:
+    name: Test Scenarios
+    needs: e2e-test
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Test with different configurations
+      run: |
+        echo "Running test scenarios with different configurations..."
+        # Add your scenario tests here
+        # Example: python -m pytest tests/scenarios -v
+    
+    - name: Performance testing
+      run: |
+        echo "Running performance tests..."
+        # Add performance testing commands here
+        # Example: python -m pytest tests/performance -v
+
+  # Deployment test (if applicable)
+  deploy-test:
+    name: Deployment Test
+    needs: test-scenarios
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Test deployment
+      run: |
+        echo "Testing deployment process..."
+        # Add deployment test commands here
+
+  # Report generation
+  report:
+    name: Generate Test Report
+    if: always()
+    needs: [e2e-test, test-scenarios, deploy-test]
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Download test results
+      uses: actions/download-artifact@v3
+      with:
+        path: test-results
+    
+    - name: Generate test report
+      run: |
+        echo "Generating test report..."
+        # Add report generation commands here
+        
+    - name: Upload test report
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-report
+        path: test-report.html
+        retention-days: 7

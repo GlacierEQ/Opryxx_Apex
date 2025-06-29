@@ -4,9 +4,16 @@ Prepares system for clean Windows 11 reinstall
 """
 
 import os
+import sys
 import subprocess
 import json
 from datetime import datetime
+
+# Set console to use UTF-8 encoding
+if sys.platform == 'win32':
+    import io
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
 class AutoReinstallHelper:
     def __init__(self):
@@ -30,7 +37,7 @@ class AutoReinstallHelper:
     def _gather_system_info(self):
         """Gather important system information"""
         
-        print("📋 Gathering system information...")
+        print("[INFO] Gathering system information...")
         
         try:
             # Get Windows product key
@@ -75,38 +82,44 @@ Computer Name: {self.backup_info.get('computer_name', 'Unknown')}
 Username: {self.backup_info.get('username', 'Unknown')}
 Windows Product Key: {self.backup_info.get('product_key', 'Not found')}
 
-📋 PRE-REINSTALL CHECKLIST:
+PRE-INSTALL CHECKLIST:
 [ ] Backup all important files to external drive
 [ ] Export browser bookmarks and passwords
 [ ] Note down WiFi passwords
 [ ] Save software license keys
 [ ] Create Windows 11 bootable USB
-[ ] Download NEXUS AI installer
-[ ] Download essential drivers
+[ ] Back up personal files
+[ ] Save product keys
+[ ] Download Windows 11 ISO
+[ ] Create bootable USB
 
-🚀 REINSTALL PROCESS:
-[ ] Boot from USB drive
-[ ] Delete all partitions (NUCLEAR WIPE)
-[ ] Install Windows 11 clean
-[ ] Complete initial setup
-[ ] Install drivers
+PREP PRE-INSTALL:
+[ ] Disable Secure Boot
+[ ] Enable TPM 2.0
+[ ] Backup drivers
+[ ] Save network settings
+
+INSTALL INSTALLATION:
+[ ] Boot from USB
+[ ] Delete all partitions
+[ ] Install Windows 11
 [ ] Install NEXUS AI system
 [ ] Restore backed up files
 
-⚡ POST-INSTALL:
+POST POST-INSTALL:
 [ ] Run Windows Updates
 [ ] Install NEXUS AI Ultimate
 [ ] Activate 24/7 optimization
 [ ] Restore personal files
 [ ] Reinstall essential programs
 
-🎯 RESULT: Brand new PC with NEXUS AI!
+COMPLETE RESULT: Brand new PC with NEXUS AI!
 """
         
-        with open('REINSTALL_CHECKLIST.txt', 'w') as f:
+        with open('REINSTALL_CHECKLIST.txt', 'w', encoding='utf-8') as f:
             f.write(checklist)
         
-        print("✅ Reinstall checklist created: REINSTALL_CHECKLIST.txt")
+        print("Reinstall checklist created: REINSTALL_CHECKLIST.txt")
     
     def _show_next_steps(self):
         """Show next steps for user"""
@@ -118,8 +131,8 @@ Windows Product Key: {self.backup_info.get('product_key', 'Not found')}
         print("4. Run recovery/NUCLEAR_RESET.bat for complete guide")
         print("5. Follow step-by-step process")
         
-        print(f"\n🔑 Your Windows Product Key: {self.backup_info.get('product_key', 'Not found')}")
-        print("💾 Save this key - you'll need it!")
+        print(f"\n[KEY] Your Windows Product Key: {self.backup_info.get('product_key', 'Not found')}")
+        print("[SAVE] Save this key - you'll need it!")
 
 def main():
     """Run auto reinstall helper"""
