@@ -1,0 +1,58 @@
+name: Template Sync
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_repo:
+        description: 'Target repository to sync workflows to'
+        required: true
+        type: string
+  schedule:
+    - cron: '0 6 * * 0'  # Weekly on Sunday at 6 AM
+
+jobs:
+  sync-workflows:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout source
+      uses: actions/checkout@v4
+      with:
+        path: source
+    
+    - name: Checkout target
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ inputs.target_repo || 'your-org/target-repo' }}
+        token: ${{ secrets.SYNC_TOKEN }}
+        path: target
+    
+    - name: Sync workflow files
+      run: |
+        # Copy reusable workflows
+        cp -r source/.github/workflows/reusable-*.yml target/.github/workflows/ || true
+        
+        # Copy configuration files
+        cp source/.bandit target/ || true
+        cp source/pyproject.toml target/ || true
+        cp source/mkdocs.yml target/ || true
+        
+        # Copy scripts
+        mkdir -p target/scripts
+        cp -r source/scripts/* target/scripts/ || true
+    
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.SYNC_TOKEN }}
+        path: target
+        commit-message: 'ci: sync workflow templates'
+        title: 'ci: sync workflow templates'
+        body: |
+          Automated sync of workflow templates from main repository
+          
+          Updated files:
+          - GitHub Actions workflows
+          - Configuration files
+          - Scripts
+        branch: sync-workflows
+        delete-branch: true

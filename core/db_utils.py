@@ -11,9 +11,12 @@ from sqlalchemy import event, exc, orm
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session, sessionmaker
 
-from core.performance import PerformanceMonitor, monitor_performance
-from core.caching import CacheManager, cached
-from config.performance import performance_config
+# from core.performance import PerformanceMonitor, monitor_performance
+# from core.caching import CacheManager, cached
+# from config.performance import performance_config
+
+# Simplified imports for compatibility
+import threading
 
 # Type variables
 T = TypeVar('T')
@@ -23,10 +26,10 @@ F = TypeVar('F', bound=Callable[..., Any])
 logger = logging.getLogger(__name__)
 
 # Initialize performance monitor
-perf_monitor = PerformanceMonitor()
+# perf_monitor = PerformanceMonitor()
 
 # Initialize cache
-cache = CacheManager()
+# cache = CacheManager()
 
 class QueryProfiler:
     """Database query profiler and optimizer."""
@@ -60,7 +63,8 @@ class QueryProfiler:
             self.queries.append(query_info)
             
             # Track slow queries
-            if duration >= performance_config.SLOW_QUERY_THRESHOLD:
+            SLOW_QUERY_THRESHOLD = 1.0  # Default threshold
+            if duration >= SLOW_QUERY_THRESHOLD:
                 self.slow_queries.append(query_info)
                 logger.warning(
                     f"Slow query ({duration:.3f}s): {statement}",
@@ -79,7 +83,7 @@ class QueryProfiler:
                 'slow_queries': len(self.slow_queries),
                 'total_time': total_time,
                 'avg_time': avg_time,
-                'slow_query_threshold': performance_config.SLOW_QUERY_THRESHOLD
+                'slow_query_threshold': 1.0
             }
     
     def reset_stats(self) -> None:
@@ -163,7 +167,7 @@ class DatabaseManager:
         rows = self.fetch_all(query, params)
         return rows[0] if rows else None
     
-    @monitor_performance("bulk_insert")
+    # @monitor_performance("bulk_insert")
     def bulk_insert(self, model: Any, data: List[Dict]) -> List[Any]:
         """Bulk insert multiple records."""
         with self.session_scope() as session:

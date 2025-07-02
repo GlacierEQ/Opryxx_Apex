@@ -1,0 +1,83 @@
+name: Code Quality
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install quality tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install black isort flake8 mypy pylint bandit
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+    
+    - name: Format with Black
+      run: black --check --diff .
+    
+    - name: Sort imports with isort
+      run: isort --check-only --diff .
+    
+    - name: Lint with flake8
+      run: flake8 . --count --statistics
+    
+    - name: Type check with mypy
+      run: mypy . --ignore-missing-imports || true
+    
+    - name: Lint with pylint
+      run: pylint **/*.py --output-format=json > pylint-report.json || true
+    
+    - name: Security check with bandit
+      run: bandit -r . -f json -o bandit-report.json || true
+    
+    - name: Upload quality reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: code-quality-reports
+        path: |
+          pylint-report.json
+          bandit-report.json
+
+  complexity-analysis:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+    
+    - name: Install analysis tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install radon xenon mccabe
+    
+    - name: Cyclomatic complexity
+      run: radon cc . --json > complexity-report.json
+    
+    - name: Maintainability index
+      run: radon mi . --json > maintainability-report.json
+    
+    - name: Halstead metrics
+      run: radon hal . --json > halstead-report.json
+    
+    - name: Upload complexity reports
+      uses: actions/upload-artifact@v3
+      with:
+        name: complexity-reports
+        path: |
+          complexity-report.json
+          maintainability-report.json
+          halstead-report.json

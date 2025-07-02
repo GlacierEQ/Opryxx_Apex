@@ -1,0 +1,38 @@
+site_name: OPRYXX Performance Monitoring System
+site_description: Advanced Performance Monitoring and System Optimization
+site_url: https://your-username.github.io/OPRYXX_LOGS
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: blue
+      accent: cyan
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - toc.integrate
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Architecture: ARCHITECTURE.md
+  - User Guide: USER_GUIDE.md
+  - API Documentation: API_DOCUMENTATION.md
+  - Performance Guide: performance_guide.md
+  - Recovery System: RECOVERY_SYSTEM_README.md
+
+plugins:
+  - search
+  - mermaid2
+
+markdown_extensions:
+  - admonition
+  - codehilite
+  - toc:
+      permalink: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid

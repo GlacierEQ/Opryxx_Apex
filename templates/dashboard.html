@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OPRYXX Control Center</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #1a1a1a; color: white; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .metric-card { background: #2d2d2d; padding: 20px; border-radius: 10px; border: 1px solid #444; }
+        .metric-value { font-size: 2em; font-weight: bold; color: #00ff88; }
+        .controls { margin: 20px 0; text-align: center; }
+        button { background: #007acc; color: white; border: none; padding: 10px 20px; margin: 5px; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #005a99; }
+        .chart-container { width: 100%; height: 300px; margin: 20px 0; }
+        .status-indicator { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; }
+        .status-online { background: #00ff88; }
+        .status-offline { background: #ff4444; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>OPRYXX Unified Control Center</h1>
+            <p>Real-time System Monitoring and Control</p>
+        </div>
+        
+        <div class="controls">
+            <button onclick="startMonitoring()">Start Monitoring</button>
+            <button onclick="stopMonitoring()">Stop Monitoring</button>
+            <button onclick="optimizeMemory()">Optimize Memory</button>
+            <button onclick="runBenchmark()">GPU Benchmark</button>
+        </div>
+        
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <h3><span id="perf-status" class="status-indicator status-offline"></span>Performance Monitor</h3>
+                <div class="metric-value" id="cpu-usage">0%</div>
+                <p>CPU Usage</p>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Memory Usage</h3>
+                <div class="metric-value" id="memory-usage">0%</div>
+                <p>System Memory</p>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Performance Score</h3>
+                <div class="metric-value" id="perf-score">0</div>
+                <p>Overall Performance</p>
+            </div>
+            
+            <div class="metric-card">
+                <h3>Available Memory</h3>
+                <div class="metric-value" id="memory-available">0 MB</div>
+                <p>Free Memory</p>
+            </div>
+        </div>
+        
+        <div class="chart-container">
+            <canvas id="metricsChart"></canvas>
+        </div>
+        
+        <div id="status-log" style="background: #2d2d2d; padding: 15px; border-radius: 5px; height: 200px; overflow-y: scroll; font-family: monospace;"></div>
+    </div>
+
+    <script>
+        const socket = io();
+        const ctx = document.getElementById('metricsChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [],
+                datasets: [{
+                    label: 'CPU Usage',
+                    data: [],
+                    borderColor: '#ff6b6b',
+                    tension: 0.1
+                }, {
+                    label: 'Memory Usage',
+                    data: [],
+                    borderColor: '#4ecdc4',
+                    tension: 0.1
+                }, {
+                    label: 'Performance Score',
+                    data: [],
+                    borderColor: '#45b7d1',
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true, max: 100 }
+                }
+            }
+        });
+
+        socket.on('connect', function() {
+            logMessage('Connected to OPRYXX System');
+        });
+
+        socket.on('metrics_update', function(data) {
+            document.getElementById('cpu-usage').textContent = data.cpu_usage.toFixed(1) + '%';
+            document.getElementById('memory-usage').textContent = data.memory_usage.toFixed(1) + '%';
+            document.getElementById('perf-score').textContent = data.performance_score.toFixed(1);
+            document.getElementById('memory-available').textContent = data.memory_available.toFixed(0) + ' MB';
+            
+            // Update chart
+            const time = new Date(data.timestamp).toLocaleTimeString();
+            chart.data.labels.push(time);
+            chart.data.datasets[0].data.push(data.cpu_usage);
+            chart.data.datasets[1].data.push(data.memory_usage);
+            chart.data.datasets[2].data.push(data.performance_score);
+            
+            if (chart.data.labels.length > 20) {
+                chart.data.labels.shift();
+                chart.data.datasets.forEach(dataset => dataset.data.shift());
+            }
+            
+            chart.update('none');
+        });
+
+        function startMonitoring() {
+            fetch('/api/start_monitoring', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    logMessage('Monitoring started');
+                    document.getElementById('perf-status').className = 'status-indicator status-online';
+                });
+        }
+
+        function stopMonitoring() {
+            fetch('/api/stop_monitoring', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => {
+                    logMessage('Monitoring stopped');
+                    document.getElementById('perf-status').className = 'status-indicator status-offline';
+                });
+        }
+
+        function optimizeMemory() {
+            fetch('/api/optimize_memory', {method: 'POST'})
+                .then(response => response.json())
+                .then(data => logMessage(`Memory optimized: ${data.freed_mb.toFixed(2)} MB freed`));
+        }
+
+        function runBenchmark() {
+            logMessage('Running GPU benchmark...');
+            fetch('/api/gpu_benchmark', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({size: 1000})})
+                .then(response => response.json())
+                .then(data => {
+                    logMessage(`Benchmark completed on ${data.device}`);
+                    Object.entries(data).forEach(([key, value]) => {
+                        if (key !== 'device') logMessage(`${key}: ${value.toFixed(2)}ms`);
+                    });
+                });
+        }
+
+        function logMessage(message) {
+            const log = document.getElementById('status-log');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML += `[${time}] ${message}<br>`;
+            log.scrollTop = log.scrollHeight;
+        }
+
+        // Request initial update
+        socket.emit('request_update');
+    </script>
+</body>
+</html>

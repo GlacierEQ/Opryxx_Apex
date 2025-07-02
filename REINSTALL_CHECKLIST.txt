@@ -1,0 +1,41 @@
+
+WINDOWS 11 CLEAN REINSTALL CHECKLIST
+Generated: 2025-06-28 15:21:26
+
+🔑 SYSTEM INFORMATION:
+Computer Name: NEWAYGE
+Username: casey
+Windows Product Key: F4NYK-83WFR-47KVT-9X63P-BR9V2
+
+PRE-INSTALL CHECKLIST:
+[ ] Backup all important files to external drive
+[ ] Export browser bookmarks and passwords
+[ ] Note down WiFi passwords
+[ ] Save software license keys
+[ ] Create Windows 11 bootable USB
+[ ] Back up personal files
+[ ] Save product keys
+[ ] Download Windows 11 ISO
+[ ] Create bootable USB
+
+PREP PRE-INSTALL:
+[ ] Disable Secure Boot
+[ ] Enable TPM 2.0
+[ ] Backup drivers
+[ ] Save network settings
+
+INSTALL INSTALLATION:
+[ ] Boot from USB
+[ ] Delete all partitions
+[ ] Install Windows 11
+[ ] Install NEXUS AI system
+[ ] Restore backed up files
+
+POST POST-INSTALL:
+[ ] Run Windows Updates
+[ ] Install NEXUS AI Ultimate
+[ ] Activate 24/7 optimization
+[ ] Restore personal files
+[ ] Reinstall essential programs
+
+COMPLETE RESULT: Brand new PC with NEXUS AI!
