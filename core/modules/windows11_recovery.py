@@ -200,42 +200,49 @@ class Windows11Recovery:
         try:
             # Create or open the LabConfig key
             base_key = winreg.HKEY_LOCAL_MACHINE
-            key_path = r"SYSTEM\Setup\LabConfig"
+            key_paths = [
+                r"SYSTEM\Setup\LabConfig",
+                r"SYSTEM\Setup\MoSetup"
+            ]
             
-            # Create the key if it doesn't exist
-            try:
-                with winreg.CreateKeyEx(base_key, key_path, 0, winreg.KEY_WRITE | winreg.KEY_WOW64_64KEY) as key:
-                    # Set the bypass values
-                    winreg.SetValueEx(key, 'BypassTPMCheck', 0, winreg.REG_DWORD, 1)
-                    winreg.SetValueEx(key, 'BypassSecureBootCheck', 0, winreg.REG_DWORD, 1)
-                    winreg.SetValueEx(key, 'BypassRAMCheck', 0, winreg.REG_DWORD, 1)
-                    winreg.SetValueEx(key, 'BypassStorageCheck', 0, winreg.REG_DWORD, 1)
-                    winreg.SetValueEx(key, 'BypassCPUCheck', 0, winreg.REG_DWORD, 1)
-            except WindowsError as e:
-                self.logger.error(f"Error setting registry key {key_path}: {e}")
-                return {
-                    'success': False,
-                    'message': f'Failed to set registry keys: {str(e)}',
-                    'requires_admin': True
-                }
-                
+            # Set registry values for each key path
+            for key_path in key_paths:
+                try:
+                    # Create or open the key with write access
+                    with winreg.CreateKeyEx(base_key, key_path, 0, 
+                                         winreg.KEY_WRITE | winreg.KEY_WOW64_64KEY) as key:
+                        
+                        # Set appropriate values based on the key path
+                        if 'LabConfig' in key_path:
+                            winreg.SetValueEx(key, 'BypassTPMCheck', 0, winreg.REG_DWORD, 1)
+                            winreg.SetValueEx(key, 'BypassSecureBootCheck', 0, winreg.REG_DWORD, 1)
+                            winreg.SetValueEx(key, 'BypassRAMCheck', 0, winreg.REG_DWORD, 1)
+                            winreg.SetValueEx(key, 'BypassStorageCheck', 0, winreg.REG_DWORD, 1)
+                            winreg.SetValueEx(key, 'BypassCPUCheck', 0, winreg.REG_DWORD, 1)
+                        elif 'MoSetup' in key_path:
+                            winreg.SetValueEx(key, 'AllowUpgradesWithUnsupportedTPMOrCPU', 0, 
+                                           winreg.REG_DWORD, 1)
+                            
+                except WindowsError as e:
+                    self.logger.error(f"Error setting registry key {key_path}: {e}")
+                    return {
                         'success': False,
-                        'error': f'Failed to set registry key: {str(e)}',
-                        'failed_key': f'{key_path}\\{value_name}'
+                        'message': f'Failed to set registry keys in {key_path}: {str(e)}',
+                        'requires_admin': True
                     }
-            
+                
             return {
                 'success': True,
                 'message': 'Successfully bypassed Windows 11 requirements',
-                'details': 'Registry keys have been modified to bypass TPM, Secure Boot, and RAM checks.'
+                'requires_restart': True
             }
-            
+                
         except Exception as e:
-            self.logger.error(f"Error bypassing Windows 11 requirements: {e}")
+            self.logger.error(f"Unexpected error in bypass_tpm_check: {e}")
             return {
                 'success': False,
-                'error': f'Failed to bypass requirements: {str(e)}',
-                'details': str(e)
+                'message': f'Unexpected error: {str(e)}',
+                'requires_admin': True
             }
             
     def create_registry_bypass(self) -> Tuple[bool, str]:

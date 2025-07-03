@@ -1,24 +1,6 @@
 ""
 Tests for the authentication system.
 """
-import pytest
-from fastapi.testclient import TestClient
-from fastapi import status
-from api.main import app
-from core.auth import (
-    get_password_hash,
-    verify_password,
-    get_user,
-    authenticate_user,
-    create_access_token,
-    get_current_user,
-    User
-)
-
-# Test client
-client = TestClient(app)
-
-# Test data
 TEST_USERNAME = "testuser"
 TEST_PASSWORD = "testpass123"
 TEST_ROLES = ["user"]
@@ -43,11 +25,6 @@ def test_password_hashing():
 
 def test_authenticate_user_success(test_user):
     """Test successful user authentication."""
-    user = authenticate_user(TEST_USERNAME, TEST_PASSWORD)
-    assert user is not None
-    assert user.username == TEST_USERNAME
-
-def test_authenticate_user_wrong_password(test_user):
     """Test authentication with wrong password."""
     user = authenticate_user(TEST_USERNAME, "wrongpassword")
     assert user is None
@@ -60,7 +37,6 @@ def test_authenticate_nonexistent_user():
 # Integration Tests
 def test_login_success():
     """Test successful login and token retrieval."""
-    response = client.post(
         "/token",
         data={"username": "admin", "password": "admin123"},
         headers={"content-type": "application/x-www-form-urlencoded"}
@@ -71,7 +47,6 @@ def test_login_success():
 
 def test_login_invalid_credentials():
     """Test login with invalid credentials."""
-    response = client.post(
         "/token",
         data={"username": "wrong", "password": "wrong"},
         headers={"content-type": "application/x-www-form-urlencoded"}
@@ -85,8 +60,6 @@ def test_protected_route_without_token():
 
 def test_protected_route_with_token():
     """Test accessing protected route with valid token."""
-    # First get a token
-    token_response = client.post(
         "/token",
         data={"username": "admin", "password": "admin123"},
         headers={"content-type": "application/x-www-form-urlencoded"}

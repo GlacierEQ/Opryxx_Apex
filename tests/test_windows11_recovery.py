@@ -65,14 +65,28 @@ class TestWindows11Recovery(unittest.TestCase):
         self.assertTrue(result['passed'])
         self.assertIn('256.0GB', result['message'])
         
-    @patch('winreg.CreateKey')
+    @patch('winreg.CreateKeyEx')
     @patch('winreg.SetValueEx')
     def test_bypass_tpm_check_admin(self, mock_set, mock_create):
         """Test TPM bypass with admin privileges"""
+        # Setup mock return values
+        mock_key = MagicMock()
+        mock_create.return_value.__enter__.return_value = mock_key
+        
         with patch.object(self.recovery, 'is_admin', True):
             result = self.recovery.bypass_tpm_check()
+            
+            # Verify registry keys were set
             self.assertTrue(result['success'])
-            self.assertIn('bypassed', result['message'])
+            self.assertIn('bypassed', result['message'].lower())
+            
+            # Verify the correct registry keys were set
+            mock_create.assert_called()
+            mock_set.assert_called()
+            
+            # Check that we tried to create the LabConfig key
+            call_args = [call[0] for call in mock_create.call_args_list]
+            self.assertTrue(any('LabConfig' in str(args[1]) for args in call_args))
             
     @patch('builtins.open')
     @patch('os.makedirs')

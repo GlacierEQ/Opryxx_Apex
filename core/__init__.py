@@ -1,24 +1,30 @@
 """
 OPRYXX Core Module
-Unified system architecture with best practices
 """
 
-__version__ = "1.0.0"
-__author__ = "OPRYXX Team"
+# Core imports with error handling
+try:
+    from .config import Config, get_config
+except ImportError:
+    class Config:
+        def __init__(self):
+            pass
+    def get_config():
+        return Config()
 
-from .base import BaseModule, ModuleRegistry
-from .config import ConfigManager, ConfigSource, ConfigFormat, config, get_config
-from .logger import Logger
-from .exceptions import OPRYXXException
+try:
+    from .performance_monitor import performance_monitor
+except ImportError:
+    performance_monitor = None
 
-__all__ = [
-    'BaseModule', 
-    'ModuleRegistry', 
-    'ConfigManager', 
-    'ConfigSource', 
-    'ConfigFormat', 
-    'config', 
-    'get_config',
-    'Logger', 
-    'OPRYXXException'
-]
+try:
+    from .memory_optimizer import memory_optimizer
+except ImportError:
+    memory_optimizer = None
+
+try:
+    from .gpu_acceleration import accelerator
+except ImportError:
+    accelerator = None
+
+__all__ = ['Config', 'get_config', 'performance_monitor', 'memory_optimizer', 'accelerator']

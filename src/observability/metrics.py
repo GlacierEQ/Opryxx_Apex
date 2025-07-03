@@ -69,3 +69,5 @@ def track_performance(func):
             result = await func(*args, **kwargs)
             duration = time.time() - start_time
             metrics.track_model_inference(func
+
+)

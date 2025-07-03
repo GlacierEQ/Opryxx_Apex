@@ -3,23 +3,6 @@ OPRYXX API - Main Application
 
 Provides RESTful API endpoints for the OPRYXX system with JWT authentication.
 """
-from datetime import timedelta
-from typing import Optional
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.security import OAuth2PasswordRequestForm
-from pydantic import BaseModel
-
-from core.auth import (
-    authenticate_user,
-    create_access_token,
-    get_current_user,
-    User,
-    ACCESS_TOKEN_EXPIRE_MINUTES
-)
-
-# Initialize FastAPI app
-app = FastAPI(
     title="OPRYXX API",
     description="API for OPRYXX Recovery and Optimization System",
     version="2.0.0"
@@ -53,10 +36,6 @@ class UserInDB(UserBase):
 @app.post("/token", response_model=Token)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends()):
     """OAuth2 compatible token login, get an access token for future requests."""
-    user = authenticate_user(form_data.username, form_data.password)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Incorrect username or password",
             headers={"WWW-Authenticate": "Bearer"},
         )
@@ -70,9 +49,6 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
 @app.get("/users/me/", response_model=UserBase)
 async def read_users_me(current_user: User = Depends(get_current_user)):
     """Get current user information."""
-    return current_user
-
-# Health check endpoint
 @app.get("/health")
 async def health_check():
     """Health check endpoint."""

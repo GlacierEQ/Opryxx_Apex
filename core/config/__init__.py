@@ -1,22 +1,26 @@
 """
-OPRYXX Configuration Package
+OPRYXX Configuration Module
 
-This package provides a unified configuration management system for the OPRYXX platform.
+This module provides a unified configuration management system for OPRYXX.
 
-Features:
-- Multiple config formats (YAML, JSON, TOML, ENV)
-- Environment variable overrides
-- Hot-reloading of config files
-- Schema validation
-- Type conversion and defaults
+It includes:
+- ConfigManager: Centralized configuration management with hot-reloading
+- ConfigSource: Represents a configuration source (file, env vars, etc.)
+- ConfigFormat: Enum of supported configuration formats (YAML, JSON, TOML, ENV)
 """
 
-from .manager import ConfigManager, ConfigSource, ConfigFormat, config, get_config
+from .manager import (
+    ConfigManager,
+    ConfigSource,
+    ConfigFormat,
+    config,
+    get_config
+)
 
 __all__ = [
     'ConfigManager',
     'ConfigSource',
     'ConfigFormat',
     'config',
-    'get_config',
+    'get_config'
 ]
