@@ -1,0 +1,308 @@
+{
+  "summary": {
+    "total_files": 226,
+    "total_lines": 57861,
+    "total_functions": 2716,
+    "total_classes": 358,
+    "avg_complexity": 19.76991150442478
+  },
+  "duplicates": {
+    "dcbd72b369f1293dfbcbeda0356e12dd": [
+      "LAYER_1_SIMPLE.py"
+    ],
+    "76ddd998bd2739de4bf8a0ad805665d1": [
+      "LAYER_1_SIMPLE.py"
+    ],
+    "da17a0b3bedbc0647fb6c6848dc61d09": [
+      "LAYER_1_SIMPLE.py"
+    ],
+    "04fe367a568a07104e79d1bdd6c02143": [
+      "PROJECT_SCANNER_FIXED.py"
+    ],
+    "1af3cfdce80af52b2c811e77a80b7f23": [
+      "PROJECT_SCANNER_FIXED.py"
+    ],
+    "443e1913c024237d3d59106b560cec8d": [
+      "PROJECT_SCANNER_FIXED.py"
+    ],
+    "89ec6a99ad02334676404b61c1cff29c": [
+      "PROJECT_SCANNER_FIXED.py"
+    ],
+    "c513b7f4692c6d1d6863d001be81a089": [
+      "SAMSUNG_SSD_RECOVERY.py",
+      "recovery\\samsung_4tb_recovery.py",
+      "recovery\\windows11_bypass.py"
+    ],
+    "5f1599d69820abd5b66bef909eda95a4": [
+      "SAMSUNG_SSD_RECOVERY.py"
+    ],
+    "e9993bb6eeda95f74dd860377b7f5761": [
+      "SAMSUNG_SSD_RECOVERY.py"
+    ],
+    "9e8d6f932a293691aa06d13f2a07148f": [
+      "ULTIMATE_AI_LAUNCHER.py"
+    ],
+    "9fa4a090e826156457b78d59d84e10e0": [
+      "ai\\AI_WORKBENCH.py",
+      "ai\\ULTIMATE_AI_OPTIMIZER.py",
+      "gui\\MEGA_OPRYXX.py",
+      "gui\\modern_interface.py",
+      "gui\\unified_gui.py",
+      "integration\\combined_interface.py"
+    ],
+    "d6f1f4e2a7f50695ec522fdbdba9d310": [
+      "ai\\ULTIMATE_AI_OPTIMIZER.py"
+    ],
+    "87b4fdbb0609536d27d0703af9f930f2": [
+      "core\\modules\\uefi_boot_repair.py"
+    ],
+    "5c56e691518a2d7f97425adf97c44172": [
+      "gui\\modern_interface.py"
+    ],
+    "9408649a6fb1aee3ee94be9a43f31b39": [
+      "gui\\modern_interface.py"
+    ],
+    "80c8e3f7ac40c5a843233f016c07fe07": [
+      "gui\\modern_interface.py"
+    ],
+    "44eae65bd9ac0630683a2533c48a48de": [
+      "gui\\modern_interface.py",
+      "integration\\combined_interface.py"
+    ],
+    "3171adbe0e392020c1b7555d5585cf10": [
+      "integration\\combined_interface.py"
+    ],
+    "91e482fa1488931256005e9571e6ef0a": [
+      "modules\\recovery\\samsung_recovery.py"
+    ],
+    "97033d0844fef9581f439e571133410a": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "90a16b55ada348a9e7d69e0350a088d8": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "b940031e7428f7d9977b3095b031a768": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "404929abadd157b04662163cc39ed747": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "27cc381ece1b5c00b11a34e6271e6b75": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "cd6857c91b0fbf96ea137930a80fd062": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "9a9065437ebbd765e182eb8c613c7a14": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "bcd343cf9d70d9a98127ff5f39443e76": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "f63b60aeb2e5f723241922dfc426a04d": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "65aa9c3c95ddf7a9a313629ad991b0cc": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "e3730d3478619df83d71c7152009ba53": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "e6763cdb1b5162286700a4dad9d71732": [
+      "OPRYXX_READY\\master_start.py"
+    ],
+    "38ad895568e443a1b5b41a14dfaeb3c6": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "2b611c40226cd829513fb3dee798e930": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7c3a00d32efe2fe003b3f4a059dac9af": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "9e47b474315d857e7b51904e64a31404": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "a19d614e178804a2a3b783dddf21b5c3": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "8e309e8f7ec1774fca5841e18c1f23a1": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "37bfcc40792decb0b362a4d3bdcbf804": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "f269270c8bf11fafd186e9e128d66da0": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "148af6b6f519c28322845bd33a2643aa": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "dca24f801d409dcdaf7e185572764789": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "6810cf90897c21f8f606fa261b66df6e": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "ab6d0a51fd47e96053f1c1b80fa4c063": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7944ef6f52cd13092ba118c5dd73ef1a": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "ab7a8704b18d941f957ec9a5c27a95df": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "522f4de816fd129ff1e347695b32ff56": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "d6f1b578011aa936d869ad50e799fd49": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "63bfc261d3ef7713e6042d8db363a681": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "28e4af6bc408d5b0cd384c2ac0fab049": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "e88a81c8d21526d90d2e88d76b19a2d3": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "9d2feda8eb5e454ebdda90cd27639d26": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7ac8b5b5fdea8959d1180d175cc4c765": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "8966cf839a03d0216a60be8e706c1f21": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7c4fdb8b576e7c325843222bed8166ba": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "c3cf8b9c431b4925ebb12ed63df2256f": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7080c438a6d3d08d67ef0b3ca5007099": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "3f6c888a588adc6164cea4914054b2a5": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "9579baecc92492a15fcb0eaadccd4107": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "4c2f6b1dde6f68be6a431967b2762e0e": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "31906e5570992869c5bc7f614fd3cc27": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "4eb1e13c344a36f010e246c56a35d43e": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "c6a35fe0b19050e8216e39a9d0a26ae2": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "c3ecf328e1c5d62dde3af2e76facc4e4": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "6a2ee5a8f309a43d8957510ebc525360": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "6bb27bef5a676a07b21e35289aaf6634": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7f258767cf1d71987de6516b90eb16af": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "c8c6f8d70513a24189d16278304179b8": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7315ea1934565ce13ddbd1d0a7ba0e2b": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "7d4bd45326421415c49534f326622d51": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "8246b49bb79c076783d1da8ac8b332a1": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "779f5751396f914c8e4f03c7e5067ddb": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "c4d3756809db7147041d2b18735b9e19": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "b268b7aa9a358e30acf3f94bc8c6b793": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "14069f3e2bee8123ba2b8c7cb9fb5048": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "43820a6dffc61bc742d1e6b6a8099d3d": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "f0c669ff240ec2922f7cbfb17e28e056": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "46af61b2f85b06179f7e38426245daae": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "4af19b07190150ec19c55b99f169a8ae": [
+      "OPRYXX_READY\\UNIFIED_FULL_STACK_GUI.py"
+    ],
+    "bbccabd1bf3aef60783698a41776531b": [
+      "resilience\\circuit_breaker.py"
+    ],
+    "ef52a64b38a0ba70819e24427c8723f1": [
+      "tests\\unit\\test_retry.py"
+    ],
+    "6a637dd5f2b188125124962466c93fb2": [
+      "utils\\driver_manager.py"
+    ],
+    "61a3f408bd0ef3d938cfd85857f081ae": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "88a9ce2d3c4d2efeda0f241171ee43c7": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "d955dc715065e11b71c8b6e82828271b": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "9cc0306c999d86662cefb6bd46bb6074": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "f8dceb5dbf88e73c9ea38191cfadc1f1": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "80c5b7128dcd0a205a0b80874f6dc8cc": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "49963c7a01a6a6c63ee0cb056f09ae90": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "416d6ea0cbf778aa76e729209ba0d022": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "0763b9fea6d1d5ee10b8943901944efd": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "0ada24d28f0fe15957409ff213f6c4b2": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "4df183bed3fec05c866d6fd361a95c22": [
+      "winre\\winre_agent_enhanced.py"
+    ],
+    "67b7a18b55747a233ea8d784593dcd22": [
+      "winre\\winre_agent_enhanced.py"
+    ]
+  },
+  "issues": [],
+  "recommendations": [
+    "Refactor 77 high-complexity files",
+    "Split 23 large files",
+    "Increase test coverage"
+  ],
+  "architecture_score": 0
+}

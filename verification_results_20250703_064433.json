@@ -1,0 +1,69 @@
+{
+  "timestamp": "2025-07-03T06:44:26.236348",
+  "tests": {
+    "system_info": {
+      "success": true,
+      "cpu_count": 22,
+      "memory_gb": 31,
+      "disk_gb": 897
+    },
+    "hardware_detection": {
+      "success": true,
+      "dell_detected": false,
+      "msi_detected": false
+    },
+    "recovery_tools": {
+      "success": false,
+      "available_tools": 2,
+      "total_tools": 5
+    },
+    "recovery_files": {
+      "success": true,
+      "existing_files": 4,
+      "total_files": 4
+    },
+    "health_monitoring": {
+      "success": true,
+      "cpu_percent": 80.5,
+      "memory_percent": 81.1,
+      "process_count": 570
+    },
+    "drive_detection": {
+      "success": true,
+      "drives_found": 4,
+      "drives": [
+        {
+          "device": "C:\\",
+          "fstype": "NTFS",
+          "total_gb": 897
+        },
+        {
+          "device": "D:\\",
+          "fstype": "NTFS",
+          "total_gb": 10
+        },
+        {
+          "device": "E:\\",
+          "fstype": "NTFS",
+          "total_gb": 14
+        },
+        {
+          "device": "G:\\",
+          "fstype": "FAT32",
+          "total_gb": 897
+        }
+      ]
+    },
+    "bitlocker_detection": {
+      "success": false,
+      "bitlocker_available": false
+    },
+    "performance": {
+      "success": true,
+      "response_time": 0.024201393127441406,
+      "calls_per_second": 4131.993537455176
+    }
+  },
+  "overall_score": 75.0,
+  "status": "FAIR"
+}

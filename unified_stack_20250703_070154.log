@@ -1,0 +1,741 @@
+2025-07-03 07:01:54,902 - TEST - INFO - Test info message
+2025-07-03 07:01:54,902 - TEST - INFO - Test info message
+2025-07-03 07:01:54,902 - TEST - WARNING - Test warning message
+2025-07-03 07:01:54,902 - TEST - WARNING - Test warning message
+2025-07-03 07:01:54,902 - TEST - ERROR - Test error message
+2025-07-03 07:01:54,902 - TEST - ERROR - Test error message
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,913 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,915 - TEST - INFO - Detected: Dell Inspiron 2-in-1 7040
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,916 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,920 - TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Detected: MSI Summit 16 2024
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,922 - TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,925 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - WARNING - Failed: bcdedit /deletevalue {current} safebootalternateshell - Failed
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,926 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - WARNING - Failed: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi - Failed
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,927 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,928 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,929 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,930 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,932 - TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,933 - TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,934 - TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,935 - TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,936 - TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,939 - TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,941 - TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,942 - TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,943 - TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,945 - TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,947 - TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,948 - TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,949 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,950 - TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,952 - TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,953 - TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,955 - TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,956 - TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,958 - INTEGRATION_TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,959 - INTEGRATION_TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,960 - INTEGRATION_TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,961 - INTEGRATION_TEST - INFO - Executing MSI Summit 16 2024 optimization...
+2025-07-03 07:01:54,961 - INTEGRATION_TEST - INFO - Executing: High Performance Power Plan
+2025-07-03 07:01:54,961 - INTEGRATION_TEST - INFO - Success: High Performance Power Plan
+2025-07-03 07:01:54,962 - INTEGRATION_TEST - INFO - Executing: Gaming Mode Optimization
+2025-07-03 07:01:54,962 - INTEGRATION_TEST - INFO - Success: Gaming Mode Optimization
+2025-07-03 07:01:54,962 - INTEGRATION_TEST - INFO - Executing: Thermal Management
+2025-07-03 07:01:54,962 - INTEGRATION_TEST - INFO - Success: Thermal Management
+2025-07-03 07:01:54,962 - INTEGRATION_TEST - INFO - Executing: Driver Optimization
+2025-07-03 07:01:54,963 - INTEGRATION_TEST - INFO - Success: Driver Optimization
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Executing Samsung SSD recovery...
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Executing: Drive Detection
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Success: Drive Detection
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Executing: RAW Recovery
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Success: RAW Recovery
+2025-07-03 07:01:54,964 - INTEGRATION_TEST - INFO - Executing: BitLocker Analysis
+2025-07-03 07:01:54,965 - INTEGRATION_TEST - INFO - Success: BitLocker Analysis
+2025-07-03 07:01:54,965 - INTEGRATION_TEST - INFO - Executing: Data Extraction
+2025-07-03 07:01:54,965 - INTEGRATION_TEST - INFO - Success: Data Extraction
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Executing WD drives recovery...
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Executing: Partition Analysis
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Success: Partition Analysis
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Executing: File System Repair
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Success: File System Repair
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Executing: Data Recovery
+2025-07-03 07:01:54,966 - INTEGRATION_TEST - INFO - Success: Data Recovery
+2025-07-03 07:01:54,969 - PERFORMANCE_TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,969 - PERFORMANCE_TEST - INFO - Detected: Unknown Unknown
+2025-07-03 07:01:54,969 - PERFORMANCE_TEST - INFO - Drives: 0, BitLocker: 0, RAW: 0
+2025-07-03 07:01:54,970 - PERFORMANCE_TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,970 - PERFORMANCE_TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,971 - PERFORMANCE_TEST - INFO - Success: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /fixmbr
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /fixboot
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: bootrec /rebuildbcd
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,972 - PERFORMANCE_TEST - INFO - Success: sfc /scannow
+2025-07-03 07:01:54,973 - ERROR_TEST - INFO - Detecting system hardware...
+2025-07-03 07:01:54,973 - ERROR_TEST - ERROR - Hardware detection failed: Test error
+2025-07-03 07:01:54,975 - ERROR_TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,975 - ERROR_TEST - INFO - Executing Dell Inspiron 2-in-1 7040 recovery...
+2025-07-03 07:01:54,976 - ERROR_TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,976 - ERROR_TEST - INFO - Executing: bcdedit /deletevalue {current} safeboot
+2025-07-03 07:01:54,976 - ERROR_TEST - ERROR - Error executing bcdedit /deletevalue {current} safeboot: Test error
+2025-07-03 07:01:54,976 - ERROR_TEST - ERROR - Error executing bcdedit /deletevalue {current} safeboot: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /deletevalue {current} safebootalternateshell
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /deletevalue {current} safebootalternateshell: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /deletevalue {current} safebootalternateshell: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /set {fwbootmgr} displayorder {bootmgr}
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /set {fwbootmgr} displayorder {bootmgr}: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /set {fwbootmgr} displayorder {bootmgr}: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bcdedit /set {bootmgr} path \EFI\Microsoft\Boot\bootmgfw.efi: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,977 - ERROR_TEST - INFO - Executing: bootrec /fixmbr
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bootrec /fixmbr: Test error
+2025-07-03 07:01:54,977 - ERROR_TEST - ERROR - Error executing bootrec /fixmbr: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: bootrec /fixboot
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing bootrec /fixboot: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing bootrec /fixboot: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: bootrec /rebuildbcd
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing bootrec /rebuildbcd: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing bootrec /rebuildbcd: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,978 - ERROR_TEST - INFO - Executing: sfc /scannow
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing sfc /scannow: Test error
+2025-07-03 07:01:54,978 - ERROR_TEST - ERROR - Error executing sfc /scannow: Test error
