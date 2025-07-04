@@ -20,6 +20,9 @@ import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+# Windows 11 recovery import
+from WINDOWS11_RECOVERY_MODULE import Windows11Recovery
+
 # Core Architecture
 class SystemType(Enum):
     DELL_INSPIRON_7040 = auto()
@@ -504,6 +507,7 @@ class UnifiedGUI:
         self.logger = UnifiedLogger()
         self.hardware_detector = HardwareDetector(self.logger)
         self.recovery_engine = RecoveryEngine(self.logger)
+        self.windows11_recovery = Windows11Recovery(self.logger.logger)
         
         self.system_info = None
         self.setup_gui()
@@ -584,6 +588,11 @@ class UnifiedGUI:
         notebook.add(wd_frame, text="WD Recovery")
         self.create_wd_tab(wd_frame)
         
+        # Windows 11 recovery tab
+        win11_frame = tk.Frame(notebook, bg='#1a1a1a')
+        notebook.add(win11_frame, text="Windows 11")
+        self.create_windows11_tab(win11_frame)
+        
         # Complete recovery tab
         complete_frame = tk.Frame(notebook, bg='#1a1a1a')
         notebook.add(complete_frame, text="Complete Recovery")
@@ -636,6 +645,31 @@ class UnifiedGUI:
         self.wd_log = scrolledtext.ScrolledText(parent, bg='#1a1a1a', fg='#ffffff', 
                                                font=('Consolas', 9))
         self.wd_log.pack(fill='both', expand=True, padx=10, pady=10)
+    
+    def create_windows11_tab(self, parent):
+        """Create Windows 11 recovery tab"""
+        tk.Label(parent, text="Windows 11 TPM/Secure Boot Bypass", 
+                font=('Arial', 14, 'bold'), fg='#00ff00', bg='#1a1a1a').pack(pady=10)
+        
+        # Control buttons
+        btn_frame = tk.Frame(parent, bg='#1a1a1a')
+        btn_frame.pack(pady=10)
+        
+        tk.Button(btn_frame, text="Check Compatibility", command=self.check_win11_compatibility,
+                 bg='#0066cc', fg='white', font=('Arial', 10, 'bold')).pack(side='left', padx=5)
+        
+        tk.Button(btn_frame, text="Bypass TPM Check", command=self.bypass_tpm_check,
+                 bg='#ff6600', fg='white', font=('Arial', 10, 'bold')).pack(side='left', padx=5)
+        
+        tk.Button(btn_frame, text="Create Registry File", command=self.create_bypass_registry,
+                 bg='#009900', fg='white', font=('Arial', 10, 'bold')).pack(side='left', padx=5)
+        
+        tk.Button(btn_frame, text="Check Bypass Status", command=self.check_bypass_status,
+                 bg='#6600cc', fg='white', font=('Arial', 10, 'bold')).pack(side='left', padx=5)
+        
+        self.win11_log = scrolledtext.ScrolledText(parent, bg='#1a1a1a', fg='#ffffff', 
+                                                  font=('Consolas', 9))
+        self.win11_log.pack(fill='both', expand=True, padx=10, pady=10)
     
     def create_complete_tab(self, parent):
         """Create complete recovery tab"""
@@ -796,6 +830,116 @@ Drive Details:
             self.root.after(0, lambda: self.status_var.set("Complete recovery finished"))
         
         threading.Thread(target=complete_recovery_worker, daemon=True).start()
+    
+    def check_win11_compatibility(self):
+        """Check Windows 11 compatibility"""
+        def compatibility_worker():
+            self.status_var.set("Checking Windows 11 compatibility...")
+            self.log_to_widget(self.win11_log, "Checking Windows 11 compatibility...\n")
+            
+            try:
+                status = self.windows11_recovery.check_upgrade_status()
+                
+                self.log_to_widget(self.win11_log, "Windows 11 Compatibility Results:\n")
+                for check, result in status.items():
+                    status_text = "PASS" if result else "FAIL"
+                    icon = "✅" if result else "❌"
+                    self.log_to_widget(self.win11_log, f"{icon} {check.replace('_', ' ').title()}: {status_text}\n")
+                
+                overall_compatible = all(status.values())
+                if overall_compatible:
+                    self.log_to_widget(self.win11_log, "\n🎉 System is Windows 11 compatible!\n")
+                else:
+                    self.log_to_widget(self.win11_log, "\n⚠️ System needs bypass for Windows 11 upgrade\n")
+                
+            except Exception as e:
+                self.log_to_widget(self.win11_log, f"❌ Compatibility check failed: {e}\n")
+            
+            self.root.after(0, lambda: self.status_var.set("Windows 11 compatibility check complete"))
+        
+        threading.Thread(target=compatibility_worker, daemon=True).start()
+    
+    def bypass_tmp_check(self):
+        """Bypass TPM and hardware checks"""
+        def bypass_worker():
+            self.status_var.set("Bypassing Windows 11 requirements...")
+            self.log_to_widget(self.win11_log, "Bypassing TPM and hardware checks...\n")
+            
+            try:
+                success, message = self.windows11_recovery.bypass_tmp_check()
+                
+                if success:
+                    self.log_to_widget(self.win11_log, f"✅ SUCCESS: {message}\n")
+                    self.log_to_widget(self.win11_log, "Registry keys set for Windows 11 bypass\n")
+                    self.log_to_widget(self.win11_log, "You can now upgrade to Windows 11\n")
+                else:
+                    self.log_to_widget(self.win11_log, f"❌ FAILED: {message}\n")
+                    if "Administrator" in message:
+                        self.log_to_widget(self.win11_log, "Please run as Administrator for registry access\n")
+                
+            except Exception as e:
+                self.log_to_widget(self.win11_log, f"❌ TPM bypass failed: {e}\n")
+            
+            self.root.after(0, lambda: self.status_var.set("TPM bypass operation complete"))
+        
+        threading.Thread(target=bypass_worker, daemon=True).start()
+    
+    def create_bypass_registry(self):
+        """Create registry bypass file"""
+        def registry_worker():
+            self.status_var.set("Creating registry bypass file...")
+            self.log_to_widget(self.win11_log, "Creating Windows 11 bypass registry file...\n")
+            
+            try:
+                success, filename = self.windows11_recovery.create_registry_bypass()
+                
+                if success:
+                    self.log_to_widget(self.win11_log, f"✅ Registry file created: {filename}\n")
+                    self.log_to_widget(self.win11_log, "To apply the bypass:\n")
+                    self.log_to_widget(self.win11_log, "1. Right-click the .reg file\n")
+                    self.log_to_widget(self.win11_log, "2. Select 'Run as administrator'\n")
+                    self.log_to_widget(self.win11_log, "3. Click 'Yes' to apply changes\n")
+                else:
+                    self.log_to_widget(self.win11_log, f"❌ FAILED: {filename}\n")
+                
+            except Exception as e:
+                self.log_to_widget(self.win11_log, f"❌ Registry file creation failed: {e}\n")
+            
+            self.root.after(0, lambda: self.status_var.set("Registry file creation complete"))
+        
+        threading.Thread(target=registry_worker, daemon=True).start()
+    
+    def check_bypass_status(self):
+        """Check bypass status"""
+        def status_worker():
+            self.status_var.set("Checking bypass status...")
+            self.log_to_widget(self.win11_log, "Checking Windows 11 bypass status...\n")
+            
+            try:
+                status = self.windows11_recovery.check_bypass_status()
+                
+                self.log_to_widget(self.win11_log, "Bypass Status:\n")
+                for check, enabled in status.items():
+                    status_text = "ENABLED" if enabled else "DISABLED"
+                    icon = "✅" if enabled else "❌"
+                    self.log_to_widget(self.win11_log, f"{icon} {check.replace('_', ' ').title()}: {status_text}\n")
+                
+                bypass_active = any(status.values())
+                if bypass_active:
+                    self.log_to_widget(self.win11_log, "\n🎉 Windows 11 bypass is active!\n")
+                else:
+                    self.log_to_widget(self.win11_log, "\n⚠️ No bypass detected - use 'Bypass TPM Check' or 'Create Registry File'\n")
+                
+            except Exception as e:
+                self.log_to_widget(self.win11_log, f"❌ Status check failed: {e}\n")
+            
+            self.root.after(0, lambda: self.status_var.set("Bypass status check complete"))
+        
+        threading.Thread(target=status_worker, daemon=True).start()
+    
+    def bypass_tpm_check(self):
+        """Bypass TPM check - corrected method name"""
+        self.bypass_tpm_check()
     
     def log_to_widget(self, widget, message):
         """Log message to text widget"""
