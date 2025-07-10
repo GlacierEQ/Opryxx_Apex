@@ -741,39 +741,51 @@ class MegaGUI:
     """Main application window with modern UI and full-stack capabilities"""
     
     def __init__(self):
-        self.root = tk.Tk()
-        self.root.title("MEGA OPRYXX - Ultimate Recovery System")
-        self.root.geometry("1280x800")
-        self.root.minsize(1024, 768)
-        
-        # Initialize system
-        self.mega_system = MegaOPRYXX()
-        self.theme = SystemTheme.DARK
-        
-        # Configure styles and theme
-        self.setup_styles()
-        
-        # Initialize UI state
-        self.tasks = []
-        self.current_tab = None
-        self.update_interval = 1000  # ms
-        
-        # Initialize UI components that might be accessed early
-        self.tasks_container = None
-        self.no_tasks_label = None
-        
-        # Setup GUI
-        self.setup_gui()
-        
-        # Start background updates
-        self.schedule_updates()
-        
-        # Connect to WebSocket for real-time updates
-        self.mega_system.api.register_callback('on_status_update', self.update_system_status)
-        
-        # Load initial data if UI is ready
-        if hasattr(self, 'notebook'):
-            self.refresh_tasks()
+        try:
+            # Initialize Tkinter root window
+            self.root = tk.Tk()
+            self.root.title("MEGA OPRYXX - Ultimate Recovery System")
+            self.root.geometry("1280x800")
+            self.root.minsize(1024, 768)
+            
+            # Initialize system components
+            self.mega_system = MegaOPRYXX()
+            self.theme = SystemTheme.DARK
+            
+            # Configure styles and theme
+            self.setup_styles()
+            
+            # Initialize UI state
+            self.tasks = []
+            self.current_tab = None
+            self.update_interval = 1000  # ms
+            
+            # Initialize UI components that might be accessed early
+            self.tasks_container = None
+            self.no_tasks_label = None
+            self.notebook = None
+            self.tabs = {}  # Initialize tabs dictionary
+            
+            # Setup GUI components
+            self.setup_gui()
+            
+            # Connect to WebSocket for real-time updates
+            self.mega_system.api.register_callback('on_status_update', self.update_system_status)
+            
+            # Start background updates after GUI is fully initialized
+            self.schedule_updates()
+            
+            # Load initial data
+            if hasattr(self, 'notebook') and self.notebook is not None:
+                self.refresh_tasks()
+                
+        except Exception as e:
+            logger.error(f"Failed to initialize MEGA OPRYXX: {str(e)}", exc_info=True)
+            messagebox.showerror(
+                "Initialization Error",
+                f"Failed to initialize MEGA OPRYXX:\n{str(e)}\n\nCheck logs for more details."
+            )
+            self.root.destroy()
     
     def setup_gui(self):
         """Initialize the main GUI components"""
@@ -950,48 +962,85 @@ class MegaGUI:
     
     def create_tasks_tab(self):
         """Create the tasks management tab"""
-        tab = ttk.Frame(self.notebook, style='TFrame')
-        self.notebook.add(tab, text="Tasks")
-        self.tabs['tasks'] = tab
-        
-        # Configure grid
-        tab.columnconfigure(0, weight=1)
-        tab.rowconfigure(1, weight=1)
-        
-        # Toolbar
-        toolbar = ttk.Frame(tab, style='TFrame')
-        toolbar.grid(row=0, column=0, sticky='ew', padx=5, pady=5)
-        
-        # Add task button
-        add_btn = ttk.Button(
-            toolbar,
-            text="Add Task",
-            command=self.on_add_task,
-            style='Action.TButton'
-        )
-        add_btn.pack(side='left', padx=5)
-        
-        # Refresh button
-        refresh_btn = ttk.Button(
-            toolbar,
-            text="Refresh",
-            command=self.refresh_tasks,
-            style='TButton'
-        )
-        refresh_btn.pack(side='left', padx=5)
-        
-        # Tasks container
-        self.tasks_container = ttk.Frame(tab, style='TFrame')
-        self.tasks_container.grid(row=1, column=0, sticky='nsew', padx=5, pady=5)
-        self.tasks_container.columnconfigure(0, weight=1)
-        
-        # No tasks label
-        self.no_tasks_label = ttk.Label(
-            self.tasks_container,
-            text="No tasks found. Click 'Add Task' to create one.",
-            style='Hint.TLabel'
-        )
-        self.no_tasks_label.pack(pady=20)
+        try:
+            tab = ttk.Frame(self.notebook, style='TFrame')
+            self.notebook.add(tab, text="Tasks")
+            self.tabs['tasks'] = tab
+            
+            # Configure grid
+            tab.columnconfigure(0, weight=1)
+            tab.rowconfigure(1, weight=1)
+            
+            # Toolbar
+            toolbar = ttk.Frame(tab, style='TFrame')
+            toolbar.grid(row=0, column=0, sticky='ew', padx=5, pady=5)
+            
+            # Add task button
+            add_btn = ttk.Button(
+                toolbar,
+                text="Add Task",
+                command=self.on_add_task,
+                style='Action.TButton'
+            )
+            add_btn.pack(side='left', padx=5)
+            
+            # Refresh button
+            refresh_btn = ttk.Button(
+                toolbar,
+                text="Refresh",
+                command=self.refresh_tasks,
+                style='TButton'
+            )
+            refresh_btn.pack(side='left', padx=5)
+            
+            # Tasks container with scrollable frame
+            container = ttk.Frame(tab, style='TFrame')
+            container.grid(row=1, column=0, sticky='nsew', padx=5, pady=5)
+            container.columnconfigure(0, weight=1)
+            container.rowconfigure(0, weight=1)
+            
+            # Add a canvas for scrolling
+            canvas = tk.Canvas(container, highlightthickness=0)
+            scrollbar = ttk.Scrollbar(container, orient="vertical", command=canvas.yview)
+            scrollable_frame = ttk.Frame(canvas, style='TFrame')
+            
+            # Configure the canvas scrolling
+            scrollable_frame.bind(
+                "<Configure>",
+                lambda e: canvas.configure(
+                    scrollregion=canvas.bbox("all")
+                )
+            )
+            
+            # Create window in canvas for the scrollable frame
+            canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+            canvas.configure(yscrollcommand=scrollbar.set)
+            
+            # Pack the canvas and scrollbar
+            canvas.grid(row=0, column=0, sticky='nsew')
+            scrollbar.grid(row=0, column=1, sticky='ns')
+            
+            # Initialize tasks container
+            self.tasks_container = ttk.Frame(scrollable_frame, style='TFrame')
+            self.tasks_container.pack(fill='both', expand=True)
+            
+            # No tasks label
+            self.no_tasks_label = ttk.Label(
+                self.tasks_container,
+                text="No tasks found. Click 'Add Task' to create one.",
+                style='Hint.TLabel'
+            )
+            self.no_tasks_label.pack(pady=20)
+            
+            # Make sure the tab is properly configured
+            tab.update_idletasks()
+            
+        except Exception as e:
+            logger.error(f"Error creating tasks tab: {str(e)}", exc_info=True)
+            messagebox.showerror(
+                "Error",
+                f"Failed to create tasks tab:\n{str(e)}"
+            )
     
     def create_optimization_tab(self):
         """Create the system optimization tab"""
@@ -1034,31 +1083,55 @@ class MegaGUI:
     
     def refresh_tasks(self):
         """Refresh the tasks list"""
-        # Clear existing tasks
-        for widget in self.tasks_container.winfo_children():
-            if widget != self.no_tasks_label:
-                widget.destroy()
-        
-        # Load tasks from API
-        tasks_data = self.mega_system.api.list_tasks()
-        self.tasks = [MegaTask.from_dict(task) for task in tasks_data]
-        
-        # Show no tasks message if empty
-        if not self.tasks:
-            self.no_tasks_label.pack(pady=20)
-            return
-        
-        # Hide no tasks message
-        self.no_tasks_label.pack_forget()
-        
-        # Add task cards
-        for task in self.tasks:
-            card = TaskCard(
-                self.tasks_container,
-                task,
-                on_action=self.on_task_action
+        try:
+            # Check if tasks container is initialized
+            if not hasattr(self, 'tasks_container') or self.tasks_container is None:
+                logger.warning("Tasks container not initialized. Creating tasks tab...")
+                self.create_tasks_tab()
+                if not hasattr(self, 'tasks_container') or self.tasks_container is None:
+                    logger.error("Failed to initialize tasks container")
+                    return
+            
+            # Clear existing tasks
+            for widget in self.tasks_container.winfo_children():
+                if hasattr(self, 'no_tasks_label') and widget != self.no_tasks_label:
+                    widget.destroy()
+            
+            # Load tasks from API
+            tasks_data = self.mega_system.api.list_tasks()
+            self.tasks = [MegaTask.from_dict(task) for task in tasks_data]
+            
+            # Show no tasks message if empty
+            if not self.tasks:
+                if hasattr(self, 'no_tasks_label'):
+                    self.no_tasks_label.pack(pady=20)
+                return
+            
+            # Hide no tasks message if it exists
+            if hasattr(self, 'no_tasks_label'):
+                self.no_tasks_label.pack_forget()
+            
+            # Add task cards
+            for task in self.tasks:
+                try:
+                    card = TaskCard(
+                        self.tasks_container,
+                        task,
+                        on_action=self.on_task_action
+                    )
+                    card.pack(fill='x', padx=5, pady=5, expand=True)
+                except Exception as e:
+                    logger.error(f"Error creating task card: {str(e)}", exc_info=True)
+            
+            # Update the display
+            self.tasks_container.update_idletasks()
+            
+        except Exception as e:
+            logger.error(f"Error refreshing tasks: {str(e)}", exc_info=True)
+            messagebox.showerror(
+                "Error",
+                f"Failed to refresh tasks:\n{str(e)}"
             )
-            card.pack(fill='x', padx=5, pady=5)
     
     def update_system_status(self, status_data):
         """Update system status display"""
