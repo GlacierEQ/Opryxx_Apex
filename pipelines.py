@@ -2,6 +2,7 @@ from sentence_transformers import SentenceTransformer
 import subprocess
 import numpy as np
 from windsurf_ollama_hook import windsurf_ollama
+from ollama_windsurf_bridge import ollama_bridge
 
 class TaskAnalyzer:
     def __init__(self):
@@ -28,7 +29,15 @@ class TaskAnalyzer:
     
     def chat_with_ollama(self, query: str) -> str:
         """Chat with Ollama AI"""
-        return windsurf_ollama.chat_with_code("", query)
+        return ollama_bridge._chat(query)
+    
+    def analyze_code_with_ollama(self, code: str) -> str:
+        """Analyze code with Ollama"""
+        return ollama_bridge.code_analysis(code)
+    
+    def research_with_ollama(self, topic: str) -> str:
+        """Research with Ollama"""
+        return ollama_bridge.research_assistant(topic)
 
 def analyze_task(query):
     analyzer = TaskAnalyzer()

@@ -59,7 +59,7 @@ def test_basic_chat():
         return False
 
 if __name__ == "__main__":
-    print("🤖 OLLAMA WINDSURF IDE VERIFICATION")
+    print("OLLAMA WINDSURF IDE VERIFICATION")
     print("=" * 40)
     
     if verify_ollama_connection():
