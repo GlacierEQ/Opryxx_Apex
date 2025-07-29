@@ -3404,3 +3404,7 @@ AttributeError: 'MegaGUI' object has no attribute 'tabs'
 2025-07-29 01:54:07,982 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
 2025-07-29 01:54:13,076 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
 2025-07-29 01:54:13,371 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:54:17,058 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:54:22,165 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:54:22,460 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:54:26,155 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
