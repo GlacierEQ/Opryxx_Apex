@@ -3218,3 +3218,33 @@ AttributeError: 'MegaGUI' object has no attribute 'tabs'
 2025-07-03 11:24:17,608 - MEGA_OPRYXX - ERROR - Failed to get system status: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
 2025-07-03 11:24:19,855 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
 2025-07-03 11:24:22,652 - MEGA_OPRYXX - ERROR - Failed to get system status: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-07-29 01:28:01,940 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_nvidia_smi
+2025-07-29 01:28:02,122 - core.gpu_detector - INFO - Found 2 GPU(s) via _detect_wmi
+2025-07-29 01:28:02,122 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_torch
+2025-07-29 01:28:03,980 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_opencl
+2025-07-29 01:28:04,260 - core.gpu_detector - INFO - Found 2 GPU(s) via _detect_directml
+2025-07-29 01:28:04,261 - core.gpu_acceleration - INFO - Detected GPU: NVIDIA GeForce RTX 4060 Laptop GPU (8188MB) via nvidia-smi
+2025-07-29 01:28:04,261 - core.gpu_acceleration - INFO - Using CPU for computation
+2025-07-29 01:28:04,290 - MEGA_OPRYXX - WARNING - Core modules not found. Running in API-only mode.
+2025-07-29 01:42:47,061 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_nvidia_smi
+2025-07-29 01:42:47,245 - core.gpu_detector - INFO - Found 2 GPU(s) via _detect_wmi
+2025-07-29 01:42:47,245 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_torch
+2025-07-29 01:42:47,490 - core.gpu_detector - INFO - Found 1 GPU(s) via _detect_opencl
+2025-07-29 01:42:47,658 - core.gpu_detector - INFO - Found 2 GPU(s) via _detect_directml
+2025-07-29 01:42:47,658 - core.gpu_acceleration - INFO - Detected GPU: NVIDIA GeForce RTX 4060 Laptop GPU (8188MB) via nvidia-smi
+2025-07-29 01:42:47,658 - core.gpu_acceleration - INFO - Using CPU for computation
+2025-07-29 01:42:47,664 - MEGA_OPRYXX - WARNING - Core modules not found. Running in API-only mode.
+2025-07-29 01:42:51,789 - MEGA_OPRYXX - ERROR - Failed to get system status: ('Connection aborted.', ConnectionResetError(10054, 'An existing connection was forcibly closed by the remote host', None, 10054, None))
+2025-07-29 01:42:51,805 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:00,891 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:09,946 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:19,038 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:28,150 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:37,227 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:46,287 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:43:55,336 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:44:04,417 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:44:13,501 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:44:22,601 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:44:31,702 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response
+2025-07-29 01:44:40,790 - MEGA_OPRYXX - ERROR - WebSocket error: did not receive a valid HTTP response

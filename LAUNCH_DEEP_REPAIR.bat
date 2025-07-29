@@ -1,60 +1,81 @@
 @echo off
 title OPRYXX Deep PC Repair Launcher
 color 0A
-cls
 
 echo.
-echo ================================================================
-echo                OPRYXX DEEP PC REPAIR SYSTEM
-echo ================================================================
+echo ===============================================
+echo    OPRYXX DEEP PC REPAIR SYSTEM LAUNCHER
+echo ===============================================
 echo.
-echo [1] Test All GUI Connections
+
+echo [1] Test GUI Connections
 echo [2] Start Deep PC Repair
-echo [3] Emergency Repair Mode
-echo [4] Launch MEGA OPRYXX
-echo [5] Exit
+echo [3] Run Both (Recommended)
+echo [4] Exit
 echo.
-set /p choice="Select option (1-5): "
+
+set /p choice="Select option (1-4): "
 
 if "%choice%"=="1" goto test_gui
 if "%choice%"=="2" goto deep_repair
-if "%choice%"=="3" goto emergency
-if "%choice%"=="4" goto mega_opryxx
-if "%choice%"=="5" goto exit
+if "%choice%"=="3" goto run_both
+if "%choice%"=="4" goto exit
 
 :test_gui
-echo Testing GUI connections...
+echo.
+echo Starting GUI Connection Tester...
 python gui_connection_tester.py
+pause
 goto menu
 
 :deep_repair
+echo.
 echo Starting Deep PC Repair...
 python deep_pc_repair.py
+pause
 goto menu
 
-:emergency
-echo Emergency Repair Mode...
-python deep_pc_repair.py --emergency
-goto menu
-
-:mega_opryxx
-echo Launching MEGA OPRYXX...
-python gui/MEGA_OPRYXX.py
+:run_both
+echo.
+echo Starting GUI Connection Tester first...
+start python gui_connection_tester.py
+timeout /t 3 /nobreak >nul
+echo.
+echo Starting Deep PC Repair...
+python deep_pc_repair.py
+pause
 goto menu
 
 :menu
-echo.
-echo Return to menu? (Y/N)
-set /p return=
-if /i "%return%"=="Y" goto start
-goto exit
+cls
+goto start
 
 :exit
 echo.
-echo OPRYXX Deep Repair - Session Ended
-pause
-exit /b 0
+echo Exiting OPRYXX Deep PC Repair Launcher...
+timeout /t 2 /nobreak >nul
+exit
 
 :start
-cls
-goto menu
+echo.
+echo ===============================================
+echo    OPRYXX DEEP PC REPAIR SYSTEM LAUNCHER
+echo ===============================================
+echo.
+
+echo [1] Test GUI Connections
+echo [2] Start Deep PC Repair
+echo [3] Run Both (Recommended)
+echo [4] Exit
+echo.
+
+set /p choice="Select option (1-4): "
+
+if "%choice%"=="1" goto test_gui
+if "%choice%"=="2" goto deep_repair
+if "%choice%"=="3" goto run_both
+if "%choice%"=="4" goto exit
+
+echo Invalid choice. Please select 1-4.
+timeout /t 2 /nobreak >nul
+goto start
