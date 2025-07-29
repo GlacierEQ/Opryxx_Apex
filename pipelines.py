@@ -1,6 +1,7 @@
 from sentence_transformers import SentenceTransformer
 import subprocess
 import numpy as np
+from windsurf_ollama_hook import windsurf_ollama
 
 class TaskAnalyzer:
     def __init__(self):
@@ -24,6 +25,10 @@ class TaskAnalyzer:
         if "list" in best_match:
             return "Get-ChildItem"
         return best_match
+    
+    def chat_with_ollama(self, query: str) -> str:
+        """Chat with Ollama AI"""
+        return windsurf_ollama.chat_with_code("", query)
 
 def analyze_task(query):
     analyzer = TaskAnalyzer()

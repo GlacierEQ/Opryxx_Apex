@@ -9,13 +9,23 @@ from typing import Dict, List, Optional, Callable
 import json
 import threading
 from dataclasses import dataclass
+import tkinter as tk
+from tkinter import ttk
+import queue
+import sys
+import os
 
 # Import existing GUI components
 try:
     from gui.modern_interface import ModernInterface
     from gui.web_interface import WebInterface
+    from gui.MEGA_OPRYXX import MegaOPRYXX
     from core.logging_config import setup_logging
     from core.performance_monitor import PerformanceMonitor
+    from ai.AI_WORKBENCH import AIWorkbench
+    from ai.ULTIMATE_AI_OPTIMIZER import UltimateAIOptimizer
+    from modules.performance_benchmark import PerformanceBenchmark
+    from enhancements.memory_optimization import MemoryOptimizer
 except ImportError as e:
     logging.warning(f"GUI imports failed: {e}")
 
@@ -41,12 +51,48 @@ class OperationContext:
     error: Optional[str] = None
     metadata: Dict = None
 
+class GUIIntegrationManager:
+    """Manages integration between pipelines and all GUI components"""
+
+    def __init__(self):
+        self.gui_instances = {}
+        self.event_queue = queue.Queue()
+        self.gui_callbacks = {}
+        self.active_windows = {}
+
+    def register_gui_component(self, name: str, instance):
+        """Register a GUI component for integration"""
+        self.gui_instances[name] = instance
+
+    def register_callback(self, event_type: str, callback: Callable):
+        """Register callback for specific GUI events"""
+        if event_type not in self.gui_callbacks:
+            self.gui_callbacks[event_type] = []
+        self.gui_callbacks[event_type].append(callback)
+
+    def emit_event(self, event_type: str, data: Dict):
+        """Emit event to all registered callbacks"""
+        if event_type in self.gui_callbacks:
+            for callback in self.gui_callbacks[event_type]:
+                try:
+                    callback(data)
+                except Exception as e:
+                    logging.error(f"GUI callback error: {e}")
+
+    def get_gui_instance(self, name: str):
+        """Get registered GUI instance"""
+        return self.gui_instances.get(name)
+
 class TaskAnalyzer:
     def __init__(self, gui_callback: Optional[Callable] = None):
         self.model = SentenceTransformer('all-MiniLM-L6-v2')
         self.gui_callback = gui_callback
         self.logger = setup_logging(__name__)
         self.performance_monitor = PerformanceMonitor()
+
+        # Initialize GUI Integration Manager
+        self.gui_manager = GUIIntegrationManager()
+        self._initialize_gui_components()
 
         # Enhanced command embeddings for OPRYXX operations
         self.command_embeddings = {
@@ -94,6 +140,35 @@ class TaskAnalyzer:
         # Operation tracking
         self.active_operations: Dict[str, OperationContext] = {}
         self.operation_history: List[OperationContext] = []
+
+    def _initialize_gui_components(self):
+        """Initialize and register all GUI components"""
+        try:
+            # Initialize main GUI components
+            self.modern_interface = ModernInterface()
+            self.gui_manager.register_gui_component("modern_interface", self.modern_interface)
+
+            # Initialize web interface if available
+            try:
+                self.web_interface = WebInterface()
+                self.gui_manager.register_gui_component("web_interface", self.web_interface)
+            except Exception as e:
+                self.logger.warning(f"Web interface not available: {e}")
+
+            # Initialize MEGA OPRYXX interface
+            try:
+                self.mega_opryxx = MegaOPRYXX()
+                self.gui_manager.register_gui_component("mega_opryxx", self.mega_opryxx)
+            except Exception as e:
+                self.logger.warning(f"MEGA OPRYXX interface not available: {e}")
+
+            # Register event callbacks
+            self.gui_manager.register_callback("operation_update", self._handle_operation_update)
+            self.gui_manager.register_callback("progress_update", self._handle_progress_update)
+            self.gui_manager.register_callback("error_occurred", self._handle_error)
+
+        except Exception as e:
+            self.logger.error(f"GUI initialization failed: {e}")
 
     def analyze_task(self, query: str) -> Dict:
         """Convert natural language to executable command with full lifecycle tracking"""
@@ -271,7 +346,17 @@ class TaskAnalyzer:
                 self.operation_history.append(op)
                 del self.active_operations[operation_id]
 
-        # Notify GUI if callback is available
+        # Notify GUI through event system
+        self.gui_manager.emit_event("operation_update", {
+            "operation_id": operation_id,
+            "state": state.value,
+            "progress": progress,
+            "result": result,
+            "error": error,
+            "task_type": task_type
+        })
+
+        # Legacy callback support
         if self.gui_callback:
             self.gui_callback({
                 "type": "operation_update",
@@ -390,3 +475,15 @@ class TaskAnalyzer:
     async def _show_help(self, parameters: Dict) -> str:
         """Show help through GUI"""
         return "Help information shown through GUI interface"
+
+    def _handle_operation_update(self, data: Dict):
+        """Handle operation update events"""
+        self.logger.info(f"Operation update received: {data}")
+
+    def _handle_progress_update(self, data: Dict):
+        """Handle progress update events"""
+        self.logger.info(f"Progress update received: {data}")
+
+    def _handle_error(self, data: Dict):
+        """Handle error events"""
+        self.logger.error(f"Error occurred: {data}")
