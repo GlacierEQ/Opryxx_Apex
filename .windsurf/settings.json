@@ -1,0 +1,7 @@
+{
+  "opryxx.global.enabled": true,
+  "opryxx.ollama.autostart": true,
+  "opryxx.integrations.maximum": true,
+  "opryxx.operator.persistent": true,
+  "opryxx.startup.script": "global_startup.py"
+}

@@ -3,6 +3,8 @@ import subprocess
 import numpy as np
 from windsurf_ollama_hook import windsurf_ollama
 from ollama_windsurf_bridge import ollama_bridge
+from windsurf_global_integration import windsurf_global
+from OPERATOR_HOOK import global_operator
 
 class TaskAnalyzer:
     def __init__(self):
@@ -38,6 +40,18 @@ class TaskAnalyzer:
     def research_with_ollama(self, topic: str) -> str:
         """Research with Ollama"""
         return ollama_bridge.research_assistant(topic)
+    
+    def execute_operator_command(self, command: str, params: dict = None) -> dict:
+        """Execute operator command globally"""
+        return global_operator.execute(command, params)
+    
+    def get_global_status(self) -> dict:
+        """Get global integration status"""
+        return {
+            "integrations": list(windsurf_global.integrations.keys()),
+            "operator_active": global_operator.active,
+            "persistent_state": windsurf_global.persistent_state
+        }
 
 def analyze_task(query):
     analyzer = TaskAnalyzer()
