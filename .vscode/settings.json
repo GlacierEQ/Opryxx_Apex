@@ -1,5 +1,7 @@
 {
     "bevel.java": "c:\\Users\\casey\\.windsurf\\extensions\\bevel-software.bevel-1.2.3-universal\\backend\\jdk17.0.15_6\\bin\\java.exe",
     "giga.ide": "codium",
-    "bevel.largeLanguageModel": "LOCAL"
+    "bevel.largeLanguageModel": "LOCAL",
+    "diffEditor.renderSideBySide": false,
+    "diffEditor.experimental.showMoves": true
 }
