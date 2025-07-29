@@ -68,14 +68,14 @@ def verify_all_files():
         }
         
         print(f"{status} {file_path}")
-        print(f"    📝 {description}")
+        print(f"    Description: {description}")
         if exists:
-            print(f"    📊 Size: {file_size:,} bytes")
-            print(f"    🕒 Modified: {modified_time.strftime('%Y-%m-%d %H:%M:%S')}")
+            print(f"    Size: {file_size:,} bytes")
+            print(f"    Modified: {modified_time.strftime('%Y-%m-%d %H:%M:%S')}")
         print()
     
     # Verify directories
-    print("📁 VERIFYING DIRECTORIES:")
+    print("VERIFYING DIRECTORIES:")
     print("-" * 40)
     
     key_directories = [
@@ -88,10 +88,10 @@ def verify_all_files():
         dir_path = base_path / directory
         if dir_path.exists() and dir_path.is_dir():
             file_count = len(list(dir_path.rglob("*")))
-            print(f"✅ {directory}/ ({file_count} items)")
+            print(f"OK {directory}/ ({file_count} items)")
             dir_count += 1
         else:
-            print(f"❌ {directory}/ (missing)")
+            print(f"MISSING {directory}/ (missing)")
     
     # Summary
     verification_results["summary"] = {
@@ -104,28 +104,28 @@ def verify_all_files():
     }
     
     print("=" * 60)
-    print("📊 VERIFICATION SUMMARY:")
+    print("VERIFICATION SUMMARY:")
     print("=" * 60)
-    print(f"✅ Files Verified: {verified_count}/{total_count} ({verification_results['summary']['verification_percentage']}%)")
-    print(f"📁 Directories Verified: {dir_count}/{len(key_directories)}")
-    print(f"🔗 Operator Link: {verification_results['operator_link']}")
-    print(f"⏰ Verification Time: {verification_results['timestamp']}")
+    print(f"Files Verified: {verified_count}/{total_count} ({verification_results['summary']['verification_percentage']}%)")
+    print(f"Directories Verified: {dir_count}/{len(key_directories)}")
+    print(f"Operator Link: {verification_results['operator_link']}")
+    print(f"Verification Time: {verification_results['timestamp']}")
     
     if verification_results['summary']['status'] == "COMPLETE":
-        print("\n🎉 ALL SYSTEMS VERIFIED AND OPERATIONAL!")
-        print("🚀 OPRYXX Operator System is fully integrated and ready")
-        print("🛡️ Military-grade protection active across all components")
-        print("🤖 AI enhancement available in all modules")
-        print("⚡ Performance optimization enabled system-wide")
+        print("\nALL SYSTEMS VERIFIED AND OPERATIONAL!")
+        print("OPRYXX Operator System is fully integrated and ready")
+        print("Military-grade protection active across all components")
+        print("AI enhancement available in all modules")
+        print("Performance optimization enabled system-wide")
     else:
-        print(f"\n⚠️ VERIFICATION INCOMPLETE - {total_count - verified_count} files missing")
+        print(f"\nVERIFICATION INCOMPLETE - {total_count - verified_count} files missing")
     
     # Save verification report
     report_path = base_path / f"verification_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
     with open(report_path, 'w') as f:
         json.dump(verification_results, f, indent=2)
     
-    print(f"\n📄 Verification report saved: {report_path}")
+    print(f"\nVerification report saved: {report_path}")
     
     return verification_results
 
