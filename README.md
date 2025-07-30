@@ -1,20 +1,20 @@
-# 🚀 OPRYXX - Advanced PC Repair & Optimization Suite
+# 🚀 OPRYXX_LOGS2 - Advanced System Monitor & Maintenance
 
 [![CI/CD](https://github.com/yourusername/opryxx_logs/actions/workflows/ci-cd.yml/badge.svg)](https://github.com/yourusername/opryxx_logs/actions)
 [![codecov](https://codecov.io/gh/yourusername/opryxx_logs/branch/main/graph/badge.svg?token=YOUR_CODECOV_TOKEN)](https://codecov.io/gh/yourusername/opryxx_logs)
 [![Python Version](https://img.shields.io/badge/python-3.8%20%7C%203.9%20%7C%203.10-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
-OPRYXX is an advanced PC repair and optimization suite that combines AI-powered diagnostics, performance optimization, and system recovery tools into a single, powerful platform.
+OPRYXX_LOGS2 is a comprehensive system monitoring and maintenance tool that provides real-time performance metrics, automated maintenance, and system optimization for Windows systems.
 
 ## ✨ Features
 
-- 🧠 **AI-Powered Diagnostics**: Advanced machine learning algorithms for system analysis
-- ⚡ **Performance Optimization**: Real-time system optimization and resource management
-- 🛡️ **Security Scanning**: Proactive threat detection and removal
-- 🔄 **System Recovery**: Advanced tools for system repair and recovery
-- 📊 **Real-time Monitoring**: Comprehensive system monitoring and reporting
-- 🧩 **Modular Architecture**: Extensible plugin system for additional functionality
+- 🖥️ **Real-time Monitoring**: CPU, memory, disk, and network usage at a glance
+- 📊 **Performance Scoring**: Comprehensive system health score (0-100)
+- 🚨 **Memory Leak Detection**: Automatic detection of potential memory leaks
+- ⚡ **Performance Optimization**: System maintenance and optimization tools
+- 📈 **Historical Data**: Track system performance over time
+- 🛡️ **System Diagnostics**: Comprehensive hardware and software information
 
 ## 🚀 Quick Start
 
