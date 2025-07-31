@@ -1,0 +1,42 @@
+{
+  "version": "1.0",
+  "malicious_hashes": [],
+  "suspicious_domains": [
+    "malware.com",
+    "phishing.net",
+    "trojan.org",
+    "c2server.*",
+    "*.malware",
+    "*.xyz"
+  ],
+  "known_malware_signatures": [
+    "MZ.*This program cannot be run in DOS mode",
+    "UPX[0-9\\.]*",
+    "MegaHack",
+    "CheatEngine"
+  ],
+  "suspicious_registry_patterns": [
+    "(?i)update_java",
+    "(?i)flashplayer",
+    "(?i)adobe\\s*flash",
+    "(?i)java.*update"
+  ],
+  "suspicious_process_names": [
+    "powershell -e",
+    "cmd /c ",
+    "wscript.shell",
+    "mshta ",
+    "regsvr32 ",
+    "certutil "
+  ],
+  "c2_servers": [
+    "*.ddns.net",
+    "*.no-ip.org",
+    "*.duckdns.org",
+    "*.serveo.net"
+  ],
+  "last_updated": "2025-07-31T12:12:30.377488",
+  "sources": [
+    "default"
+  ]
+}
