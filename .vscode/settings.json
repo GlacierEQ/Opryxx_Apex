@@ -4,5 +4,6 @@
     "bevel.largeLanguageModel": "LOCAL",
     "diffEditor.renderSideBySide": false,
     "diffEditor.experimental.showMoves": true,
-    "scm.diffDecorationsGutterAction": "diff"
+    "scm.diffDecorationsGutterAction": "diff",
+    "codium.codeCompletion.enable": true
 }
