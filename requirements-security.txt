@@ -1,0 +1,29 @@
+# Core dependencies for secure configuration and secrets management
+cryptography>=41.0.0  # For encryption and secure key management
+python-dotenv>=1.0.0  # For .env file support
+keyring>=24.2.0  # For secure credential storage
+python-keycloak>=3.6.0  # For OAuth2/OIDC integration (optional)
+pyjwt>=2.8.0  # For JWT token handling (optional)
+
+# Security
+bcrypt>=4.0.1  # For password hashing
+passlib[bcrypt]>=1.7.4  # For password hashing utilities
+python-keycloak-client>=1.0.0  # For Keycloak integration (optional)
+
+# Logging and monitoring
+sentry-sdk>=1.40.0  # For error tracking and monitoring
+python-json-logger>=2.0.7  # For structured logging
+
+# Utilities
+pydantic>=2.0.0  # For data validation and settings management
+python-dateutil>=2.8.2  # For date/time handling
+pyyaml>=6.0.1  # For YAML configuration support
+
+# Testing and development
+pytest>=7.4.0  # For testing
+pytest-cov>=4.1.0  # For test coverage reporting
+black>=23.7.0  # For code formatting
+isort>=5.12.0  # For import sorting
+mypy>=1.5.0  # For static type checking
+bandit>=1.7.5  # For security scanning
+safety>=2.3.5  # For dependency vulnerability scanning
