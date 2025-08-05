@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "opryxx-integration": {
+      "command": "python",
+      "args": ["windsurf_global_integration.py"],
+      "env": {
+        "OPRYXX_MODE": "mcp",
+        "WINDSURF_INTEGRATION": "true"
+      }
+    },
+    "ollama-bridge": {
+      "command": "python", 
+      "args": ["ollama_windsurf_bridge.py"],
+      "env": {
+        "OLLAMA_HOST": "http://localhost:11434"
+      }
+    }
+  }
+}
