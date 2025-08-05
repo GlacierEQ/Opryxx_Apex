@@ -1,2 +1,2 @@
 @echo off
-uv tool run %*
+python -m uv tool run %*
