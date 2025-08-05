@@ -1,49 +1,48 @@
 @echo off
-title ULTIMATE UNIFIED SYSTEM LAUNCHER
+title ULTIMATE OPRYXX LAUNCHER - Maximum Power Integration
 color 0A
+cls
 
-echo ================================================
-echo        ULTIMATE UNIFIED SYSTEM LAUNCHER
-echo     GPU/NPU Priority • Intelligent AI • Full-Stack
-echo ================================================
+echo.
+echo ================================================================
+echo                ULTIMATE OPRYXX LAUNCHER
+echo                   MAXIMUM POWER INTEGRATION
+echo ================================================================
+echo.
+echo 🚀 LAUNCHING ULTIMATE MASTER GUI...
+echo ✅ Transparent Operation Tracking
+echo ✅ AI Workbench Integration  
+echo ✅ Real-time System Health Monitoring
+echo ✅ Comprehensive Error Handling
+echo ✅ Full System Integration
 echo.
 
-echo [STEP 1/4] Installing required packages...
-python -m pip install psutil numpy torch --quiet --disable-pip-version-check
-if errorlevel 1 (
-    echo Installing basic packages only...
-    python -m pip install psutil numpy --quiet --disable-pip-version-check
-)
+cd /d "%~dp0"
 
-echo [STEP 2/4] Checking system compatibility...
-python -c "import psutil, numpy; print('✅ Core packages ready')"
+REM Check if Python is available
+python --version >nul 2>&1
 if errorlevel 1 (
-    echo ❌ Package installation failed
+    echo ❌ ERROR: Python not found in PATH
+    echo Please install Python or add it to your PATH
     pause
     exit /b 1
 )
 
-echo [STEP 3/4] Initializing GPU/NPU acceleration...
-python -c "
-try:
-    import torch
-    if torch.cuda.is_available():
-        print('✅ GPU acceleration available:', torch.cuda.get_device_name(0))
-    else:
-        print('⚠️ GPU not available - CPU fallback mode')
-except:
-    print('⚠️ PyTorch not available - CPU fallback mode')
-"
+REM Install required packages if needed
+echo 📦 Checking dependencies...
+pip install psutil >nul 2>&1
 
-echo [STEP 4/4] Launching Ultimate Unified System...
-echo.
-echo ================================================
-echo            SYSTEM STARTING...
-echo ================================================
-echo.
+REM Launch the Ultimate Master GUI
+echo 🚀 Starting Ultimate Master GUI...
+python ULTIMATE_MASTER_GUI.py
 
-python ULTIMATE_UNIFIED_SYSTEM.py
+if errorlevel 1 (
+    echo.
+    echo ❌ ERROR: Failed to launch Ultimate Master GUI
+    echo Check the log files for details
+    pause
+)
 
 echo.
-echo Ultimate Unified System has been closed.
+echo 🎉 Ultimate Master GUI session ended
 pause
