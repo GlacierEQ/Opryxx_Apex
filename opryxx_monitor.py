@@ -1,14 +1,17 @@
 """
 OPRYXX System Monitor
 Implements memory leak detection and performance monitoring according to OPRYXX standards.
+Integrated with Cascade for enhanced monitoring and control.
 """
 import psutil
 import time
 import threading
 import logging
-from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple
+import traceback
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Tuple, Callable, Deque
 from collections import deque
+from cascade_integration import CascadeIntegration
 
 @dataclass
 class MemoryStats:
@@ -17,6 +20,8 @@ class MemoryStats:
     peak_mb: float = 0.0
     usage_percent: float = 0.0
     timestamp: float = 0.0
+    leak_rate_mb_min: float = 0.0  # Memory leak rate in MB per minute
+    trend: str = "stable"  # 'increasing', 'decreasing', or 'stable'
 
 @dataclass
 class PerformanceMetrics:
@@ -28,9 +33,13 @@ class PerformanceMetrics:
     timestamp: float = 0.0
 
 class SystemMonitor:
-    """Monitor system resources and detect issues."""
+    """
+    Monitor system resources and detect issues with Cascade integration.
+    Implements OPRYXX standards for monitoring and stability.
+    """
     
-    MEMORY_LEAK_THRESHOLD_MB = 10  # 10MB increase per minute
+    # OPRYXX Compliance Constants
+    MEMORY_LEAK_THRESHOLD_MB = 10  # 10MB increase per minute (OPRYXX standard)
     PERFORMANCE_SCORE_WEIGHTS = {
         'cpu': 0.4,
         'memory': 0.3,
@@ -38,97 +47,172 @@ class SystemMonitor:
         'network': 0.1
     }
     
+    # Recovery settings
+    MAX_RETRIES = 3
+    RECOVERY_DELAY = 5.0  # seconds
+    
+    # Performance thresholds (0-100 scale)
+    CRITICAL_THRESHOLD = 30
+    WARNING_THRESHOLD = 60
+    
     def __init__(self, check_interval: float = 5.0):
         self.check_interval = check_interval
         self.running = False
         self.thread: Optional[threading.Thread] = None
-        self.memory_history = deque(maxlen=60)  # Store 5 minutes of history at 5s intervals
-        self.performance_history = deque(maxlen=60)
+        self.memory_history: Deque[MemoryStats] = deque(maxlen=60)  # Store 5 minutes of history at 5s intervals
+        self.performance_history: Deque[PerformanceMetrics] = deque(maxlen=60)
         self.logger = logging.getLogger('OPRYXX.Monitor')
         
         # Initialize metrics
         self.memory_stats = MemoryStats()
         self.performance_metrics = PerformanceMetrics()
         
-    def start(self) -> None:
-        """Start the monitoring thread."""
+        # Initialize Cascade integration
+        self.cascade = CascadeIntegration()
+        self.cascade.register_callback('on_error', self._on_cascade_error)
+        self.cascade.register_callback('on_update', self._on_cascade_update)
+        
+        # Error tracking
+        self.error_count = 0
+        self.last_error_time = 0.0
+        self.recovery_attempts = 0
+        
+        # Performance tracking
+        self.performance_scores = deque(maxlen=60)  # Track performance over time
+        self.performance_trend = 'stable'  # 'improving', 'degrading', or 'stable'
+        
+    def start(self) -> bool:
+        """Start the monitoring thread and Cascade connection."""
         if self.running:
-            return
+            return False
             
-        self.running = True
-        self.thread = threading.Thread(target=self._monitor_loop, daemon=True)
-        self.thread.start()
-        self.logger.info("System monitor started")
+        try:
+            # Start Cascade connection
+            if not self.cascade.connect():
+                self.logger.error("Failed to connect to Cascade")
+                return False
+                
+            self.running = True
+            self.thread = threading.Thread(
+                target=self._monitor_loop,
+                daemon=True,
+                name="SystemMonitor"
+            )
+            self.thread.start()
+            self.logger.info("System monitoring started with Cascade integration")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Failed to start monitoring: {e}")
+            self.running = False
+            return False
     
     def stop(self) -> None:
-        """Stop the monitoring thread."""
+        """Stop the monitoring thread and clean up resources."""
         self.running = False
-        if self.thread:
+        
+        # Stop monitoring thread
+        if self.thread and self.thread.is_alive():
             self.thread.join(timeout=2.0)
-        self.logger.info("System monitor stopped")
+            
+        # Disconnect from Cascade
+        try:
+            self.cascade.disconnect()
+        except Exception as e:
+            self.logger.error(f"Error disconnecting from Cascade: {e}")
+            
+        self.logger.info("System monitoring stopped")
     
     def _monitor_loop(self) -> None:
-        """Main monitoring loop."""
-        disk_io_last = psutil.disk_io_counters()
-        net_io_last = psutil.net_io_counters()
+        """Main monitoring loop with error handling and recovery."""
+        consecutive_errors = 0
         
-        while self.running:
+        while self.running and consecutive_errors < self.MAX_RETRIES:
             try:
-                # Get current timestamp
-                now = time.time()
+                # Update system metrics
+                self._update_memory_stats()
+                self._update_performance_metrics()
                 
-                # Update memory stats
-                process = psutil.Process()
-                with process.oneshot():
-                    mem_info = process.memory_info()
-                    self.memory_stats = MemoryStats(
-                        current_mb=mem_info.rss / (1024 * 1024),
-                        peak_mb=process.memory_info().vms / (1024 * 1024),
-                        usage_percent=process.memory_percent(),
-                        timestamp=now
-                    )
-                
-                # Check for memory leaks
-                self._check_memory_leak()
-                
-                # Get system-wide performance metrics
-                cpu_percent = psutil.cpu_percent(interval=0.1)
-                
-                # Calculate disk I/O rates
-                disk_io = psutil.disk_io_counters()
-                disk_read = (disk_io.read_bytes - disk_io_last.read_bytes) / (1024 * 1024)  # MB
-                disk_write = (disk_io.write_bytes - disk_io_last.write_bytes) / (1024 * 1024)
-                disk_io_last = disk_io
-                
-                # Calculate network I/O rates
-                net_io = psutil.net_io_counters()
-                net_sent = (net_io.bytes_sent - net_io_last.bytes_sent) / (1024 * 1024)  # MB
-                net_recv = (net_io.bytes_recv - net_io_last.bytes_recv) / (1024 * 1024)
-                net_io_last = net_io
-                
-                # Store performance metrics
-                self.performance_metrics = PerformanceMetrics(
-                    cpu_percent=cpu_percent,
-                    memory_percent=psutil.virtual_memory().percent,
-                    disk_io=(disk_read, disk_write),
-                    network_io=(net_sent, net_recv),
-                    timestamp=now
-                )
-                
-                # Add to history
-                self.memory_history.append(self.memory_stats)
-                self.performance_history.append(self.performance_metrics)
+                # Check for and handle issues
+                self._check_for_issues()
                 
                 # Calculate performance score
-                score = self.calculate_performance_score()
-                if score < 60:  # Below threshold
-                    self.logger.warning(f"Low performance score: {score:.1f}")
+                score = self._calculate_performance_score()
+                self.performance_scores.append(score)
+                self._update_performance_trend()
+                
+                # Update Cascade with current status
+                self._update_cascade_status()
+                
+                # Reset error counter on successful iteration
+                consecutive_errors = 0
                 
             except Exception as e:
-                self.logger.error(f"Error in monitor loop: {e}")
+                consecutive_errors += 1
+                self.error_count += 1
+                self.last_error_time = time.time()
+                
+                error_msg = f"Error in monitor loop (attempt {consecutive_errors}/{self.MAX_RETRIES}): {e}"
+                self.logger.error(error_msg, exc_info=True)
+                
+                # Attempt recovery if possible
+                if consecutive_errors < self.MAX_RETRIES:
+                    self._attempt_recovery()
+                    time.sleep(self.RECOVERY_DELAY)
+                else:
+                    self.logger.critical("Max retries reached, stopping monitor")
+                    self.running = False
+                    self._emergency_shutdown()
+                    break
             
-            # Wait for next interval
-            time.sleep(max(0, self.check_interval - (time.time() - now)))
+            # Normal sleep between iterations
+            time.sleep(self.check_interval)
+    
+    def _update_memory_stats(self) -> None:
+        """Update memory usage statistics."""
+        process = psutil.Process()
+        with process.oneshot():
+            mem_info = process.memory_info()
+            self.memory_stats = MemoryStats(
+                current_mb=mem_info.rss / (1024 * 1024),
+                peak_mb=process.memory_info().vms / (1024 * 1024),
+                usage_percent=process.memory_percent(),
+                timestamp=time.time()
+            )
+    
+    def _update_performance_metrics(self) -> None:
+        """Update system performance metrics."""
+        cpu_percent = psutil.cpu_percent(interval=0.1)
+        
+        # Calculate disk I/O rates
+        disk_io = psutil.disk_io_counters()
+        disk_read = (disk_io.read_bytes - disk_io_last.read_bytes) / (1024 * 1024)  # MB
+        disk_write = (disk_io.write_bytes - disk_io_last.write_bytes) / (1024 * 1024)
+        disk_io_last = disk_io
+        
+        # Calculate network I/O rates
+        net_io = psutil.net_io_counters()
+        net_sent = (net_io.bytes_sent - net_io_last.bytes_sent) / (1024 * 1024)  # MB
+        net_recv = (net_io.bytes_recv - net_io_last.bytes_recv) / (1024 * 1024)
+        net_io_last = net_io
+        
+        # Store performance metrics
+        self.performance_metrics = PerformanceMetrics(
+            cpu_percent=cpu_percent,
+            memory_percent=psutil.virtual_memory().percent,
+            disk_io=(disk_read, disk_write),
+            network_io=(net_sent, net_recv),
+            timestamp=time.time()
+        )
+        
+        # Add to history
+        self.memory_history.append(self.memory_stats)
+        self.performance_history.append(self.performance_metrics)
+    
+    def _check_for_issues(self) -> None:
+        """Check for potential issues."""
+        # Check for memory leaks
+        self._check_memory_leak()
     
     def _check_memory_leak(self) -> None:
         """Check for potential memory leaks."""
