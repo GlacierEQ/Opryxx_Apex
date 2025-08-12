@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: opryxx
+  labels:
+    name: opryxx
+    environment: base
+  annotations:
+    description: "Namespace for OPRYXX Logs components"
+    owner: "devops@opryxx.com"

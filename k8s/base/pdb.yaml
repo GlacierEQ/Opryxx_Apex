@@ -1,0 +1,12 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opryxx-pdb
+  labels:
+    app: opryxx
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: opryxx
+      component: api
