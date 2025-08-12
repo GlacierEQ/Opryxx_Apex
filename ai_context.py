@@ -1,4 +1,8 @@
-from sentence_transformers import SentenceTransformer
+try:
+    from sentence_transformers import SentenceTransformer
+except ImportError:
+    SentenceTransformer = None
+
 import pickle
 import os
 import json
@@ -6,6 +10,7 @@ from datetime import datetime
 
 CONTEXT_FILE = "ai_context.pkl"
 CHAT_LOG_DIR = "chat_logs"
+
 
 def initialize():
     """Initialize the AI context with default knowledge"""
@@ -15,8 +20,12 @@ def initialize():
 
         if not os.path.exists(CONTEXT_FILE):
             base_knowledge = {
-                "system_commands": ["git", "docker", "python", "node", "powershell"],
-                "project_knowledge": ["OPRYXX system", "PC repair", "AI optimization"],
+                "system_commands": [
+                    "git", "docker", "python", "node", "powershell"
+                ],
+                "project_knowledge": [
+                    "OPRYXX system", "PC repair", "AI optimization"
+                ],
                 "conversation_history": [],
                 "last_context": ""
             }
@@ -28,10 +37,15 @@ def initialize():
     except Exception as e:
         print(f"Error initializing AI context: {e}")
 
+
+
 def get_context(query):
     """Retrieve and update context for a query"""
     try:
-        model = SentenceTransformer('all-MiniLM-L6-v2')
+        if SentenceTransformer:
+            model = SentenceTransformer('all-MiniLM-L6-v2')
+        else:
+            model = None
 
         # Load existing knowledge
         with open(CONTEXT_FILE, "rb") as f:
@@ -46,12 +60,15 @@ def get_context(query):
 
         # Enhanced context matching
         context_response = ""
-        if any(cmd in query.lower() for cmd in ["run", "execute", "start"]):
+        commands = ["run", "execute", "start"]
+        if any(cmd in query.lower() for cmd in commands):
             knowledge["last_context"] = "CommandMode"
-            context_response = "CommandMode system commands available: " + ", ".join(knowledge["system_commands"])
+            cmd_list = ", ".join(knowledge["system_commands"])
+            context_response = f"CommandMode system commands: {cmd_list}"
         else:
             knowledge["last_context"] = "ConversationMode"
-            context_response = "ConversationMode: " + knowledge["project_knowledge"][0]
+            proj_knowledge = knowledge["project_knowledge"][0]
+            context_response = f"ConversationMode: {proj_knowledge}"
 
         # Save updated knowledge back to file
         with open(CONTEXT_FILE, "wb") as f:
@@ -68,6 +85,8 @@ def get_context(query):
     except Exception as e:
         print(f"Error retrieving context: {e}")
         return f"Error: {e}"
+
+
 
 def save_chat_log(query, response):
     """Save chat interaction to log file"""
@@ -98,6 +117,8 @@ def save_chat_log(query, response):
     except Exception as e:
         print(f"Error saving chat log: {e}")
 
+
+
 def get_conversation_history(limit=10):
     """Get recent conversation history"""
     try:
@@ -107,6 +128,8 @@ def get_conversation_history(limit=10):
     except Exception as e:
         print(f"Error retrieving conversation history: {e}")
         return []
+
+
 
 def update_project_knowledge(new_knowledge):
     """Add new knowledge to the project knowledge base"""
@@ -126,6 +149,8 @@ def update_project_knowledge(new_knowledge):
     except Exception as e:
         print(f"Error updating project knowledge: {e}")
 
+
+
 def clear_context():
     """Clear all context data"""
     try:
@@ -134,6 +159,8 @@ def clear_context():
         print("Context cleared successfully")
     except Exception as e:
         print(f"Error clearing context: {e}")
+
+
 
 # Initialize on import
 if __name__ == "__main__":

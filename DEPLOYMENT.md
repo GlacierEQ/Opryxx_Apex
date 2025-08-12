@@ -348,5 +348,63 @@ For additional support, please contact:
 - **Documentation**: https://docs.opryxx.ai
 - **GitHub Issues**: https://github.com/your-org/opryxx/issues
 
+## Run and Verify
+
+### Start Application
+```bash
+# Development
+uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+
+# Production
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --workers 4
+```
+
+### Database Migrations
+```bash
+# Initialize Alembic (first time only)
+alembic init migrations
+
+# Create migration
+alembic revision --autogenerate -m "Initial migration"
+
+# Apply migrations
+alembic upgrade head
+
+# Check migration status
+alembic current
+```
+
+### Verification Commands
+```bash
+# Health check
+curl http://localhost:8000/health
+
+# API test
+curl -X POST "http://localhost:8000/execute" -d "query=system scan"
+
+# Operations status
+curl http://localhost:8000/operations
+
+# Service status (systemd)
+sudo systemctl status opryxx
+
+# View logs
+sudo journalctl -u opryxx -f
+```
+
+### Docker Deployment
+```bash
+# Build and run
+docker build -t opryxx:latest .
+docker run -d -p 8000:8000 --name opryxx opryxx:latest
+
+# Production with compose
+docker-compose -f docker-compose.prod.yml up -d
+
+# Check container health
+docker ps
+docker logs opryxx
+```
+
 ## License
 Copyright © 2025 OPRYXX. All rights reserved.

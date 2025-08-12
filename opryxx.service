@@ -1,0 +1,33 @@
+[Unit]
+Description=OPRYXX Ultimate System Service
+After=network.target
+Wants=network.target
+
+[Service]
+Type=exec
+User=opryxx
+Group=opryxx
+WorkingDirectory=/opt/opryxx
+Environment=PATH=/opt/opryxx/venv/bin
+EnvironmentFile=/opt/opryxx/.env
+ExecStart=/opt/opryxx/venv/bin/uvicorn app.main:app --host 0.0.0.0 --port 8000
+ExecReload=/bin/kill -HUP $MAINPID
+KillMode=mixed
+Restart=always
+RestartSec=5
+TimeoutStopSec=30
+
+# Security
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/opryxx/logs /var/log/opryxx
+
+# Logging
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=opryxx
+
+[Install]
+WantedBy=multi-user.target
