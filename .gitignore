@@ -23,3 +23,12 @@ bin-release/
 node_modules
 .env
 .DS_Store
+
+# Coders in Flow
+.venv
+.codex
+out
+dist
+*.vsix
+.claude
+CLAUDE.md
