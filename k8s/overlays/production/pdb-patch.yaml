@@ -1,0 +1,27 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: opryxx-pdb
+  annotations:
+    description: "Pod Disruption Budget for OPRYXX production workload"
+    owner: "devops@opryxx.com"
+spec:
+  # Ensure at least 75% of pods are available during disruptions
+  minAvailable: 75%
+  
+  # Selector for pods managed by the deployment
+  selector:
+    matchLabels:
+      app: opryxx
+      component: api
+  
+  # Maximum number of pods that can be unavailable during a disruption
+  # This is a percentage of desired pods, rounded down to the nearest integer
+  # With 3 replicas, this allows 1 pod to be disrupted (3 * 0.25 = 0.75, rounded down to 0.75 -> 0, so 3 - 0 = 3 must be available)
+  # This effectively means no voluntary disruptions are allowed
+  # maxUnavailable: 25%  # Uncomment if you want to allow some pods to be disrupted
+  
+  # Optional: Unhealthy pod eviction policy (defaults to IfHealthyBudget)
+  # - IfHealthyBudget: Evict pods only if the budget is not violated
+  # - AlwaysAllow: Always allow eviction of unhealthy pods
+  unhealthyPodEvictionPolicy: IfHealthyBudget

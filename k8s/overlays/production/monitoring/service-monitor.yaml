@@ -1,0 +1,46 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: opryxx-monitor
+  labels:
+    app.kubernetes.io/component: opryxx
+    app.kubernetes.io/name: opryxx-monitor
+    release: kube-prometheus-stack
+spec:
+  jobLabel: app.kubernetes.io/name
+  selector:
+    matchLabels:
+      app: opryxx
+      component: api
+  namespaceSelector:
+    matchNames:
+      - opryxx-production
+  endpoints:
+  - port: metrics
+    interval: 15s
+    scrapeTimeout: 10s
+    path: /metrics
+    scheme: http
+    relabelings:
+    - sourceLabels: [__meta_kubernetes_pod_node_name]
+      targetLabel: kubernetes_node
+    - sourceLabels: [__meta_kubernetes_pod_name]
+      targetLabel: kubernetes_pod_name
+    - sourceLabels: [__meta_kubernetes_namespace]
+      targetLabel: kubernetes_namespace
+  - port: http
+    interval: 30s
+    scrapeTimeout: 25s
+    path: /healthz
+    scheme: http
+    metricRelabelings:
+    - sourceLabels: [__name__]
+      regex: 'up|process_.*|python_.*|http_.*|django_.*|flask_.*|opryxx_.*'
+      action: keep
+  - port: http
+    interval: 1m
+    scrapeTimeout: 55s
+    path: /metrics
+    scheme: http
+    params:
+      format: [prometheus]

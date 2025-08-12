@@ -1,0 +1,24 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Production monitoring configuration
+resources:
+  - service-monitor.yaml
+  - prometheus-rule.yaml
+  - grafana-dashboard.yaml
+  - alertmanager-config.yaml
+
+# Common labels for all monitoring resources
+commonLabels:
+  app.kubernetes.io/part-of: monitoring
+  app.kubernetes.io/component: opryxx-monitoring
+
+# Name prefix for all resources
+namePrefix: opryxx-
+
+# Configure the namespace
+namespace: monitoring
+
+# Configure the kustomization behavior
+configurations:
+  - kustomizeconfig.yaml

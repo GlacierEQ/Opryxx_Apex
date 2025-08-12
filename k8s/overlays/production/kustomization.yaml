@@ -1,0 +1,274 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Production environment overlay
+nameSuffix: -prod
+commonLabels:
+  environment: production
+  tier: frontend
+  app.kubernetes.io/part-of: opryxx
+  app.kubernetes.io/managed-by: kustomize
+
+# Reference the base configuration and monitoring components
+resources:
+  - ../../base
+  - monitoring/service-monitor.yaml
+  - monitoring/prometheus-rule.yaml
+  - monitoring/grafana-dashboard.yaml
+  - monitoring/alertmanager-config.yaml
+
+# Patch the deployment for production
+patches:
+  - path: deployment-patch.yaml
+  - path: configmap-patch.yaml
+  - path: hpa-patch.yaml
+  - path: pdb-patch.yaml
+  - path: service-patch.yaml
+  - path: monitoring/service-monitor-patch.yaml
+  - path: monitoring/prometheus-rule-patch.yaml
+
+# Configure the image to use (pinned to specific version in production)
+images:
+  - name: ghcr.io/opryxx/opryxx-logs2
+    newName: ghcr.io/opryxx/opryxx-logs2
+    newTag: ${IMAGE_TAG:-latest}
+    digest: ${IMAGE_DIGEST}
+
+# Configure the namespace
+namespace: opryxx-production
+
+# Add production-specific resources
+configMapGenerator:
+  - name: opryxx-config
+    behavior: merge
+    literals:
+      - ENVIRONMENT=production
+      - LOG_LEVEL=INFO
+      - FEATURE_AI_ANALYTICS=true
+      - FEATURE_ADVANCED_LOGGING=true
+      - FEATURE_METRICS=true
+      - METRICS_PORT=9102
+      - METRICS_PATH=/metrics
+      - HEALTH_CHECK_PATH=/healthz
+      - READINESS_CHECK_PATH=/readyz
+      - LIVENESS_CHECK_PATH=/livez
+      - DATABASE_URL=postgresql://${DB_USER}:${DB_PASSWORD}@prod-db:5432/opryxx_prod?sslmode=require
+      - CACHE_URL=rediss://:${REDIS_PASSWORD}@prod-cache:6379/1
+      - SENTRY_DSN=${SENTRY_DSN}
+      - NEW_RELIC_LICENSE_KEY=${NEW_RELIC_LICENSE_KEY}
+      - PROMETHEUS_METRICS_ENABLED=true
+      - PROMETHEUS_METRICS_PORT=9102
+      - PROMETHEUS_METRICS_PATH=/metrics
+      - PROMETHEUS_METRICS_PREFIX=opryxx_
+      - PROMETHEUS_METRICS_LABELS={"app":"opryxx","environment":"production"}
+      - PROMETHEUS_METRICS_INTERVAL=15s
+      - PROMETHEUS_METRICS_TIMEOUT=10s
+
+secretGenerator:
+  - name: opryxx-secrets
+    behavior: merge
+    envs:
+      - secrets.env
+    type: Opaque
+    options:
+      disableNameSuffixHash: true
+      immutable: true
+
+# Add production-only resources
+bases:
+  - ./monitoring
+  - ./backup
+
+# Configure kustomize to use vars for secret values
+vars:
+  # Database
+  - name: DB_PASSWORD
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.DB_PASSWORD
+  
+  # Redis
+  - name: REDIS_PASSWORD
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.REDIS_PASSWORD
+  
+  # Monitoring
+  - name: SENTRY_DSN
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.SENTRY_DSN
+  
+  - name: NEW_RELIC_LICENSE_KEY
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.NEW_RELIC_LICENSE_KEY
+  
+  # Alerting
+  - name: SLACK_API_URL
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.SLACK_API_URL
+  
+  - name: PAGERDUTY_ROUTING_KEY
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.PAGERDUTY_ROUTING_KEY
+  
+  - name: OPSGENIE_API_KEY
+    objref:
+      kind: Secret
+      name: opryxx-secrets
+      apiVersion: v1
+    fieldref:
+      fieldpath: data.OPSGENIE_API_KEY
+
+# Configure common annotations
+commonAnnotations:
+  kustomize.toolkit.fluxcd.io/checksum: ${KUSTOMIZE_CHECKSUM}
+  argocd.argoproj.io/sync-options: Prune=false
+  argocd.argoproj.io/sync-wave: "0"
+  prometheus.io/scrape: "true"
+  prometheus.io/port: "9102"
+  prometheus.io/path: "/metrics"
+  prometheus.io/scheme: "http"
+
+# Configure resource labels
+namespace: opryxx-production
+labels:
+  - pairs:
+      app.kubernetes.io/name: opryxx
+      app.kubernetes.io/instance: opryxx-production
+      app.kubernetes.io/version: ${APP_VERSION:-latest}
+      app.kubernetes.io/component: api
+      app.kubernetes.io/part-of: opryxx
+      app.kubernetes.io/managed-by: kustomize
+
+# Configure replicas for production
+replicas:
+  - name: opryxx
+    count: 3
+
+# Configure resource requests and limits
+resources:
+  - target:
+      kind: Deployment
+      name: opryxx
+    patches:
+      - patch: |
+          - op: replace
+            path: /spec/template/spec/containers/0/resources
+            value:
+              requests:
+                cpu: 100m
+                memory: 256Mi
+              limits:
+                cpu: 1000m
+                memory: 1Gi
+
+# Configure pod disruption budget
+podDisruptionBudget:
+  minAvailable: 2
+  maxUnavailable: 1
+
+# Configure security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 3000
+  fsGroup: 2000
+  seccompProfile:
+    type: RuntimeDefault
+
+# Configure service account
+serviceAccount:
+  create: true
+  name: opryxx-sa
+  annotations:
+    eks.amazonaws.com/role-arn: ${IAM_ROLE_ARN}
+
+# Configure network policy
+networkPolicy:
+  enabled: true
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              app.kubernetes.io/name: ingress-nginx
+      ports:
+        - protocol: TCP
+          port: 80
+        - protocol: TCP
+          port: 443
+  egress:
+    - to:
+        - ipBlock:
+            cidr: 0.0.0.0/0
+            except:
+              - 169.254.169.254/32
+      ports:
+        - protocol: TCP
+          port: 443
+          
+# Configure pod anti-affinity
+affinity:
+  podAntiAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 100
+        podAffinityTerm:
+          labelSelector:
+            matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                  - opryxx
+          topologyKey: kubernetes.io/hostname
+
+# Configure tolerations for spot instances
+tolerations:
+  - key: "spot"
+    operator: "Equal"
+    value: "true"
+    effect: "NoSchedule"
+  - key: "dedicated"
+    operator: "Equal"
+    value: "opryxx"
+    effect: "NoSchedule"
+
+# Configure node selector for production
+nodeSelector:
+  node-role.kubernetes.io/worker: ""
+  kubernetes.io/arch: amd64
+
+# Configure topology spread constraints
+topologySpreadConstraints:
+  - maxSkew: 1
+    topologyKey: topology.kubernetes.io/zone
+    whenUnsatisfiable: ScheduleAnyway
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: opryxx
+  - maxSkew: 1
+    topologyKey: kubernetes.io/hostname
+    whenUnsatisfiable: ScheduleAnyway
+    labelSelector:
+      matchLabels:
+        app.kubernetes.io/name: opryxx

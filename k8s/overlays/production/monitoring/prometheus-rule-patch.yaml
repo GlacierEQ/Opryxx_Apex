@@ -1,0 +1,113 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: opryxx-alerts
+  namespace: monitoring
+  labels:
+    app: kube-prometheus-stack
+    release: kube-prometheus-stack
+    app.kubernetes.io/part-of: kube-prometheus
+    app.kubernetes.io/component: alert-rules
+    app.kubernetes.io/name: opryxx-alerts
+spec:
+  groups:
+  - name: opryxx.rules
+    rules:
+    # High level service alerts
+    - alert: OPRYXXDown
+      expr: up{job="opryxx-service"} == 0
+      for: 5m
+      labels:
+        severity: critical
+        team: devops
+      annotations:
+        summary: "OPRYXX service is down"
+        description: "OPRYXX service has been down for more than 5 minutes."
+        runbook_url: "https://opryxx.com/runbooks/opryxx-down"
+
+    # Error rate alerts
+    - alert: HighErrorRate
+      expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) * 100 > 5
+      for: 5m
+      labels:
+        severity: critical
+        team: devops
+      annotations:
+        summary: "High error rate on OPRYXX service"
+        description: "Error rate is {{ $value }}% for OPRYXX service ({{ $labels.instance }})."
+        runbook_url: "https://opryxx.com/runbooks/high-error-rate"
+
+    # Latency alerts
+    - alert: HighLatency
+      expr: histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le)) > 1
+      for: 10m
+      labels:
+        severity: warning
+        team: devops
+      annotations:
+        summary: "High latency on OPRYXX service"
+        description: "95th percentile latency is {{ $value }}s for OPRYXX service ({{ $labels.instance }})."
+        runbook_url: "https://opryxx.com/runbooks/high-latency"
+
+    # Resource usage alerts
+    - alert: HighMemoryUsage
+      expr: (container_memory_working_set_bytes{container="opryxx"} / container_spec_memory_limit_bytes{container="opryxx"} * 100) > 80
+      for: 15m
+      labels:
+        severity: warning
+        team: devops
+      annotations:
+        summary: "High memory usage on OPRYXX"
+        description: "Memory usage is {{ $value }}% for OPRYXX ({{ $labels.pod }})."
+        runbook_url: "https://opryxx.com/runbooks/high-memory-usage"
+
+    - alert: HighCPUUsage
+      expr: (rate(container_cpu_usage_seconds_total{container="opryxx"}[5m]) * 100) > 80
+      for: 15m
+      labels:
+        severity: warning
+        team: devops
+      annotations:
+        summary: "High CPU usage on OPRYXX"
+        description: "CPU usage is {{ $value }}% for OPRYXX ({{ $labels.pod }})."
+        runbook_url: "https://opryxx.com/runbooks/high-cpu-usage"
+
+    # Database connection alerts
+    - alert: HighDatabaseConnections
+      expr: pg_stat_activity_count > (pg_settings_max_connections * 0.8)
+      for: 10m
+      labels:
+        severity: warning
+        team: dba
+      annotations:
+        summary: "High database connection count"
+        description: "Database connections are at {{ $value }}, which is over 80% of the limit."
+        runbook_url: "https://opryxx.com/runbooks/high-db-connections"
+
+    # Custom business metrics alerts
+    - alert: HighErrorLogRate
+      expr: rate(opryxx_error_logs_total[5m]) > 10
+      for: 5m
+      labels:
+        severity: warning
+        team: devops
+      annotations:
+        summary: "High error log rate"
+        description: "Error log rate is {{ $value }} logs/second, which is above the threshold."
+        runbook_url: "https://opryxx.com/runbooks/high-error-log-rate"
+
+    # SLO violation alerts
+    - alert: SLOLatencyBreach
+      expr: (
+        sum(rate(http_request_duration_seconds_bucket{le="1.0"}[1d]))
+        /
+        sum(rate(http_request_duration_seconds_count[1d]))
+      ) * 100 < 99
+      for: 1h
+      labels:
+        severity: warning
+        team: devops
+      annotations:
+        summary: "SLO Latency Breach"
+        description: "Latency SLO is being breached (99th percentile > 1s over last hour)."
+        runbook_url: "https://opryxx.com/runbooks/slo-latency-breach"

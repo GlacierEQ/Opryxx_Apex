@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opryxx
+  annotations:
+    # Enable rolling updates with surge strategy
+    argocd.argoproj.io/sync-options: Prune=false
+    # Enable HPA to manage replicas
+    argocd.argoproj.io/hook: PreSync
+spec:
+  replicas: 3  # Will be managed by HPA
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      annotations:
+        # Add checksum of config and secrets to trigger rolling updates on change
+        checksum/config: ${CONFIG_CHECKSUM}
+        checksum/secret: ${SECRETS_CHECKSUM}
+        # Enable Prometheus scraping
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9102"
+        prometheus.io/path: "/metrics"
+    spec:
+      serviceAccountName: opryxx-service-account
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 2000
+      containers:
+      - name: opryxx
+        image: ghcr.io/opryxx/opryxx-logs2:${IMAGE_TAG}
+        imagePullPolicy: IfNotPresent
+        resources:
+          requests:
+            cpu: 200m
+            memory: 512Mi
+          limits:
+            cpu: 2000m
+            memory: 2048Mi
+        env:
+        - name: CONFIG_HASH
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.annotations['checksum/config']
+        - name: NODE_ENV
+          value: "production"
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          successThreshold: 1
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8000
+            scheme: HTTP
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 2
+          successThreshold: 1
+          failureThreshold: 3
+        startupProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+            scheme: HTTP
+          failureThreshold: 30
+          periodSeconds: 10
+        volumeMounts:
+        - name: config-volume
+          mountPath: /app/config
+        - name: logs
+          mountPath: /var/log/opryxx
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: config-volume
+        configMap:
+          name: opryxx-config
+          optional: false
+      - name: logs
+        emptyDir: {}
+      - name: tmp
+        emptyDir: {}
+      # Node affinity for production
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/production
+                operator: In
+                values:
+                - "true"
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - opryxx
+              topologyKey: "kubernetes.io/hostname"
+      # Tolerations for dedicated nodes
+      tolerations:
+      - key: "dedicated"
+        operator: "Equal"
+        value: "opryxx"
+        effect: "NoSchedule"
+      # Priority class for critical workloads
+      priorityClassName: high-priority

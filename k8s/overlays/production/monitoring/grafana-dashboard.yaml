@@ -1,0 +1,572 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opryxx-grafana-dashboard
+  labels:
+    grafana_dashboard: "1"
+    app: opryxx
+data:
+  opryxx-dashboard.json: |
+    {
+      "annotations": {
+        "list": [
+          {
+            "builtIn": 1,
+            "datasource": "-- Grafana --",
+            "enable": true,
+            "hide": true,
+            "iconColor": "rgba(0, 211, 255, 1)",
+            "name": "Annotations & Alerts",
+            "target": {
+              "limit": 100,
+              "matchAny": false,
+              "tags": [],
+              "type": "dashboard"
+            },
+            "type": "dashboard"
+          }
+        ]
+      },
+      "editable": true,
+      "fiscalYearStartMonth": 0,
+      "graphTooltip": 1,
+      "id": 1,
+      "links": [
+        {
+          "icon": "external link",
+          "tags": [],
+          "targetBlank": true,
+          "title": "OPRYYX Documentation",
+          "type": "link",
+          "url": "https://docs.opryxx.com"
+        },
+        {
+          "asDropdown": true,
+          "icon": "external link",
+          "includeVars": true,
+          "keepTime": true,
+          "tags": ["opryxx"],
+          "targetBlank": true,
+          "title": "Related Dashboards",
+          "type": "dashboards"
+        }
+      ],
+      "liveNow": true,
+      "panels": [
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "reqps"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 0
+          },
+          "id": 2,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(http_requests_total{job=\"opryxx-service\"}[5m])) by (status_code, method)",
+              "legendFormat": "{{method}} {{status_code}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Request Rate",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 20,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "smooth",
+                "lineWidth": 2,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "s"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 0
+          },
+          "id": 3,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, method, path))",
+              "legendFormat": "{{method}} {{path}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Request Latency (99th %ile)",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisCenteredZero": false,
+                "axisColorMode": "text",
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 10,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "percent"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 8
+          },
+          "id": 4,
+          "options": {
+            "legend": {
+              "calcs": [
+                "mean",
+                "lastNotNull",
+                "max"
+              ],
+              "displayMode": "table",
+              "placement": "bottom",
+              "showLegend": true
+            },
+            "tooltip": {
+              "mode": "single",
+              "sort": "none"
+            }
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(http_requests_total{status=~\"5..\"}[5m])) by (status) / sum(rate(http_requests_total[5m])) * 100",
+              "legendFormat": "{{status}} errors",
+              "refId": "A"
+            }
+          ],
+          "title": "Error Rate",
+          "type": "timeseries"
+        },
+        {
+          "datasource": "${DS_PROMETHEUS}",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "thresholds"
+              },
+              "custom": {
+                "align": null,
+                "cellOptions": {
+                  "type": "auto"
+                },
+                "inspect": false
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green",
+                    "value": null
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "short"
+            },
+            "overrides": [
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Value #A"
+                },
+                "properties": [
+                  {
+                    "id": "unit",
+                    "value": "percent"
+                  },
+                  {
+                    "id": "custom.cellOptions",
+                    "value": {
+                      "type": "gauge",
+                      "mode": "gradient"
+                    }
+                  },
+                  {
+                    "id": "thresholds",
+                    "value": {
+                      "mode": "percentage",
+                      "steps": [
+                        {
+                          "color": "green",
+                          "value": null
+                        },
+                        {
+                          "color": "red",
+                          "value": 80
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 8
+          },
+          "id": 5,
+          "options": {
+            "footer": {
+              "countRows": false,
+              "fields": "",
+              "reducer": [
+                "sum"
+              ],
+              "show": false
+            },
+            "showHeader": true
+          },
+          "pluginVersion": "9.5.2",
+          "targets": [
+            {
+              "expr": "sum(rate(http_requests_total[5m]))",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Request Rate (req/s)",
+              "refId": "A"
+            },
+            {
+              "expr": "avg(rate(http_request_duration_seconds_sum[5m]) / rate(http_request_duration_seconds_count[5m])) * 1000",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Avg Latency (ms)",
+              "refId": "B"
+            },
+            {
+              "expr": "(1 - (sum(rate(http_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_requests_total[5m])))) * 100",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Success Rate (%)",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(container_memory_working_set_bytes{container=\"opryxx\"}) / sum(container_spec_memory_limit_bytes{container=\"opryxx\"}) * 100",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "Memory Usage (%)",
+              "refId": "D"
+            },
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total{container=\"opryxx\"}[5m])) / sum(container_spec_cpu_quota{container=\"opryxx\"} / 100000) * 100",
+              "format": "table",
+              "instant": true,
+              "interval": "",
+              "legendFormat": "CPU Usage (%)",
+              "refId": "E"
+            }
+          ],
+          "title": "Key Metrics",
+          "type": "table"
+        }
+      ],
+      "refresh": "5s",
+      "schemaVersion": 37,
+      "style": "dark",
+      "tags": ["opryxx", "production"],
+      "templating": {
+        "list": [
+          {
+            "current": {
+              "selected": false,
+              "text": "Prometheus",
+              "value": "Prometheus"
+            },
+            "hide": 0,
+            "includeAll": false,
+            "label": "Data Source",
+            "multi": false,
+            "name": "DS_PROMETHEUS",
+            "options": [],
+            "query": "prometheus",
+            "queryValue": "",
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "type": "datasource"
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "${DS_PROMETHEUS}",
+            "definition": "label_values(up{job=\"opryxx-service\"}, instance)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "Instance",
+            "multi": true,
+            "name": "instance",
+            "options": [],
+            "query": {
+              "query": "label_values(up{job=\"opryxx-service\"}, instance)",
+              "refId": "OPRYXX-Instance-Variable-Query"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          },
+          {
+            "allValue": null,
+            "current": {
+              "selected": false,
+              "text": "All",
+              "value": "$__all"
+            },
+            "datasource": "${DS_PROMETHEUS}",
+            "definition": "label_values(http_requests_total{job=\"opryxx-service\"}, method)",
+            "hide": 0,
+            "includeAll": true,
+            "label": "HTTP Method",
+            "multi": true,
+            "name": "http_method",
+            "options": [],
+            "query": {
+              "query": "label_values(http_requests_total{job=\"opryxx-service\"}, method)",
+              "refId": "OPRYXX-HTTP-Method-Variable-Query"
+            },
+            "refresh": 1,
+            "regex": "",
+            "skipUrlSync": false,
+            "sort": 0,
+            "tagValuesQuery": "",
+            "tags": [],
+            "tagsQuery": "",
+            "type": "query",
+            "useTags": false
+          }
+        ]
+      },
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "timepicker": {
+        "refresh_intervals": [
+          "5s",
+          "10s",
+          "30s",
+          "1m",
+          "5m",
+          "15m",
+          "30m",
+          "1h",
+          "2h",
+          "1d"
+        ],
+        "time_options": [
+          "5m",
+          "15m",
+          "1h",
+          "6h",
+          "12h",
+          "24h",
+          "2d",
+          "7d",
+          "30d"
+        ]
+      },
+      "timezone": "browser",
+      "title": "OPRYYX Production Dashboard",
+      "uid": "opryxx-production-dashboard",
+      "version": 1,
+      "weekStart": ""
+    }
