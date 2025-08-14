@@ -47,7 +47,7 @@ structlog==23.1.0
 # Security
 python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
-python-multipart==0.0.6
+python-multipart==0.0.18
 itsdangerous==2.1.2
 cryptography==41.0.5
 
@@ -88,7 +88,7 @@ fastapi-pagination==0.12.8  # For pagination
 fastapi-cache-control>=0.3.0  # For HTTP caching
 fastapi-utils==0.2.1  # For various utilities
 python-slugify==8.0.1  # For URL-safe strings
-python-multipart==0.0.6  # For file uploads
+python-multipart==0.0.18  # For file uploads
 python-jose[cryptography]==3.3.0  # For JWT tokens
 passlib[bcrypt]==1.7.4  # For password hashing
 python-dotenv==1.0.0  # For loading .env files
@@ -132,7 +132,7 @@ structlog==23.1.0  # Structured logging
 # Security
 python-jose[cryptography]==3.3.0  # JWT tokens
 passlib[bcrypt]==1.7.4  # Password hashing
-python-multipart==0.0.6  # File uploads
+python-multipart==0.0.18  # File uploads
 itsdangerous==2.1.2  # Security utilities
 cryptography==41.0.5  # Cryptography
 
