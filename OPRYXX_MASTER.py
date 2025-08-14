@@ -256,38 +256,6 @@ class OPRYXXMaster:
         except Exception as e:
             print(f"[ERROR] BitLocker rescue failed: {e}")
 
-def main():
-    master = OPRYXXMaster()
-    
-    try:
-        master.initialize_all_systems()
-        
-        print("\n" + "=" * 40)
-        print("OPRYXX SYSTEM READY")
-        print("=" * 40)
-        print("Choose interface:")
-        print("1. Desktop GUI")
-        print("2. Web Interface")
-        print("3. Console Interface")
-        
-        choice = input("\nSelect interface (1-3): ").strip()
-        
-        if choice == '1':
-            master.launch_gui()
-        elif choice == '2':
-            master.launch_web()
-        elif choice == '3':
-            master.launch_console()
-        else:
-            print("Invalid choice, launching console interface...")
-            master.launch_console()
-            
-    except KeyboardInterrupt:
-        print("\nShutdown requested...")
-        master.shutdown()
-    except Exception as e:
-        print(f"[CRITICAL ERROR] {e}")
-        master.shutdown()
-
-if __name__ == "__main__":
-    main()
+# This file is now a backend module for the Unified Full Stack GUI.
+# The GUI and console launching code has been removed.
+# The OPRYXXMaster class can be imported and used by other scripts.

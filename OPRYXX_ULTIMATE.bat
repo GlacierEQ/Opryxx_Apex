@@ -1,13 +1,13 @@
 @echo off
-title OPRYXX ULTIMATE - Streamlined System
+title OPRYXX UNIFIED LAUNCHER
 color 0A
 cls
 
-echo OPRYXX ULTIMATE - STREAMLINED ARCHITECTURE
-echo Operator: OPR-NS8-GE8-KC3-001-AI-GRS
-echo GUID: 983DE8C8-E120-1-B5A0-C6D8AF97BB09
+echo.
+echo ================================================================
+echo      This launcher is now part of the OPRYXX Unified System.
+echo              Redirecting to the main launcher...
+echo ================================================================
 echo.
 
-python OPRYXX_ULTIMATE.py
-
-pause
+call MASTER_LAUNCHER.bat

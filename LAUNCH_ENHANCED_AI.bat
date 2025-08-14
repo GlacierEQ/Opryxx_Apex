@@ -1,22 +1,13 @@
 @echo off
-title ENHANCED NEXUS AI - Ultimate System
-color 0D
+title OPRYXX UNIFIED LAUNCHER
+color 0A
 cls
 
 echo.
 echo ================================================================
-echo          ENHANCED NEXUS AI - ULTIMATE SYSTEM
+echo      This launcher is now part of the OPRYXX Unified System.
+echo              Redirecting to the main launcher...
 echo ================================================================
 echo.
-echo NEW ENHANCEMENTS ACTIVE:
-echo   Desktop Notifications - Real-time alerts
-echo   Gaming Mode - Ultra-performance for games
-echo   Voice Commands - "Hey NEXUS, optimize!"
-echo   Web Dashboard - Monitor from phone/tablet
-echo.
-echo LAUNCHING ENHANCED NEXUS AI...
-echo.
 
-python ENHANCED_ULTIMATE_AI.py
-
-pause
+call MASTER_LAUNCHER.bat

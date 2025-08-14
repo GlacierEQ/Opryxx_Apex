@@ -16,6 +16,16 @@ import tkinter as tk
 from tkinter import ttk, messagebox, scrolledtext
 from tkinter.font import Font
 
+# Try to import the backend systems
+try:
+    from ai.AI_WORKBENCH import AIWorkbench
+    from ai.ULTIMATE_AI_OPTIMIZER import UltimateAIOptimizer
+    from recovery.master_recovery import MasterRecovery
+    BACKEND_AVAILABLE = True
+except ImportError as e:
+    print(f"Warning: Could not import backend systems: {e}")
+    BACKEND_AVAILABLE = False
+
 class UnifiedFullStackSystem:
     def __init__(self):
         self.active = True
@@ -190,6 +200,17 @@ class UnifiedFullStackGUI:
         self.root.configure(bg='#0a0a0a')
         
         self.system = UnifiedFullStackSystem()
+
+        # Instantiate backend systems if available
+        if BACKEND_AVAILABLE:
+            self.ai_workbench = AIWorkbench()
+            self.ultimate_optimizer = UltimateAIOptimizer()
+            self.master_recovery = MasterRecovery()
+        else:
+            self.ai_workbench = None
+            self.ultimate_optimizer = None
+            self.master_recovery = None
+
         self.setup_styles()
         self.create_interface()
         self.start_monitoring()
@@ -304,6 +325,7 @@ class UnifiedFullStackGUI:
         self.create_dashboard_tab()
         self.create_monitoring_tab()
         self.create_optimization_tab()
+        self.create_ai_systems_tab()
         self.create_recovery_tab()
         self.create_prediction_tab()
         self.create_automation_tab()
@@ -410,6 +432,59 @@ class UnifiedFullStackGUI:
                                                           font=('Consolas', 10), wrap='word')
         self.optimization_text.pack(fill='both', expand=True, padx=10, pady=10)
     
+    def create_ai_systems_tab(self):
+        """AI Systems control center"""
+        frame = tk.Frame(self.notebook, bg=self.bg)
+        self.notebook.add(frame, text="🤖 AI Systems")
+
+        # ARIA AI (AIWorkbench) Frame
+        aria_frame = tk.Frame(frame, bg=self.panel_bg, relief='raised', bd=2)
+        aria_frame.pack(side='left', fill='both', expand=True, padx=5, pady=10)
+
+        tk.Label(aria_frame, text="🤖 ARIA - AI Health Manager",
+                font=('Arial', 14, 'bold'), fg=self.accent, bg=self.panel_bg).pack(pady=10)
+
+        # ARIA controls
+        aria_controls = tk.Frame(aria_frame, bg=self.panel_bg)
+        aria_controls.pack(fill='x', padx=10, pady=5)
+        tk.Button(aria_controls, text="🚀 Activate ARIA", command=self.activate_aria, bg='#00aa00', fg='white').pack(side='left', padx=5)
+        tk.Button(aria_controls, text="⏸️ Pause ARIA", command=self.pause_aria, bg='#aa6600', fg='white').pack(side='left', padx=5)
+        tk.Button(aria_controls, text="🔍 Health Check", command=self.manual_health_check, bg='#0066aa', fg='white').pack(side='left', padx=5)
+
+        # ARIA status
+        self.aria_health_var = tk.StringVar(value="Health Score: N/A")
+        tk.Label(aria_frame, textvariable=self.aria_health_var, font=('Arial', 12, 'bold'), fg=self.accent, bg=self.panel_bg).pack(pady=5)
+        self.aria_status_var = tk.StringVar(value="ARIA Status: Standby")
+        tk.Label(aria_frame, textvariable=self.aria_status_var, font=('Arial', 10), fg='white', bg=self.panel_bg).pack(pady=5)
+
+        # ARIA log
+        self.aria_log = scrolledtext.ScrolledText(aria_frame, bg=self.text_bg, fg='white', font=('Consolas', 9), wrap='word', height=10)
+        self.aria_log.pack(fill='both', expand=True, padx=10, pady=10)
+
+        # NEXUS AI (UltimateAIOptimizer) Frame
+        nexus_frame = tk.Frame(frame, bg=self.panel_bg, relief='raised', bd=2)
+        nexus_frame.pack(side='right', fill='both', expand=True, padx=5, pady=10)
+
+        tk.Label(nexus_frame, text="🚀 NEXUS - Ultimate AI Optimizer",
+                font=('Arial', 14, 'bold'), fg=self.accent, bg=self.panel_bg).pack(pady=10)
+
+        # NEXUS controls
+        nexus_controls = tk.Frame(nexus_frame, bg=self.panel_bg)
+        nexus_controls.pack(fill='x', padx=10, pady=5)
+        tk.Button(nexus_controls, text="🚀 Activate NEXUS", command=self.activate_nexus, bg='#ff0080', fg='white').pack(side='left', padx=5)
+        tk.Button(nexus_controls, text="⚡ Turbo Mode", command=self.turbo_mode, bg='#ff8000', fg='white').pack(side='left', padx=5)
+        tk.Button(nexus_controls, text="🔥 Emergency Fix", command=self.emergency_fix_nexus, bg=self.error, fg='white').pack(side='left', padx=5)
+
+        # NEXUS status
+        self.nexus_problems_var = tk.StringVar(value="Problems Fixed: N/A")
+        tk.Label(nexus_frame, textvariable=self.nexus_problems_var, font=('Arial', 12, 'bold'), fg=self.accent, bg=self.panel_bg).pack(pady=5)
+        self.nexus_optimizations_var = tk.StringVar(value="Optimizations: N/A")
+        tk.Label(nexus_frame, textvariable=self.nexus_optimizations_var, font=('Arial', 10), fg='white', bg=self.panel_bg).pack(pady=5)
+
+        # NEXUS log
+        self.nexus_log = scrolledtext.ScrolledText(nexus_frame, bg=self.text_bg, fg='white', font=('Consolas', 9), wrap='word', height=10)
+        self.nexus_log.pack(fill='both', expand=True, padx=10, pady=10)
+
     def create_recovery_tab(self):
         """System recovery"""
         frame = tk.Frame(self.notebook, bg=self.bg)
@@ -423,10 +498,10 @@ class UnifiedFullStackGUI:
                 font=('Arial', 14, 'bold'), fg=self.accent, bg=self.panel_bg).pack(pady=10)
         
         recovery_buttons = [
-            ("🚨 Emergency Recovery", self.emergency_recovery),
-            ("🔄 Boot Repair", self.boot_repair),
-            ("🛡️ System Restore", self.system_restore),
-            ("💿 Create Recovery", self.create_recovery)
+            ("📊 Run Diagnostics", self.run_recovery_diagnostics),
+            ("🎯 Targeted Recovery", self.run_targeted_recovery),
+            ("🛠️ Advanced Recovery", self.run_advanced_recovery),
+            ("🆘 Last Resort", self.run_last_resort_recovery)
         ]
         
         btn_frame = tk.Frame(recovery_frame, bg=self.panel_bg)
@@ -546,7 +621,21 @@ class UnifiedFullStackGUI:
             timestamp = datetime.now().strftime("%H:%M:%S")
             monitor_data = f"[{timestamp}] CPU: {cpu:.1f}% | Memory: {memory.percent:.1f}% | Disk: {(disk.used/disk.total)*100:.1f}%\n"
             self.root.after(0, lambda: self.log_to_widget(self.monitoring_text, monitor_data))
-            
+
+            # Update AI systems tab
+            if self.ai_workbench:
+                self.aria_health_var.set(f"Health Score: {self.ai_workbench.health_score}%")
+                self.aria_status_var.set(f"ARIA Status: {'ACTIVE' if self.ai_workbench.active else 'PAUSED'}")
+                if self.ai_workbench.actions_taken:
+                    self.log_to_widget(self.aria_log, self.ai_workbench.actions_taken[-1] + '\n')
+
+            if self.ultimate_optimizer:
+                status = self.ultimate_optimizer.get_ultimate_status()
+                self.nexus_problems_var.set(f"Problems Fixed: {status['problems_solved']}")
+                self.nexus_optimizations_var.set(f"Optimizations: {status['optimizations_performed']}")
+                if self.ultimate_optimizer.auto_fixes:
+                    self.log_to_widget(self.nexus_log, self.ultimate_optimizer.auto_fixes[-1] + '\n')
+
         except Exception as e:
             pass
     
@@ -644,20 +733,70 @@ class UnifiedFullStackGUI:
     def memory_optimize(self):
         self.log_to_widget(self.optimization_text, "💾 Memory optimization running...\n")
     
-    def emergency_recovery(self):
-        self.log_to_widget(self.recovery_text, "🚨 Emergency recovery initiated...\n")
-    
-    def boot_repair(self):
-        self.log_to_widget(self.recovery_text, "🔄 Boot repair started...\n")
-    
-    def system_restore(self):
-        self.log_to_widget(self.recovery_text, "🛡️ System restore point created...\n")
-    
-    def create_recovery(self):
-        self.log_to_widget(self.recovery_text, "💿 Recovery media creation started...\n")
+    def run_recovery_diagnostics(self):
+        if self.master_recovery:
+            self.log_to_widget(self.recovery_text, "📊 Running recovery diagnostics...\n")
+            threading.Thread(target=self._run_recovery_phase, args=(self.master_recovery._execute_phase2_diagnostics,), daemon=True).start()
+
+    def run_targeted_recovery(self):
+        if self.master_recovery:
+            self.log_to_widget(self.recovery_text, "🎯 Running targeted recovery...\n")
+            # This is a simplified call; a real implementation would need the diagnostics result
+            diagnostics_result = {'failure_analysis': {'recovery_strategy': 'generic_recovery_sequence'}}
+            threading.Thread(target=self._run_recovery_phase, args=(self.master_recovery._execute_phase3_targeted_recovery, diagnostics_result), daemon=True).start()
+
+    def run_advanced_recovery(self):
+        if self.master_recovery:
+            self.log_to_widget(self.recovery_text, "🛠️ Running advanced recovery...\n")
+            threading.Thread(target=self._run_recovery_phase, args=(self.master_recovery._execute_phase4_advanced_recovery,), daemon=True).start()
+
+    def run_last_resort_recovery(self):
+        if self.master_recovery:
+            self.log_to_widget(self.recovery_text, "🆘 Running last resort recovery...\n")
+            threading.Thread(target=self._run_recovery_phase, args=(self.master_recovery._execute_phase5_last_resort,), daemon=True).start()
+
+    def _run_recovery_phase(self, phase_method, *args):
+        try:
+            result = phase_method(*args)
+            self.log_to_widget(self.recovery_text, f"✅ Phase completed: {result.get('phase', 'unknown')}\n")
+            self.log_to_widget(self.recovery_text, f"   Success: {result.get('success', False)}\n")
+            self.log_to_widget(self.recovery_text, f"   Details: {json.dumps(result, indent=2, default=str)}\n")
+        except Exception as e:
+            self.log_to_widget(self.recovery_text, f"❌ Error during recovery phase: {e}\n")
     
     def analyze_predict(self):
         self.log_to_widget(self.prediction_text, "🔍 Predictive analysis running...\n")
+
+    # AI System control methods
+    def activate_aria(self):
+        if self.ai_workbench:
+            self.ai_workbench.start_autonomous_monitoring()
+            self.log_activity("🤖 ARIA AI activated - Autonomous monitoring started")
+
+    def pause_aria(self):
+        if self.ai_workbench:
+            self.ai_workbench.active = False
+            self.log_activity("⏸️ ARIA AI paused")
+
+    def manual_health_check(self):
+        if self.ai_workbench:
+            self.log_activity("🔍 ARIA manual health check initiated...")
+            threading.Thread(target=self.ai_workbench._perform_health_check, daemon=True).start()
+
+    def activate_nexus(self):
+        if self.ultimate_optimizer:
+            self.ultimate_optimizer.start_ultimate_optimization()
+            self.log_activity("🚀 NEXUS AI activated - 24/7 AUTO-FIX MODE ENGAGED")
+
+    def turbo_mode(self):
+        if self.ultimate_optimizer:
+            self.ultimate_optimizer.monitoring_interval = 30  # 30 seconds
+            self.log_activity("⚡ NEXUS TURBO MODE ACTIVATED - Ultra-aggressive optimization")
+
+    def emergency_fix_nexus(self):
+        if self.ultimate_optimizer:
+            self.log_activity("🔥 NEXUS EMERGENCY FIX INITIATED...")
+            threading.Thread(target=self.ultimate_optimizer._scan_and_autofix, daemon=True).start()
     
     def run(self):
         """Start the unified GUI"""

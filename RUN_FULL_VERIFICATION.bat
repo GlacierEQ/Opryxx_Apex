@@ -1,20 +1,13 @@
 @echo off
-echo 🚀 OPRYXX FULL STACK VERIFICATION
-echo ================================
+title OPRYXX UNIFIED LAUNCHER
+color 0A
+cls
 
 echo.
-echo 📋 Running comprehensive test suite...
-python test_full_stack_verification.py
-
+echo ================================================================
+echo      This launcher is now part of the OPRYXX Unified System.
+echo              Redirecting to the main launcher...
+echo ================================================================
 echo.
-echo 🔧 Validating GUI settings and options...
-python gui_settings_validator.py
 
-echo.
-echo 🖥️ Testing unified GUI components...
-python UNIFIED_FULL_STACK_GUI.py --test-mode
-
-echo.
-echo ✅ VERIFICATION COMPLETE!
-echo Check test_results.json for detailed results
-pause
+call MASTER_LAUNCHER.bat

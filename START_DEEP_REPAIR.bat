@@ -1,17 +1,13 @@
 @echo off
-title OPRYXX Deep PC Repair
+title OPRYXX UNIFIED LAUNCHER
 color 0A
 cls
 
 echo.
 echo ================================================================
-echo                OPRYXX DEEP PC REPAIR SYSTEM
+echo      This launcher is now part of the OPRYXX Unified System.
+echo              Redirecting to the main launcher...
 echo ================================================================
 echo.
-echo Starting Deep PC Repair with transparent operation feedback...
-echo.
 
-cd /d "%~dp0"
-python OPRYXX_DEEP_REPAIR.py
-
-pause
+call MASTER_LAUNCHER.bat
