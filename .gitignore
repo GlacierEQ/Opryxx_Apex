@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.spec
+dist/
+build/
+
+# Opryxx logs and run artifacts
+OPRYXX_Repair.log
+OPRYXX_InstallDrivers.log
+OPRYXX_Repair_Steps.json
+step_state.json
+plan.json
+health_report.json
+Backups/
+run_*/
+
+# Node/web cache (if any)
+node_modules/
+
+# Editors/OS
+.DS_Store
+Thumbs.db
+*.swp

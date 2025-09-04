@@ -1,0 +1,23 @@
+{
+    "ok":  1316,
+    "missing":  [
+
+                ],
+    "mismatch":  [
+                     {
+                         "path":  "C:\\OPRYXX_TMP\\OPRYXX\\code_hashes.json",
+                         "expected":  "6F9BB6B6E6435583876AA8FB0F2A2C9429169C392269844F3B3A9FB6B5AF5ADE",
+                         "actual":  "EC0A620C6BF568080938C91E708753C212D5C3FED6DC79DDAB95F764997E7E9D"
+                     },
+                     {
+                         "path":  "C:\\OPRYXX_TMP\\OPRYXX\\code_hashes_report.json",
+                         "expected":  "2A1A19C6811C34E56F38C8E1693D9CEA142D4CAC860F7986B8466626CB67E6C8",
+                         "actual":  "113E692704BDA32B732A8E34478EC9F9FD4F54F9D95C7320CBDC31251E62A036"
+                     },
+                     {
+                         "path":  "C:\\OPRYXX_TMP\\OPRYXX\\tools\\verify_hashes.ps1",
+                         "expected":  "66495D441B8186999CDD84383B80C2DE13261F8089FABBA9BAE8698290A3AE60",
+                         "actual":  "7C06526DFD46FFC5FB722AEE82F467EA6DB6D36276393B0B9EB8A0F452DD7A09"
+                     }
+                 ]
+}

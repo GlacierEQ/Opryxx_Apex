@@ -1,0 +1,32 @@
+{
+  "project": "OPRYXX",
+  "version": "2.0-example",
+  "models": [
+    {
+      "name": "MSI_Summit_E16_AI_Studio_A1VFTG",
+      "aliases": ["Summit E16", "A1VFTG", "MSI Studio"],
+      "os_build_min": 19041,
+      "os_build_max": 26100,
+      "steps": [
+        { "kind": "detect", "step": "Detect hardware and OS" },
+        { "kind": "repair.restore_point", "step": "Create restore point" },
+        { "kind": "backup.stub", "step": "Backup user data (stub)" },
+        { "kind": "repair.wu.reset", "step": "Windows Update reset" },
+        { "kind": "repair.net.reset", "step": "Network stack reset" },
+        { "kind": "repair.sfc", "step": "Repair: SFC", "timeoutSec": 3600 },
+        { "kind": "repair.dism", "step": "Repair: DISM", "timeoutSec": 3600 },
+        { "kind": "drivers.inf", "step": "Install RST INF drivers", "path": "drivers/MSI_Summit_E16_AI_Studio_A1VFTG/F6RST" },
+        { "kind": "finalize", "step": "Finalize" }
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "name": "intel_rst_20_win10",
+      "type": "zip",
+      "sha256": "<sha256>",
+      "source": "https://download.msi.com/.../RST_PV_20.0.0.1035.4_SV2_Win10.zip"
+    }
+  ]
+}
+

@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OPRYXX Unified Control Center</title>
+    <link rel="stylesheet" href="/web/styles.css" />
+  </head>
+  <body>
+    <canvas id="bg"></canvas>
+    <div class="app">
+      <header class="topbar">
+        <div class="brand">
+          <span class="logo">OZ</span>
+          <h1>OPRYXX Unified Control Center</h1>
+        </div>
+        <div class="status">
+          <span id="status-online" class="pill">Online</span>
+          <span id="status-progress" class="pill muted">Idle</span>
+          <span id="status-result" class="pill muted">—</span>
+        </div>
+      </header>
+
+      <main class="grid">
+        <section class="panel">
+          <h2>System Metrics</h2>
+          <div class="metrics" id="metrics"></div>
+          <div class="boot-status" id="boot-status"></div>
+        </section>
+
+        <section class="panel">
+          <h2>Controls</h2>
+          <div class="controls">
+            <button id="btn-monitor">Start Monitoring</button>
+            <button id="btn-stop-monitor" class="secondary">Stop Monitoring</button>
+          </div>
+          <div class="controls">
+            <button id="btn-plan" class="ghost">Dry-Run Plan</button>
+            <button id="btn-repair" class="warn">Run Full Repair</button>
+          </div>
+          <div class="controls">
+            <button id="btn-drivers">Install Drivers</button>
+            <button id="btn-sfc" class="ghost">SFC</button>
+            <button id="btn-dism" class="ghost">DISM</button>
+            <button id="btn-chkdsk" class="ghost">CHKDSK</button>
+            <button id="btn-boot" class="secondary">Enable WinRE</button>
+            <button id="btn-bcd" class="warn">Rebuild BCD (Safe)</button>
+          </div>
+        </section>
+
+        <section class="panel">
+          <h2>Progress</h2>
+          <div class="progress-row">
+            <div class="label">Overall</div>
+            <div class="progress"><div id="bar-overall" class="bar" style="width:0%"></div></div>
+            <div id="label-overall" class="pct">0%</div>
+          </div>
+          <div class="progress-row">
+            <div class="label">Current Step</div>
+            <div class="progress"><div id="bar-step" class="bar ind"></div></div>
+            <div id="label-step" class="pct">Idle</div>
+          </div>
+        </section>
+
+        <section class="panel span-2">
+          <h2>Workflow Log</h2>
+          <div class="log" id="log"></div>
+        </section>
+
+        <section class="panel span-2">
+          <h2>Driver Status</h2>
+          <div class="drivers" id="drivers"></div>
+        </section>
+
+        <section class="panel span-2">
+          <h2>AI Recommendations</h2>
+          <div class="ai" id="ai"></div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/web/app.js"></script>
+  </body>
+  </html>
+

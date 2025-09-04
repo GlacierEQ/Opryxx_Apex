@@ -1,0 +1,41 @@
+{
+  "project": "OPRYXX",
+  "version": "1.1",
+  "date": "2025-09-04",
+  "models": [
+    {
+      "name": "MSI_Summit_E16_AI_Studio_A1VFTG",
+      "aliases": ["Summit E16", "A1VFTG", "MSI Studio"],
+      "steps": [
+        { "kind": "drivers.inf", "path": "drivers/MSI_Summit_E16_AI_Studio_A1VFTG/" }
+      ]
+    },
+    {
+      "name": "Inspiron_2in1_7550",
+      "aliases": ["Inspiron 7550", "Dell 2-in-1"],
+      "steps": [
+        { "kind": "drivers.inf", "path": "drivers/Inspiron_2in1_7550/" }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "model": "MSI_Summit_E16_AI_Studio_A1VFTG",
+      "path": "drivers/MSI_Summit_E16_AI_Studio_A1VFTG/",
+      "type": "driver-folder",
+      "purpose": "MSI Summit E16 AI Studio A1VFTG official drivers"
+    },
+    {
+      "model": "Inspiron_2in1_7550",
+      "path": "drivers/Inspiron_2in1_7550/",
+      "type": "driver-folder",
+      "purpose": "Dell Inspiron 2-in-1 7550 official drivers"
+    }
+  ],
+  "deploy_methods": [
+    "Apex (PowerShell) automated workflow",
+    "Python Control Center (Flask) UI",
+    "Manual INF installation via Device Manager/pnputil",
+    "Offline image driver injection (DISM)"
+  ]
+}

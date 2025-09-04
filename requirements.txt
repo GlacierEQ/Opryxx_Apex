@@ -1,0 +1,5 @@
+flask>=2.2
+flask-socketio>=5.3
+gevent>=22.10.2
+gevent-websocket>=0.10.1
+psutil>=5.9
