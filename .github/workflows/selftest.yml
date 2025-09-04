@@ -1,0 +1,48 @@
+name: CI Self-Test
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  selftest:
+    name: Windows selftest + API smoke
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Python deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r OPRYXX/requirements.txt
+      - name: Run PowerShell selftest (dry-run plan + driver enum)
+        shell: pwsh
+        run: |
+          $env:OPRYXX_SKIP_ELEVATION='1'
+          pwsh -NoProfile -ExecutionPolicy Bypass -File OPRYXX/selftest.ps1
+      - name: API smoke metrics
+        uses: ./.github/actions/self-heal
+        with:
+          shell: pwsh
+          cmd: |
+            $p = Start-Process -FilePath python -ArgumentList 'OPRYXX/backend_api_scaffold.py' -PassThru
+            Start-Sleep -Seconds 3
+            try {
+              (Invoke-WebRequest -UseBasicParsing http://127.0.0.1:5050/metrics -TimeoutSec 10) | Out-Null
+            } finally {
+              try { $p.Kill() } catch {}
+            }
+      - name: Upload plan/log artifacts (if any)
+        uses: actions/upload-artifact@v4
+        with:
+          name: selftest-artifacts
+          path: |
+            C:\ProgramData\Opryxx\Logs\run_*\plan.json
+            C:\ProgramData\Opryxx\Logs\run_*\events.json
+          if-no-files-found: ignore
+

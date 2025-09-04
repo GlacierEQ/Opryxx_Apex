@@ -1,0 +1,56 @@
+name: "Self-Heal Wrapper"
+description: "Run a command with retries and common fixups"
+inputs:
+  cmd:
+    description: "Command line to execute"
+    required: true
+  shell:
+    description: "Shell"
+    required: false
+    default: bash
+runs:
+  using: "composite"
+  steps:
+    - name: Run with retries (bash)
+      if: ${{ inputs.shell == 'bash' }}
+      shell: bash
+      run: |
+        set -euo pipefail
+        cmd=${{ inputs.cmd }}
+        attempts=3
+        for i in $(seq 1 $attempts); do
+          echo "[self-heal] Attempt $i: $cmd"
+          if bash -lc "$cmd"; then
+            exit 0
+          fi
+          echo "[self-heal] Failed attempt $i"
+          # Common healers
+          echo "[self-heal] Cleaning pip cache"
+          python -m pip cache purge || true
+          echo "[self-heal] Sleep before retry"
+          sleep 5
+        done
+        echo "[self-heal] All attempts failed"
+        exit 1
+    - name: Run with retries (PowerShell)
+      if: ${{ inputs.shell == 'pwsh' }}
+      shell: pwsh
+      run: |
+        $ErrorActionPreference='Stop'
+        $cmd = "${{ inputs.cmd }}"
+        $max = 3
+        for ($i=1; $i -le $max; $i++) {
+          Write-Host "[self-heal] Attempt $i: $cmd"
+          try {
+            pwsh -NoLogo -NoProfile -Command $cmd
+            exit 0
+          } catch {
+            Write-Host "[self-heal] Failed attempt $i: $($_.Exception.Message)"
+            Write-Host "[self-heal] Cleaning pip cache"
+            try { python -m pip cache purge } catch {}
+            Start-Sleep -Seconds 5
+          }
+        }
+        Write-Host "[self-heal] All attempts failed"
+        exit 1
+

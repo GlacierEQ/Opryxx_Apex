@@ -1,0 +1,51 @@
+name: Release on tag
+on:
+  push:
+    tags: ['v*']
+
+jobs:
+  build-and-release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install build deps
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r OPRYXX/requirements.txt
+          python -m pip install pyinstaller
+      - name: Build EXE
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -ExecutionPolicy Bypass -File OPRYXX/build_exe.ps1 -Python 'python'
+      - name: Package USB (with python-embed)
+        shell: pwsh
+        run: |
+          pwsh -NoProfile -ExecutionPolicy Bypass -File OPRYXX/tools/package_usb.ps1 -TargetRoot OPRYXX/dist/USB -IncludePython
+          Compress-Archive -Force -Path OPRYXX/dist/USB/* -DestinationPath OPRYXX/dist/OPRYXX_USB.zip
+      - name: Checksums
+        id: sums
+        shell: pwsh
+        run: |
+          $exe = Get-FileHash OPRYXX/dist/OpryxxControlCenter.exe -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+          $zip = Get-FileHash OPRYXX/dist/OPRYXX_USB.zip -Algorithm SHA256 | Select-Object -ExpandProperty Hash
+          echo "exe=$exe" >> $env:GITHUB_OUTPUT
+          echo "zip=$zip" >> $env:GITHUB_OUTPUT
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            OPRYXX/dist/OpryxxControlCenter.exe
+            OPRYXX/dist/OPRYXX_USB.zip
+          body: |
+            OPRYXX ${{ github.ref_name }}
+
+            Checksums (SHA256):
+            - OpryxxControlCenter.exe: ${{ steps.sums.outputs.exe }}
+            - OPRYXX_USB.zip: ${{ steps.sums.outputs.zip }}
+

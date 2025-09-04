@@ -28,8 +28,12 @@ function Copy-OpryxxTree {
   )
   $rx = $exclude | ForEach-Object { New-Object regex $_ }
   New-Item -ItemType Directory -Force -Path $Dst | Out-Null
+  $srcWithSep = if ($Src.EndsWith('\')) { $Src } else { $Src + '\\' }
+  $dstWithSep = if ($Dst.EndsWith('\')) { $Dst } else { $Dst + '\\' }
   Get-ChildItem -Recurse -File -Force -Path $Src | ForEach-Object {
-    $rel = [System.IO.Path]::GetRelativePath($Src, $_.FullName)
+    $full = $_.FullName
+    if ($full.StartsWith($dstWithSep, [System.StringComparison]::OrdinalIgnoreCase)) { return }
+    $rel = if ($full.StartsWith($srcWithSep, [System.StringComparison]::OrdinalIgnoreCase)) { $full.Substring($srcWithSep.Length) } else { $_.Name }
     $relNorm = $rel -replace '/', '\\'
     foreach ($r in $rx) { if ($r.IsMatch($relNorm)) { return } }
     $to = Join-Path $Dst $rel
@@ -132,4 +136,3 @@ if ($InstallAutoRepair) {
 }
 
 Write-Host "USB package ready at $target"
-
